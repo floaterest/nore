@@ -47,8 +47,8 @@ var switches = {
     '⇵': '⇅',
 };
 var toggles = {
-    'O': 'ー',
-    'ー': 'O',
+    '０': 'ー',
+    'ー': '０',
 };
 //#endregion constants
 //#region variables
@@ -75,16 +75,26 @@ function toc(title, file) {
         .attr('href', '#' + title)
         .on('click', function () {
         return __awaiter(this, void 0, void 0, function () {
+            var lyric;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: 
-                    // get file
-                    return [4 /*yield*/, $.get(path + file, function (l) {
-                            lrc(l.replace(/\[\d{2}:\d{2}.\d{2}\]/g, ''));
-                        })];
+                    case 0:
+                        if (!!(lyric = sessionStorage.getItem(file))) return [3 /*break*/, 2];
+                        return [4 /*yield*/, $.get(path + file, function (l) { return sessionStorage.setItem(file, l); })];
                     case 1:
-                        // get file
                         _a.sent();
+                        _a.label = 2;
+                    case 2:
+                        lyric = sessionStorage.getItem(file);
+                        if (this == selected) {
+                            // download lyric file
+                            window.open(path + file);
+                        }
+                        else {
+                            // update ui
+                            lrc(lyric.replace(/\[\d{2}:\d{2}.\d{2}\]/g, ''));
+                            selected = this;
+                        }
                         return [2 /*return*/];
                 }
             });
@@ -109,15 +119,13 @@ function lrc(l) {
 $.getJSON(path.replace('/', '.json')).done(function (data) {
     return Object.entries(data).forEach(function (a) { return $toc.prepend(toc(a[0], a[1])); });
 });
-$toggle.text(init(toggles))
-    .on('click', function () {
+$toggle.text(init(toggles)).on('click', function () {
     // switch the symbol
     this.innerText = toggles[this.innerText];
     // toggle rt's visibility
     $('rt').toggleClass(HTMLClass.Hidden);
 });
-$switch.text(init(switches))
-    .on('click', function () {
+$switch.text(init(switches)).on('click', function () {
     // switch the symbol
     this.innerText = switches[this.innerText];
     $('ruby').each(function () {
