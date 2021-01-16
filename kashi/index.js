@@ -85,14 +85,13 @@ function toc(title, file) {
                         _a.sent();
                         _a.label = 2;
                     case 2:
-                        lyric = sessionStorage.getItem(file);
                         if (this == selected) {
                             // download lyric file
                             window.open(path + file);
                         }
                         else {
                             // update ui
-                            lrc(lyric.replace(/\[\d{2}:\d{2}.\d{2}\]/g, ''));
+                            lrc(lyric.replace(/\[\d{2}:\d{2}.\d{2}/g, ''));
                             selected = this;
                         }
                         return [2 /*return*/];
