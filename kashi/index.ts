@@ -1,5 +1,4 @@
 enum HTMLClass{
-	NoRT = 'no-rt',
 	Hidden = 'hidden',
 	Underline = 'underline',
 }
