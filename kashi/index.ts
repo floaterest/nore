@@ -46,17 +46,16 @@ function toc(title: string, file: string){
 	.on('click', async function(this: HTMLAnchorElement){
 		let lyric: string | null;
 		// if download lyric to storage if needed
-		if(!(lyric = sessionStorage.getItem(file))){
+		if(!(lyric = sessionStorage.getItem(file)!)){
 			await $.get(path + file, l => sessionStorage.setItem(file, l));
 		}
-		lyric = sessionStorage.getItem(file)!;
 
 		if(this == selected){
 			// download lyric file
 			window.open(path + file);
 		}else{
 			// update ui
-			lrc(lyric.replace(/\[\d{2}:\d{2}.\d{2}\]/g, ''));
+			lrc(lyric.replace(/\[\d{2}:\d{2}.\d{2}/g, ''));
 			selected = this;
 		}
 	});
