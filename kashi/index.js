@@ -1,4 +1,9 @@
 "use strict";
+/*
+* Regex for Japanese
+* Kanji: [\u3005\u4e00-\u9faf]
+* Hiragana: [\u3040-\u309f]
+* */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -37,7 +42,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var HTMLClass;
 (function (HTMLClass) {
-    HTMLClass["NoRT"] = "no-rt";
     HTMLClass["Hidden"] = "hidden";
     HTMLClass["Underline"] = "underline";
 })(HTMLClass || (HTMLClass = {}));
@@ -52,7 +56,7 @@ var toggles = {
 };
 //#endregion constants
 //#region variables
-var path = 'lyrics/';
+var directory = 'lyrics/';
 var $toc = $('#toc');
 var $lrc = $('#lrc');
 var $toggle = $('#toggle');
@@ -60,62 +64,58 @@ var $switch = $('#switch');
 var selected;
 //#endregion variables
 //#region functions
-/**
+/*
  * get the first key of a dictionary/object
  */
 function init(o) {
     return Object.keys(o)[0];
 }
-/**
+/*
  * create an <a> element for the table of contents
  */
 function toc(title, file) {
-    return $('<a></a>')
-        .text(title)
-        .attr('href', '#' + title)
-        .on('click', function () {
+    var a = $('<a>');
+    a.text(title);
+    a.attr('href', '#' + title);
+    a.on('click', function () {
         return __awaiter(this, void 0, void 0, function () {
-            var lyric;
+            var lyrics;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!!(lyric = sessionStorage.getItem(file))) return [3 /*break*/, 2];
-                        return [4 /*yield*/, $.get(path + file, function (l) { return sessionStorage.setItem(file, l); })];
+                        if (this == selected)
+                            return [2 /*return*/];
+                        lyrics = sessionStorage.getItem(file);
+                        if (!!lyrics) return [3 /*break*/, 2];
+                        return [4 /*yield*/, $.get(directory + file, function (f) { return sessionStorage.setItem(file, f); })];
                     case 1:
                         _a.sent();
+                        lyrics = sessionStorage.getItem(file);
                         _a.label = 2;
                     case 2:
-                        if (this == selected) {
-                            // download lyric file
-                            window.open(path + file);
-                        }
-                        else {
-                            // update ui
-                            lrc(lyric.replace(/\[\d{2}:\d{2}.\d{2}/g, ''));
-                            selected = this;
-                        }
+                        // update ui
+                        lrc(lyrics, $lrc);
+                        selected = this;
                         return [2 /*return*/];
                 }
             });
         });
     });
+    return a;
 }
-/**
- * add lyrics to $lrc
- */
-function lrc(l) {
+/* add lyrics */
+function lrc(lyrics, element) {
     // reset buttons' symbols to default
     $toggle.text(init(toggles));
     $switch.text(init(switches));
-    // create ruby
-    $lrc.html(l.replace(/([\u3005\u4e00-\u9faf]+)\(([\u3040-\u309f]+)\)/g, '<ruby><rb>$1</rb><rt>$2</rt></ruby>'));
-    // hide/show rt when clicked
-    $('ruby').on('click', function () {
-        $(this).find('rt').toggleClass(HTMLClass.Hidden);
+    element.html(lyrics).find('ruby').on('click', function () {
+        Array.from(this.getElementsByTagName('rt')).forEach(function (e) {
+            e.classList.toggle(HTMLClass.Hidden);
+        });
     });
 }
 //#endregion functions
-$.getJSON(path.replace('/', '.json')).done(function (data) {
+$.getJSON(directory.replace('/', '.json')).done(function (data) {
     return Object.entries(data).forEach(function (a) { return $toc.prepend(toc(a[0], a[1])); });
 });
 $toggle.text(init(toggles)).on('click', function () {
