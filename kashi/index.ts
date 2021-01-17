@@ -1,3 +1,9 @@
+/*
+* Regex for Japanese
+* Kanji: [\u3005\u4e00-\u9faf]
+* Hiragana: [\u3040-\u309f]
+* */
+
 enum HTMLClass{
 	Hidden = 'hidden',
 	Underline = 'underline',
@@ -17,7 +23,7 @@ const toggles: {[id: string]: string} = {
 
 //#region variables
 
-let path = 'lyrics/';
+let directory = 'lyrics/';
 let $toc = $('#toc');
 let $lrc = $('#lrc');
 let $toggle = $('#toggle');
@@ -28,62 +34,53 @@ let selected: HTMLAnchorElement;
 
 //#region functions
 
-/**
+/*
  * get the first key of a dictionary/object
  */
 function init(o: object){
 	return Object.keys(o)[0];
 }
 
-/**
+/*
  * create an <a> element for the table of contents
  */
 function toc(title: string, file: string){
-	return $('<a></a>')
-	.text(title)
-	.attr('href', '#' + title)
-	.on('click', async function(this: HTMLAnchorElement){
-		let lyric: string | null;
-		// if download lyric to storage if needed
-		if(!(lyric = sessionStorage.getItem(file)!)){
-			await $.get(path + file, l => sessionStorage.setItem(file, l));
-		}
+	let a = $('<a>');
+	a.text(title);
+	a.attr('href', '#' + title);
+	a.on('click', async function(this: HTMLAnchorElement){
+		if(this == selected) return;
 
-		if(this == selected){
-			// download lyric file
-			window.open(path + file);
-		}else{
-			// update ui
-			lrc(lyric.replace(/\[\d{2}:\d{2}.\d{2}/g, ''));
-			selected = this;
+		// get lyrics from storage if available
+		let lyrics = sessionStorage.getItem(file)!;
+		if(!lyrics){
+			await $.get(directory + file, f => sessionStorage.setItem(file, f));
+			lyrics = sessionStorage.getItem(file)!;
 		}
+		// update ui
+		lrc(lyrics,$lrc);
+
+		selected = this;
 	});
+	return a;
 }
 
-/**
- * add lyrics to $lrc
- */
-function lrc(l: string){
+/* add lyrics */
+function lrc(lyrics: string, element: JQuery){
 	// reset buttons' symbols to default
 	$toggle.text(init(toggles));
 	$switch.text(init(switches));
 
-	// create ruby
-	$lrc.html(
-		l.replace(
-			/([\u3005\u4e00-\u9faf]+)\(([\u3040-\u309f]+)\)/g,
-			'<ruby><rb>$1</rb><rt>$2</rt></ruby>',
-		),
-	);
-	// hide/show rt when clicked
-	$('ruby').on('click', function(){
-		$(this).find('rt').toggleClass(HTMLClass.Hidden);
+	element.html(lyrics).find('ruby').on('click', function(){
+		Array.from(this.getElementsByTagName('rt')).forEach(e => {
+			e.classList.toggle(HTMLClass.Hidden);
+		});
 	});
 }
 
 //#endregion functions
 
-$.getJSON(path.replace('/', '.json')).done(data =>
+$.getJSON(directory.replace('/', '.json')).done(data =>
 	Object.entries(data).forEach(a => $toc.prepend(toc(a[0], a[1] as string))),
 );
 
