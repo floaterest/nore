@@ -7,8 +7,9 @@ html {
 }
 
 body {
-    margin: 0px;
+    margin: 0;
     font-size: 4em;
+    font-family: Ubuntu, "UD Digi Kyokasho N-R", sans-serif;
 }
 
 /* #region ruby */
