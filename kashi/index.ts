@@ -58,7 +58,7 @@ function toc(title: string, file: string){
 			lyrics = sessionStorage.getItem(file)!;
 		}
 		// update ui
-		lrc(lyrics,$lrc);
+		lrc(lyrics, $lrc);
 
 		selected = this;
 	});
@@ -96,13 +96,13 @@ $switch.text(init(switches)).on('click', function(){
 	this.innerText = switches[this.innerText];
 
 	$('ruby').each(function(){
-		let $this = $(this);
 		// switch the texts
-		let [rb, rt] = this.innerText.split('\n');
-		// rb will be underlined when rb is furigana
 		// 'rb' and 'rt' stand for 'ruby base' and 'ruby top' ?
-		$this.find('rb').text(rt).toggleClass(HTMLClass.Underline);
-		$this.find('rt').text(rb);
+		// bottom<rt>top</rt>
+		this.innerHTML = this.innerHTML.replace(/(\S+)<rt>(\S+)<\/rt>/, '$2<rt>$1</rt>');
+
+		// rb will be underlined when rb is furigana
+		this.classList.toggle(HTMLClass.Underline);
 	});
 });
 

@@ -128,13 +128,12 @@ $switch.text(init(switches)).on('click', function () {
     // switch the symbol
     this.innerText = switches[this.innerText];
     $('ruby').each(function () {
-        var $this = $(this);
         // switch the texts
-        var _a = this.innerText.split('\n'), rb = _a[0], rt = _a[1];
-        // rb will be underlined when rb is furigana
         // 'rb' and 'rt' stand for 'ruby base' and 'ruby top' ?
-        $this.find('rb').text(rt).toggleClass(HTMLClass.Underline);
-        $this.find('rt').text(rb);
+        // bottom<rt>top</rt>
+        this.innerHTML = this.innerHTML.replace(/(\S+)<rt>(\S+)<\/rt>/, '$2<rt>$1</rt>');
+        // rb will be underlined when rb is furigana
+        this.classList.toggle(HTMLClass.Underline);
     });
 });
 $('#to-top').on('click', function () { return window.scrollTo(0, 0); });
