@@ -131,7 +131,7 @@ $switch.text(init(switches)).on('click', function () {
         // switch the texts
         // 'rb' and 'rt' stand for 'ruby base' and 'ruby top' ?
         // bottom<rt>top</rt>
-        this.innerHTML = this.innerHTML.replace(/(\S+)<rt.+>(\S+)<\/rt>/, '$2<rt>$1</rt>');
+        this.innerHTML = this.innerHTML.replace(/(\S+)<rt.*>(\S+)<\/rt>/, '$2<rt>$1</rt>');
         // rb will be underlined when rb is furigana
         this.classList.toggle(HTMLClass.Underline);
     });
