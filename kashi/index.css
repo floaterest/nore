@@ -3,29 +3,13 @@
   src: url('UDDigiKyokashoN-R.ttc');
 }
 html {
-  background-color: #111;
+  background-color: black;
 }
-html body {
+body {
   margin: 0;
   font-size: 4em;
   font-family: Arial, UDDigiKyokashoN-R, sans-serif;
-}
-html body .control {
-  position: fixed;
-  color: dimgray;
-  right: 0;
-  margin: 10px;
-  user-select: none;
-}
-html body .control div {
-  display: inline;
-}
-html body .underline {
-  box-shadow: inset 0 -5px;
-}
-html body .hidden {
-  color: #181a1b;
-  user-select: none;
+  color: #c8c4bd;
 }
 ruby rt {
   filter: brightness(75%);
@@ -34,24 +18,47 @@ ruby rt {
   font-size: 0.5em;
 }
 #toc {
-  white-space: nowrap;
-  overflow: auto;
+  z-index: 1;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow-y: scroll;
 }
-#toc a {
-  display: inline-block;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  padding: 0.5em;
-}
-#toc a:hover {
-  background-color: #222;
+#toc p,
+#toc code {
+  padding: 10px;
+  margin: 0 auto;
 }
 #lrc {
+  z-index: 0;
   position: absolute;
   white-space: nowrap;
-  background-color: var(--lrc-bg);
-  color: #c8c4bd;
+  background-color: #181a1b;
   min-width: 100%;
+}
+.control {
+  position: fixed;
+  color: dimgray;
+  right: 0;
+  margin: 10px;
+  user-select: none;
+}
+.control div {
+  display: inline;
+}
+.underline {
+  box-shadow: inset 0 -5px;
+}
+.hidden {
+  color: #181a1b;
+  user-select: none;
+}
+.toc-on #toc {
+  display: inline;
+}
+.toc-on #lrc {
+  filter: brightness(10%);
 }
 /*# sourceMappingURL=index.css.map */

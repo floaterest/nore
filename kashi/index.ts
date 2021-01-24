@@ -7,6 +7,7 @@
 enum HTMLClass{
 	Hidden = 'hidden',
 	Underline = 'underline',
+	TocOn = 'toc-on',
 }
 
 //#region constants
@@ -29,26 +30,20 @@ let $lrc = $('#lrc');
 let $toggle = $('#toggle');
 let $switch = $('#switch');
 let selected: HTMLAnchorElement;
-
 //#endregion variables
 
 //#region functions
 
-/*
- * get the first key of a dictionary/object
- */
+/* get the first key of a dictionary/object */
 function init(o: object){
 	return Object.keys(o)[0];
 }
 
-/*
- * create an <a> element for the table of contents
- */
-function toc(title: string, file: string){
-	let a = $('<a>');
-	a.text(title);
-	a.attr('href', '#' + title);
-	a.on('click', async function(this: HTMLAnchorElement){
+/* populate table of contents */
+function getToc(title: string, file: string){
+	let p = $('<p>');
+	p.text(title);
+	p.on('click', async function(this: HTMLAnchorElement){
 		if(this == selected) return;
 
 		// get lyrics from storage if available
@@ -61,8 +56,10 @@ function toc(title: string, file: string){
 		lrc(lyrics, $lrc);
 
 		selected = this;
+		document.body.classList.remove(HTMLClass.TocOn);
+		window.scrollTo(0, 0);
 	});
-	return a;
+	return p;
 }
 
 /* add lyrics */
@@ -81,7 +78,7 @@ function lrc(lyrics: string, element: JQuery){
 //#endregion functions
 
 $.getJSON(directory.replace('/', '.json')).done(data =>
-	Object.entries(data).forEach(a => $toc.prepend(toc(a[0], a[1] as string))),
+	Object.entries(data).forEach(a => $toc.prepend(getToc(a[0], a[1] as string))),
 );
 
 $toggle.text(init(toggles)).on('click', function(){
@@ -107,3 +104,5 @@ $switch.text(init(switches)).on('click', function(){
 });
 
 $('#to-top').on('click', () => window.scrollTo(0, 0));
+
+$('#menu').on('click', () => document.body.classList.toggle(HTMLClass.TocOn));

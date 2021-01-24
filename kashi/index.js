@@ -44,6 +44,7 @@ var HTMLClass;
 (function (HTMLClass) {
     HTMLClass["Hidden"] = "hidden";
     HTMLClass["Underline"] = "underline";
+    HTMLClass["TocOn"] = "toc-on";
 })(HTMLClass || (HTMLClass = {}));
 //#region constants
 var switches = {
@@ -64,20 +65,15 @@ var $switch = $('#switch');
 var selected;
 //#endregion variables
 //#region functions
-/*
- * get the first key of a dictionary/object
- */
+/* get the first key of a dictionary/object */
 function init(o) {
     return Object.keys(o)[0];
 }
-/*
- * create an <a> element for the table of contents
- */
-function toc(title, file) {
-    var a = $('<a>');
-    a.text(title);
-    a.attr('href', '#' + title);
-    a.on('click', function () {
+/* populate table of contents */
+function getToc(title, file) {
+    var p = $('<p>');
+    p.text(title);
+    p.on('click', function () {
         return __awaiter(this, void 0, void 0, function () {
             var lyrics;
             return __generator(this, function (_a) {
@@ -96,12 +92,14 @@ function toc(title, file) {
                         // update ui
                         lrc(lyrics, $lrc);
                         selected = this;
+                        document.body.classList.remove(HTMLClass.TocOn);
+                        window.scrollTo(0, 0);
                         return [2 /*return*/];
                 }
             });
         });
     });
-    return a;
+    return p;
 }
 /* add lyrics */
 function lrc(lyrics, element) {
@@ -116,7 +114,7 @@ function lrc(lyrics, element) {
 }
 //#endregion functions
 $.getJSON(directory.replace('/', '.json')).done(function (data) {
-    return Object.entries(data).forEach(function (a) { return $toc.prepend(toc(a[0], a[1])); });
+    return Object.entries(data).forEach(function (a) { return $toc.prepend(getToc(a[0], a[1])); });
 });
 $toggle.text(init(toggles)).on('click', function () {
     // switch the symbol
@@ -137,3 +135,4 @@ $switch.text(init(switches)).on('click', function () {
     });
 });
 $('#to-top').on('click', function () { return window.scrollTo(0, 0); });
+$('#menu').on('click', function () { return document.body.classList.toggle(HTMLClass.TocOn); });
