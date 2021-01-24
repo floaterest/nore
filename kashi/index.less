@@ -1,5 +1,5 @@
-@bg: #111;
-@lrc-bg: #181a1b;
+@bg: #181a1b;
+@color: #c8c4bd;
 
 @font-face{
 	font-family: UDDigiKyokashoN-R;
@@ -7,35 +7,14 @@
 }
 
 html{
-	background-color: @bg;
+	background-color: black;
+}
 
-	body{
-		margin: 0;
-		font-size: 4em;
-		font-family: Arial, UDDigiKyokashoN-R, sans-serif;
-
-		.control{
-			position: fixed;
-			color: dimgray;
-			right: 0;
-			margin: 10px;
-			user-select: none;
-
-			div{
-				display: inline;
-			}
-		}
-
-		.underline{
-			box-shadow: inset 0 -5px;
-		}
-
-		.hidden{
-			color: @lrc-bg;
-			user-select: none;
-		}
-
-	}
+body{
+	margin: 0;
+	font-size: 4em;
+	font-family: Arial, UDDigiKyokashoN-R, sans-serif;
+	color: @color;
 }
 
 ruby rt{
@@ -46,26 +25,55 @@ ruby rt{
 }
 
 #toc{
-	white-space: nowrap;
-	overflow: auto;
+	z-index: 1;
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	overflow-y: scroll;
 
-	a{
-		display: inline-block;
-		color: white;
-		text-align: center;
-		text-decoration: none;
-		padding: 0.5em;
-
-		&:hover{
-			background-color: #222;
-		}
+	p, code{
+		padding: 10px;
+		margin: 0 auto;
 	}
 }
 
 #lrc{
+	z-index: 0;
 	position: absolute;
 	white-space: nowrap;
-	background-color: var(--lrc-bg);
-	color: #c8c4bd;
+	background-color: @bg;
 	min-width: 100%;
+}
+
+.control{
+	position: fixed;
+	color: dimgray;
+	right: 0;
+	margin: 10px;
+	user-select: none;
+
+	div{
+		display: inline;
+	}
+}
+
+.underline{
+	box-shadow: inset 0 -5px;
+}
+
+.hidden{
+	color: @bg;
+	user-select: none;
+}
+
+.toc-on{
+	#toc{
+		display: inline;
+	}
+
+	#lrc{
+		filter: brightness(10%);
+	}
 }
