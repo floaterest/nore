@@ -7,7 +7,7 @@ html {
 }
 body {
   margin: 0;
-  font-size: 4em;
+  font-size: 5em;
   font-family: Arial, UDDigiKyokashoN-R, sans-serif;
   color: #c8c4bd;
 }
@@ -44,7 +44,7 @@ ruby rt {
   right: 0;
   margin: 10px;
   user-select: none;
-  font-size: 3em;
+  font-size: 2em;
 }
 .control div {
   display: inline;
