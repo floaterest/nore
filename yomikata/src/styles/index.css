@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Kosugi Maru';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/kosugimaru/v6/0nksC9PgP_wGh21A2KeqGiTq.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3aPw.ttf) format('truetype');
+}
+html {
+  color: white;
+  background: black;
+  font-family: 'Source Sans Pro', 'UD Digi Kyokasho N-R', 'Kosugi Maru', sans-serif;
+  font-size: 48px;
+}
+/*# sourceMappingURL=index.css.map */
