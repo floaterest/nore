@@ -1,15 +1,6 @@
 let hira = 'あいうえおかきくけこがぎぐげごさしすせそざじずぜぞたちつてとだぢづでどなにぬねのはひふへほばびぶべぼぱぴぷぺぽまみむめもやゆよらりるれろわをんゃゅょっ';
 let kata = 'アイウエオカキクケコガギグゲゴサシスセソザジズゼゾタチツテトダヂヅデドナニヌネノハヒフヘホバビブベボパピプペポマミムメモヤユヨラリルレロワヲンャュョッ';
 
-let sentence = 'そう出逢う前から解ってた';
-
-let tests = [
-	['そう', 'ソウ'],
-	['出逢う', 'デアウ'],
-	['お茶', 'オチャ'],
-	['太もも', 'フトモモ'],
-];
-
 /**
  * convert katakana to hiragana
  */
@@ -22,10 +13,7 @@ function ktoh(s){
 	return s.join('');
 }
 
-/**
- * merge repeating kana
- */
-function toruby(s1, s2){
+function trim(s1, s2){
 	let [l1, l2] = [s1.length, s2.length];
 	let min = Math.min(l1, l2);
 	// left to right
@@ -39,8 +27,16 @@ function toruby(s1, s2){
 	while(l1-- && l2--){
 		if(s1[l1] !== s2[l2]) break;
 	}
-	// {common leading kana} <ruby> {kanji} <rt> {furigana} </rt></ruby> {common trailing kana}
-	return `${s1.slice(0, i)}<ruby>${s1.slice(i, l1 + 1)}<rt>${s2.slice(i, l2 + 1)}</rt></ruby>${s1.slice(l1 + 1)}`;
+	// common leading, distinct s1, distinct s2, common trailing
+	return [s1.slice(0, i), s1.slice(i, l1 + 1), s2.slice(i, l2 + 1), s1.slice(l1 + 1)];
+}
+
+/**
+ * merge repeating kana
+ */
+function toruby(original, reading){
+	let [start, kanji, furigana, end] = trim(original, reading);
+	return `${start}<ruby>${kanji}<rt>${furigana}</rt></ruby>${end}`;
 }
 
 kuromoji.builder({dicPath: 'src/dict/'}).build((err, t) => {
