@@ -24,4 +24,7 @@ body:not(.loading) img {
 body.loading :not(img) {
   display: none;
 }
+#raw {
+  font-family: 'Fira Code', 'UD Digi Kyokasho N-R', 'Kosugi Maru';
+}
 /*# sourceMappingURL=index.css.map */
