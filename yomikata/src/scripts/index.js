@@ -17,6 +17,7 @@ w.onmessage = function(e){
 };
 
 document.getElementById('input').addEventListener('input', e => {
+	if(!e.target.value) return;
 	w.postMessage(e.target.value);
 });
 // w.postMessage('そう出逢う前から解ってた');
