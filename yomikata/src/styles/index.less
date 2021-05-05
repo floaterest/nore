@@ -1,1 +1,9 @@
 @import url('global');
+
+body:not(.loading) img{
+	display: none;
+}
+
+body.loading :not(img){
+	display: none;
+}

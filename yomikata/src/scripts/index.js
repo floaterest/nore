@@ -1,55 +1,17 @@
-let hira = 'あいうえおかきくけこがぎぐげごさしすせそざじずぜぞたちつてとだぢづでどなにぬねのはひふへほばびぶべぼぱぴぷぺぽまみむめもやゆよらりるれろわをんゃゅょっ';
-let kata = 'アイウエオカキクケコガギグゲゴサシスセソザジズゼゾタチツテトダヂヅデドナニヌネノハヒフヘホバビブベボパピプペポマミムメモヤユヨラリルレロワヲンャュョッ';
+const HTMLClass = {
+	Loading: 'loading',
+};
 
-/**
- * convert katakana to hiragana
- */
-function ktoh(s){
-	s = s.split('');
-	let i = s.length;
-	while(i--){
-		s[i] = hira[kata.indexOf(s[i])];
+var w = new Worker('./src/scripts/worker.js');
+w.onmessage = function(e){
+	switch(e.data.type){
+		case 'done':
+			return document.body.classList.remove(HTMLClass.Loading);
+		case 'ruby':
+			return document.getElementById('html').innerHTML = e.data.data;
 	}
-	return s.join('');
-}
-
-function trim(s1, s2){
-	let [l1, l2] = [s1.length, s2.length];
-	let min = Math.min(l1, l2);
-	// left to right
-	let i = 0;
-	while(i < min){
-		if(s1[i] !== s2[i]) break;
-		i++;
-	}
-
-	// right to left
-	while(l1-- && l2--){
-		if(s1[l1] !== s2[l2]) break;
-	}
-	// common leading, distinct s1, distinct s2, common trailing
-	return [s1.slice(0, i), s1.slice(i, l1 + 1), s2.slice(i, l2 + 1), s1.slice(l1 + 1)];
-}
-
-/**
- * merge repeating kana
- */
-function toruby(original, reading){
-	let [start, kanji, furigana, end] = trim(original, reading);
-	return `${start}<ruby>${kanji}<rt>${furigana}</rt></ruby>${end}`;
-}
-
-kuromoji.builder({dicPath: 'src/dict/'}).build((err, t) => {
-	document.body.innerHTML = '';
-	let words = t.tokenize('そう出逢う前から解ってた');
-	let s = '';
-	for(let word of words){
-		let h = ktoh(word.reading);
-		if(h === word.surface_form){
-			s += h;
-		}else{
-			s += toruby(word.surface_form, h);
-		}
-	}
-	document.body.innerHTML = s;
-});
+};
+// w.postMessage('そう出逢う前から解ってた');
+// w.onmessage = function(e){
+// 	document.body.innerHTML = e.data;
+// };
