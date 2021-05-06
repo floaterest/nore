@@ -55,8 +55,8 @@ onmessage = function(e){
 	let s = '';
 	for(let word of words){
 		let h = ktoh(word.reading);
-		if(h === word.surface_form){
-			s += h;
+		if(!h || h === word.surface_form){
+			s += word.surface_form;
 		}else{
 			s += toruby(word.surface_form, h);
 		}
