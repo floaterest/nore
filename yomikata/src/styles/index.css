@@ -18,11 +18,23 @@ html {
   font-family: 'Source Sans Pro', 'UD Digi Kyokasho N-R', 'Kosugi Maru', sans-serif;
   font-size: 48px;
 }
+img {
+  margin: 0 auto;
+}
 body:not(.loading) img {
   display: none;
 }
+body:not(.loading) #input {
+  display: block;
+}
+body.loading {
+  background: url("/src/images/now-loading.gif");
+}
 body.loading :not(img) {
   display: none;
+}
+#input {
+  border: solid white 1px;
 }
 #raw {
   font-family: 'Fira Code', 'UD Digi Kyokasho N-R', 'Kosugi Maru';
