@@ -1,11 +1,29 @@
 @import url('global');
 
-body:not(.loading) img{
-	display: none;
+img{
+	margin: 0 auto;
 }
 
-body.loading :not(img){
-	display: none;
+body:not(.loading){
+	img{
+		display: none;
+	}
+
+	#input{
+		display: block;
+	}
+}
+
+body.loading{
+	background: url("/src/images/now-loading.gif");
+
+	:not(img){
+		display: none;
+	}
+}
+
+#input{
+	border: solid white 1px;
 }
 
 #raw{
