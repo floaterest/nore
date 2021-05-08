@@ -46,11 +46,11 @@ function parse(line){
 	let words = token.tokenize(line);
 	let s = '';
 	for(let word of words){
-		let h = ktoh(word.reading);
-		if(!h || h === word.surface_form){
-			s += word.surface_form;
+		// if contains kanji
+		if(/[\u4e00-\u9fcf]/.test(word.surface_form)){
+			s += toruby(word.surface_form, ktoh(word.reading));
 		}else{
-			s += toruby(word.surface_form, h);
+			s += word.surface_form;
 		}
 	}
 	return s;
