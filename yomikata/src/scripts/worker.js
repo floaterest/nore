@@ -42,24 +42,23 @@ function toruby(original, reading){
 	return `${start}<ruby>${kanji}<rt>${furigana}</rt></ruby>${end}`;
 }
 
-function parse(line){
+function tokenize(line){
 	let words = token.tokenize(line);
-	let s = '';
-	for(let word of words){
+	return words.map(word => {
 		// if contains kanji
 		if(/[\u4e00-\u9fcf]/.test(word.surface_form)){
-			s += toruby(word.surface_form, ktoh(word.reading));
+			return toruby(word.surface_form, ktoh(word.reading));
 		}else{
-			s += word.surface_form;
+			return word.surface_form;
 		}
-	}
-	return s;
+
+	}).join('');
 }
 
 let token;
-console.log('loading');
+console.debug('loading');
 kuromoji.builder({dicPath: '../dict'}).build((err, t) => {
-	console.log('loaded');
+	console.debug('loaded');
 	token = t;
 	postMessage({type: 'done'});
 });
@@ -67,6 +66,17 @@ kuromoji.builder({dicPath: '../dict'}).build((err, t) => {
 onmessage = function(e){
 	postMessage({
 		type: 'ruby',
-		data: e.data.map(line => parse(line)),
+		// line is {content:string,latin:boolean}[]
+		data: e.data.map(line =>
+			line.map(block => {
+				if(block.latin){
+					console.debug('la', block.content);
+					return block.content;
+				}else{
+					console.debug('jp', block.content);
+					return tokenize(block.content);
+				}
+			}).join(''),
+		),
 	});
 };
