@@ -12,7 +12,6 @@ w.onmessage = function(e){
 		case 'done':
 			return document.body.classList.remove(HTMLClass.Loading);
 		case 'ruby':
-			console.log(e.data.data[0]);
 			let data = e.data.data[0];
 			// html.innerHTML = e.data.data.join(BREAK) + BREAK;
 			html.innerHTML = data;
@@ -47,7 +46,8 @@ function separate(line){
 
 document.getElementById('input').addEventListener('input', e => {
 	let s;
-	if(!(s = e.target.innerText)){
+	// remove nbsp to sp
+	if(!(s = e.target.innerText.replace(/\u00a0/g, ' '))){
 		html.innerHTML = raw.innerText = '';
 		return;
 	}
