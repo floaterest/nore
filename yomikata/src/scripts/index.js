@@ -12,9 +12,7 @@ w.onmessage = function(e){
 		case 'done':
 			return document.body.classList.remove(HTMLClass.Loading);
 		case 'ruby':
-			let data = e.data.data[0];
-			// html.innerHTML = e.data.data.join(BREAK) + BREAK;
-			html.innerHTML = data;
+			html.innerHTML = raw.innerText = e.data.data.join(BREAK) + BREAK;
 			break;
 	}
 };
