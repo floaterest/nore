@@ -11,14 +11,18 @@ w.onmessage = function(e){
 		case 'done':
 			return document.body.classList.remove(HTMLClass.Loading);
 		case 'ruby':
-			html.innerHTML = raw.innerText = e.data.data;
+			html.innerHTML = raw.innerText = e.data.data.join('<br>');
 			break;
 	}
 };
 
 document.getElementById('input').addEventListener('input', e => {
-	if(!e.target.value) return;
-	w.postMessage(e.target.value);
+	let s;
+	if(!(s = e.target.innerText)){
+		html.innerHTML = raw.innerText = '';
+		return;
+	}
+	w.postMessage(s.split('\n'));
 });
 // w.postMessage('そう出逢う前から解ってた');
 // w.onmessage = function(e){

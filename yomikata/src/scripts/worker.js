@@ -42,16 +42,8 @@ function toruby(original, reading){
 	return `${start}<ruby>${kanji}<rt>${furigana}</rt></ruby>${end}`;
 }
 
-
-let token;
-
-kuromoji.builder({dicPath: '../dict'}).build((err, t) => {
-	token = t;
-	postMessage({type: 'done'});
-});
-
-onmessage = function(e){
-	let words = token.tokenize(e.data);
+function parse(line){
+	let words = token.tokenize(line);
 	let s = '';
 	for(let word of words){
 		let h = ktoh(word.reading);
@@ -61,5 +53,20 @@ onmessage = function(e){
 			s += toruby(word.surface_form, h);
 		}
 	}
-	postMessage({type: 'ruby', data: s});
+	return s;
+}
+
+let token;
+console.log('loading');
+kuromoji.builder({dicPath: '../dict'}).build((err, t) => {
+	console.log('loaded');
+	token = t;
+	postMessage({type: 'done'});
+});
+
+onmessage = function(e){
+	postMessage({
+		type: 'ruby',
+		data: e.data.map(line => parse(line)),
+	});
 };
