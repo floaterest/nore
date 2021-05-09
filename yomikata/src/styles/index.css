@@ -19,9 +19,11 @@ html {
   font-size: 48px;
 }
 a {
-  color: #f7e165;
+  color: #fce566;
+  text-decoration: none;
 }
 a:hover {
+  color: white;
   text-decoration: underline;
   background-color: #2d2c2d;
 }
