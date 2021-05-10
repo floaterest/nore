@@ -15,7 +15,12 @@ body:not(.loading){
 }
 
 body.loading{
-	background: url("/src/images/now-loading.gif");
+	img{
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		margin: 0 auto;
+	}
 
 	:not(img){
 		display: none;

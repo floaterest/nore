@@ -36,8 +36,11 @@ body:not(.loading) img {
 body:not(.loading) #input {
   display: block;
 }
-body.loading {
-  background: url("/src/images/now-loading.gif");
+body.loading img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0 auto;
 }
 body.loading :not(img) {
   display: none;
