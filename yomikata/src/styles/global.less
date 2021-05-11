@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Source+Sans+Pro&display=swap');
 
+//@background: #222222;
 @background: black;
-@color: white;
+@color: #f7f1ff;
 @font-lat: 'Source Sans Pro';
 @font-jpn: 'UD Digi Kyokasho N-R', 'Kosugi Maru';
 @font-code: monospace, 'Fira Code';
@@ -13,6 +14,10 @@ html{
 	font-size: 48px;
 }
 
+h1, h2{
+	color: #fce566;
+}
+
 a{
 	color: #fce566;
 	text-decoration: none;
@@ -21,5 +26,14 @@ a{
 		color: @color;
 		text-decoration: underline;
 		background-color: #2d2c2d;
+	}
+}
+
+input{
+	color: @color;
+	background: @background;
+
+	&::placeholder{
+		color: #69676c;
 	}
 }
