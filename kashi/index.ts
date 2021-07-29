@@ -5,20 +5,20 @@
 * */
 
 enum HTMLClass{
-	Hidden = 'hidden',
-	Underline = 'underline',
-	TocOn = 'toc-on',
+    Hidden = 'hidden',
+    Underline = 'underline',
+    TocOn = 'toc-on',
 }
 
 //#region constants
 
-const switches: {[id: string]: string} = {
-	'⇅': '⇵',
-	'⇵': '⇅',
+const switches: { [id: string]: string } = {
+    '⇅': '⇵',
+    '⇵': '⇅',
 };
-const toggles: {[id: string]: string} = {
-	'０': 'ー',
-	'ー': '０',
+const toggles: { [id: string]: string } = {
+    '０': 'ー',
+    'ー': '０',
 };
 //#endregion constants
 
@@ -36,71 +36,71 @@ let selected: HTMLAnchorElement;
 
 /* get the first key of a dictionary/object */
 function init(o: object){
-	return Object.keys(o)[0];
+    return Object.keys(o)[0];
 }
 
 /* populate table of contents */
 function getToc(title: string, file: string){
-	let p = $('<p>');
-	p.text(title);
-	p.on('click', async function(this: HTMLAnchorElement){
-		if(this == selected) return;
+    let p = $('<p>');
+    p.text(title);
+    p.on('click', async function(this: HTMLAnchorElement){
+        if(this == selected) return;
 
-		// get lyrics from storage if available
-		let lyrics = sessionStorage.getItem(file)!;
-		if(!lyrics){
-			await $.get(directory + file, f => sessionStorage.setItem(file, f));
-			lyrics = sessionStorage.getItem(file)!;
-		}
-		// update ui
-		lrc(lyrics, $lrc);
+        // get lyrics from storage if available
+        let lyrics = sessionStorage.getItem(file)!;
+        if(!lyrics){
+            await $.get(directory + file, f => sessionStorage.setItem(file, f));
+            lyrics = sessionStorage.getItem(file)!;
+        }
+        // update ui
+        lrc(lyrics, $lrc);
 
-		selected = this;
-		document.body.classList.remove(HTMLClass.TocOn);
-		window.scrollTo(0, 0);
-	});
-	return p;
+        selected = this;
+        document.body.classList.remove(HTMLClass.TocOn);
+        window.scrollTo(0, 0);
+    });
+    return p;
 }
 
 /* add lyrics */
 function lrc(lyrics: string, element: JQuery){
-	// reset buttons' symbols to default
-	$toggle.text(init(toggles));
-	$switch.text(init(switches));
+    // reset buttons' symbols to default
+    $toggle.text(init(toggles));
+    $switch.text(init(switches));
 
-	element.html(lyrics).find('ruby').on('click', function(){
-		Array.from(this.getElementsByTagName('rt')).forEach(e => {
-			e.classList.toggle(HTMLClass.Hidden);
-		});
-	});
+    element.html(lyrics).find('ruby').on('click', function(){
+        Array.from(this.getElementsByTagName('rt')).forEach(e => {
+            e.classList.toggle(HTMLClass.Hidden);
+        });
+    });
 }
 
 //#endregion functions
 
-$.getJSON(directory.replace('/', '.json')).done(data =>
-	Object.entries(data).forEach(a => $toc.prepend(getToc(a[0], a[1] as string))),
+$.getJSON(directory.replace('/', '.json')).done((data: string[]) =>
+    data.forEach(d => $toc.prepend(getToc(d, d + '.html'))),
 );
 
 $toggle.text(init(toggles)).on('click', function(){
-	// switch the symbol
-	this.innerText = toggles[this.innerText];
-	// toggle rt's visibility
-	$('rt').toggleClass(HTMLClass.Hidden);
+    // switch the symbol
+    this.innerText = toggles[this.innerText];
+    // toggle rt's visibility
+    $('rt').toggleClass(HTMLClass.Hidden);
 });
 
 $switch.text(init(switches)).on('click', function(){
-	// switch the symbol
-	this.innerText = switches[this.innerText];
+    // switch the symbol
+    this.innerText = switches[this.innerText];
 
-	$('ruby').each(function(){
-		// switch the texts
-		// 'rb' and 'rt' stand for 'ruby base' and 'ruby top' ?
-		// bottom<rt>top</rt>
-		this.innerHTML = this.innerHTML.replace(/(\S+)<rt.*>(\S+)<\/rt>/, '$2<rt>$1</rt>');
+    $('ruby').each(function(){
+        // switch the texts
+        // 'rb' and 'rt' stand for 'ruby base' and 'ruby top' ?
+        // bottom<rt>top</rt>
+        this.innerHTML = this.innerHTML.replace(/(\S+)<rt.*>(\S+)<\/rt>/, '$2<rt>$1</rt>');
 
-		// rb will be underlined when rb is furigana
-		this.classList.toggle(HTMLClass.Underline);
-	});
+        // rb will be underlined when rb is furigana
+        this.classList.toggle(HTMLClass.Underline);
+    });
 });
 
 $('#to-top').on('click', () => window.scrollTo(0, 0));
