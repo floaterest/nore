@@ -1,15 +1,22 @@
 @font-face {
-  font-family: UDDigiKyokashoN-R;
-  src: url('UDDigiKyokashoN-R.ttc');
+  font-family: 'Kosugi Maru';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/kosugimaru/v6/0nksC9PgP_wGh21A2KeqGiTq.ttf) format('truetype');
 }
-html {
-  background-color: black;
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3aPw.ttf) format('truetype');
 }
 body {
-  margin: 0;
-  font-size: 5em;
-  font-family: Arial, UDDigiKyokashoN-R, sans-serif;
-  color: #c8c4bd;
+  color: white;
+  background: black;
+  font-family: 'Source Sans Pro', 'Kosugi Maru', sans-serif;
+  font-size: 24px;
 }
 ruby rt {
   filter: brightness(75%);
@@ -35,7 +42,6 @@ ruby rt {
   z-index: 0;
   position: absolute;
   white-space: nowrap;
-  background-color: #181a1b;
   min-width: 100%;
 }
 .control {
@@ -53,7 +59,7 @@ ruby rt {
   box-shadow: inset 0 -5px;
 }
 .hidden {
-  color: #181a1b;
+  color: black;
   user-select: none;
 }
 .toc-on #toc {
