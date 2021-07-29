@@ -1,5 +1,4 @@
-@bg: #181a1b;
-@color: #c8c4bd;
+@import url("global");
 
 ruby rt{
 	filter: brightness(75%);
@@ -27,7 +26,7 @@ ruby rt{
 	z-index: 0;
 	position: absolute;
 	white-space: nowrap;
-	background-color: @bg;
+	//background-color: @background;
 	min-width: 100%;
 }
 
@@ -37,7 +36,7 @@ ruby rt{
 	right: 0;
 	margin: 10px;
 	user-select: none;
-	font-size:2em;
+	font-size: 2em;
 
 	div{
 		display: inline;
@@ -49,7 +48,7 @@ ruby rt{
 }
 
 .hidden{
-	color: @bg;
+	color: @background;
 	user-select: none;
 }
 
