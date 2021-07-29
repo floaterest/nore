@@ -114,7 +114,7 @@ function lrc(lyrics, element) {
 }
 //#endregion functions
 $.getJSON(directory.replace('/', '.json')).done(function (data) {
-    return Object.entries(data).forEach(function (a) { return $toc.prepend(getToc(a[0], a[1])); });
+    return data.forEach(function (d) { return $toc.prepend(getToc(d, d + '.html')); });
 });
 $toggle.text(init(toggles)).on('click', function () {
     // switch the symbol
