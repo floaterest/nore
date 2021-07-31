@@ -1,9 +1,4 @@
 "use strict";
-/*
-* Regex for Japanese
-* Kanji: [\u3005\u4e00-\u9faf]
-* Hiragana: [\u3040-\u309f]
-* */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -40,99 +35,57 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var HTMLClass;
-(function (HTMLClass) {
-    HTMLClass["Hidden"] = "hidden";
-    HTMLClass["Underline"] = "underline";
-    HTMLClass["TocOn"] = "toc-on";
-})(HTMLClass || (HTMLClass = {}));
-//#region constants
-var switches = {
-    '⇅': '⇵',
-    '⇵': '⇅',
-};
-var toggles = {
-    '０': 'ー',
-    'ー': '０',
-};
-//#endregion constants
-//#region variables
-var directory = 'src/lyrics/';
-var $toc = $('#toc');
-var $lrc = $('#lrc');
-var $toggle = $('#toggle');
-var $switch = $('#switch');
-var selected;
-//#endregion variables
-//#region functions
-/* get the first key of a dictionary/object */
-function init(o) {
-    return Object.keys(o)[0];
+var SWITCH = ['⇅', '⇵'];
+var TOGGLE = ['０', 'ー'];
+var c = $('#content');
+var t = $('#toc');
+var d = 'src/lyrics/';
+var selected = '';
+function update(content) {
+    c.html(content).find('ruby').on('click', function () {
+        if (isSelecting())
+            return;
+        $(this).each(function () {
+            this.classList.toggle(HTMLClass.Hidden);
+        });
+    });
 }
-/* populate table of contents */
-function getToc(title, file) {
-    var p = $('<p>');
-    p.text(title);
-    p.on('click', function () {
+/**
+ * generate a new item for the table of contents
+ * @param text innerText for this element
+ * @param path file to download when clicked
+ */
+function item(text, path) {
+    return $('<p>').on('click', function () {
         return __awaiter(this, void 0, void 0, function () {
-            var lyrics;
+            var refresh, content;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (this == selected)
-                            return [2 /*return*/];
-                        lyrics = sessionStorage.getItem(file);
-                        if (!!lyrics) return [3 /*break*/, 2];
-                        return [4 /*yield*/, $.get(directory + file, function (f) { return sessionStorage.setItem(file, f); })];
+                        refresh = this.innerText == selected;
+                        content = sessionStorage.getItem(path);
+                        if (!(refresh || content == null)) return [3 /*break*/, 2];
+                        // download file, set session storage, assign to content
+                        return [4 /*yield*/, $.get(path, function (f) { return sessionStorage.setItem(path, content = f); })];
                     case 1:
+                        // download file, set session storage, assign to content
                         _a.sent();
-                        lyrics = sessionStorage.getItem(file);
                         _a.label = 2;
                     case 2:
-                        // update ui
-                        lrc(lyrics, $lrc);
-                        selected = this;
-                        document.body.classList.remove(HTMLClass.TocOn);
+                        update(content);
+                        selected = this.innerText;
+                        document.body.classList.remove(HTMLClass.HideContent);
                         window.scrollTo(0, 0);
                         return [2 /*return*/];
                 }
             });
         });
-    });
-    return p;
+    }).text(text);
 }
-/* add lyrics */
-function lrc(lyrics, element) {
-    // reset buttons' symbols to default
-    $toggle.text(init(toggles));
-    $switch.text(init(switches));
-    element.html(lyrics).find('ruby').on('click', function () {
-        Array.from(this.getElementsByTagName('rt')).forEach(function (e) {
-            e.classList.toggle(HTMLClass.Hidden);
-        });
-    });
-}
-//#endregion functions
 $.getJSON('src/lyrics.json').done(function (data) {
-    return data.forEach(function (d) { return $toc.prepend(getToc(d, d + '.html')); });
+    for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
+        var line = data_1[_i];
+        t.prepend(item(line, d + line + '.html'));
+    }
 });
-$toggle.text(init(toggles)).on('click', function () {
-    // switch the symbol
-    this.innerText = toggles[this.innerText];
-    // toggle rt's visibility
-    $('rt').toggleClass(HTMLClass.Hidden);
-});
-$switch.text(init(switches)).on('click', function () {
-    // switch the symbol
-    this.innerText = switches[this.innerText];
-    $('ruby').each(function () {
-        // switch the texts
-        // 'rb' and 'rt' stand for 'ruby base' and 'ruby top' ?
-        // bottom<rt>top</rt>
-        this.innerHTML = this.innerHTML.replace(/(\S+)<rt.*>(\S+)<\/rt>/, '$2<rt>$1</rt>');
-        // rb will be underlined when rb is furigana
-        this.classList.toggle(HTMLClass.Underline);
-    });
-});
-$('#to-top').on('click', function () { return window.scrollTo(0, 0); });
-$('#menu').on('click', function () { return document.body.classList.toggle(HTMLClass.TocOn); });
+//# sourceMappingURL=index.js.map
