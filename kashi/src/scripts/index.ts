@@ -1,108 +1,44 @@
-/*
-* Regex for Japanese
-* Kanji: [\u3005\u4e00-\u9faf]
-* Hiragana: [\u3040-\u309f]
-* */
+const SWITCH = [ '⇅', '⇵' ];
+const TOGGLE = [ '０', 'ー' ];
 
-enum HTMLClass{
-    Hidden = 'hidden',
-    Underline = 'underline',
-    TocOn = 'toc-on',
-}
+let c = $('#content');
+let t = $('#toc');
+let d = 'src/lyrics/';
+let selected = '';
 
-//#region constants
-
-const switches: { [id: string]: string } = {
-    '⇅': '⇵',
-    '⇵': '⇅',
-};
-const toggles: { [id: string]: string } = {
-    '０': 'ー',
-    'ー': '０',
-};
-//#endregion constants
-
-//#region variables
-
-let directory = 'src/lyrics/';
-let $toc = $('#toc');
-let $lrc = $('#lrc');
-let $toggle = $('#toggle');
-let $switch = $('#switch');
-let selected: HTMLAnchorElement;
-//#endregion variables
-
-//#region functions
-
-/* get the first key of a dictionary/object */
-function init(o: object){
-    return Object.keys(o)[0];
-}
-
-/* populate table of contents */
-function getToc(title: string, file: string){
-    let p = $('<p>');
-    p.text(title);
-    p.on('click', async function(this: HTMLAnchorElement){
-        if(this == selected) return;
-
-        // get lyrics from storage if available
-        let lyrics = sessionStorage.getItem(file)!;
-        if(!lyrics){
-            await $.get(directory + file, f => sessionStorage.setItem(file, f));
-            lyrics = sessionStorage.getItem(file)!;
-        }
-        // update ui
-        lrc(lyrics, $lrc);
-
-        selected = this;
-        document.body.classList.remove(HTMLClass.TocOn);
-        window.scrollTo(0, 0);
-    });
-    return p;
-}
-
-/* add lyrics */
-function lrc(lyrics: string, element: JQuery){
-    // reset buttons' symbols to default
-    $toggle.text(init(toggles));
-    $switch.text(init(switches));
-
-    element.html(lyrics).find('ruby').on('click', function(){
-        Array.from(this.getElementsByTagName('rt')).forEach(e => {
-            e.classList.toggle(HTMLClass.Hidden);
+function update(content: string){
+    c.html(content).find('ruby').on('click', function(){
+        if(isSelecting()) return;
+        $(this).each(function(){
+            this.classList.toggle(HTMLClass.Hidden);
         });
     });
 }
 
-//#endregion functions
+/**
+ * generate a new item for the table of contents
+ * @param text innerText for this element
+ * @param path file to download when clicked
+ */
+function item(text: string, path: string): JQuery{
+    return $('<p>').on('click', async function(){
+        // if clicked on selected, refresh the content
+        let refresh = this.innerText == selected;
+        let content = sessionStorage.getItem(path);
+        if(refresh || content == null){
+            // download file, set session storage, assign to content
+            await $.get(path, f => sessionStorage.setItem(path, content = f));
+        }
+        update(content!);
 
-$.getJSON('src/lyrics.json').done((data: string[]) =>
-    data.forEach(d => $toc.prepend(getToc(d, d + '.html'))),
-);
+        selected = this.innerText;
+        document.body.classList.remove(HTMLClass.HideContent);
+        window.scrollTo(0, 0);
+    }).text(text);
+}
 
-$toggle.text(init(toggles)).on('click', function(){
-    // switch the symbol
-    this.innerText = toggles[this.innerText];
-    // toggle rt's visibility
-    $('rt').toggleClass(HTMLClass.Hidden);
+$.getJSON('src/lyrics.json').done((data: string[]) => {
+    for(const line of data){
+        t.prepend(item(line, d + line + '.html'));
+    }
 });
-
-$switch.text(init(switches)).on('click', function(){
-    // switch the symbol
-    this.innerText = switches[this.innerText];
-
-    $('ruby').each(function(){
-        // switch the texts
-        // 'rb' and 'rt' stand for 'ruby base' and 'ruby top' ?
-        // bottom<rt>top</rt>
-        this.innerHTML = this.innerHTML.replace(/(\S+)<rt.*>(\S+)<\/rt>/, '$2<rt>$1</rt>');
-
-        // rb will be underlined when rb is furigana
-        this.classList.toggle(HTMLClass.Underline);
-    });
-});
-
-$('#to-top').on('click', () => window.scrollTo(0, 0));
-
-$('#menu').on('click', () => document.body.classList.toggle(HTMLClass.TocOn));
