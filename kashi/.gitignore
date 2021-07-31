@@ -3,3 +3,6 @@
 node_modules
 
 package-lock.json
+
+# used for debugging, no need for a website
+*.map
