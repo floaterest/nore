@@ -9,6 +9,6 @@ https://floateresting.github.io/Kashi
 
 ## Notes (for Personal Use)
 - [index.ts](/src/scripts/index.ts)
-    - regex for Japanese characters ([url](/src/scripts/index.ts#L2))
-    - read/write files in `sessionStorage` ([url](/src/scripts/index.ts#L57))
+    - regex for Japanese characters
+    - read/write files in `sessionStorage`
     
