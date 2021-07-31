@@ -24,7 +24,7 @@ const toggles: { [id: string]: string } = {
 
 //#region variables
 
-let directory = 'lyrics/';
+let directory = 'src/lyrics/';
 let $toc = $('#toc');
 let $lrc = $('#lrc');
 let $toggle = $('#toggle');
@@ -77,7 +77,7 @@ function lrc(lyrics: string, element: JQuery){
 
 //#endregion functions
 
-$.getJSON(directory.replace('/', '.json')).done((data: string[]) =>
+$.getJSON('src/lyrics.json').done((data: string[]) =>
     data.forEach(d => $toc.prepend(getToc(d, d + '.html'))),
 );
 

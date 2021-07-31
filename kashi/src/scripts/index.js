@@ -57,7 +57,7 @@ var toggles = {
 };
 //#endregion constants
 //#region variables
-var directory = 'lyrics/';
+var directory = 'src/lyrics/';
 var $toc = $('#toc');
 var $lrc = $('#lrc');
 var $toggle = $('#toggle');
@@ -113,7 +113,7 @@ function lrc(lyrics, element) {
     });
 }
 //#endregion functions
-$.getJSON(directory.replace('/', '.json')).done(function (data) {
+$.getJSON('src/lyrics.json').done(function (data) {
     return data.forEach(function (d) { return $toc.prepend(getToc(d, d + '.html')); });
 });
 $toggle.text(init(toggles)).on('click', function () {
