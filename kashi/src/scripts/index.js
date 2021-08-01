@@ -41,6 +41,7 @@ var c = $('#content');
 var t = $('#toc');
 var d = 'src/lyrics/';
 var selected = '';
+var kashi;
 function update(content) {
     c.html(content).find('ruby').on('click', function () {
         if (isSelecting())
@@ -49,6 +50,7 @@ function update(content) {
             this.classList.toggle(HTMLClass.Hidden);
         });
     });
+    return c;
 }
 /**
  * generate a new item for the table of contents
@@ -72,7 +74,7 @@ function item(text, path) {
                         _a.sent();
                         _a.label = 2;
                     case 2:
-                        update(content);
+                        kashi = new Kashi(update(content));
                         selected = this.innerText;
                         document.body.classList.remove(HTMLClass.HideContent);
                         window.scrollTo(0, 0);
@@ -87,5 +89,13 @@ $.getJSON('src/lyrics.json').done(function (data) {
         var line = data_1[_i];
         t.prepend(item(line, d + line + '.html'));
     }
+});
+$('#switch').text(SWITCH[0]).on('click', function () {
+    kashi.switch();
+    this.innerText = SWITCH[+kashi.isSwitched];
+});
+$('#toggle').text(TOGGLE[0]).on('click', function () {
+    kashi.toggle();
+    this.innerText = TOGGLE[+kashi.isToggled];
 });
 //# sourceMappingURL=index.js.map
