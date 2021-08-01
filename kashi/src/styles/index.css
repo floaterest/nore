@@ -16,7 +16,7 @@ body {
   color: white;
   background: black;
   font-family: 'Source Sans Pro', 'Kosugi Maru', sans-serif;
-  font-size: 24px;
+  font-size: 48px;
 }
 ruby rt {
   filter: brightness(75%);
@@ -38,7 +38,7 @@ ruby rt {
   padding: 10px;
   margin: 0 auto;
 }
-#lrc {
+#content {
   z-index: 0;
   position: absolute;
   white-space: nowrap;
