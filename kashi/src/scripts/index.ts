@@ -1,5 +1,5 @@
-const SWITCH = [ '⇅', '⇵' ];
-const TOGGLE = [ '０', 'ー' ];
+const SWITCH = [ '⇈', '⇊' ];
+const TOGGLE = [ '0', '-' ];
 
 let c = $('#content');
 let t = $('#toc');
