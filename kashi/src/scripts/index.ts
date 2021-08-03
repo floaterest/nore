@@ -47,11 +47,15 @@ $.getJSON('src/lyrics.json').done((data: string[]) => {
 });
 
 $('#switch').text(SWITCH[0]).on('click', function(){
+    if(!kashi) return;
+
     kashi.switch();
     this.innerText = SWITCH[+kashi.isSwitched];
 });
 
 $('#toggle').text(TOGGLE[0]).on('click', function(){
+    if(!kashi) return;
+
     kashi.toggle();
     this.innerText = TOGGLE[+kashi.isToggled];
 });
