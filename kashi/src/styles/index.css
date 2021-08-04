@@ -66,7 +66,7 @@ ruby rt {
 .toc-on #toc {
   display: inline;
 }
-.toc-on #lrc {
+.toc-on #content {
   filter: brightness(10%);
 }
 /*# sourceMappingURL=index.css.map */
