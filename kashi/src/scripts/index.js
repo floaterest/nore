@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var SWITCH = ['⇈', '⇊'];
 var TOGGLE = ['0', '-'];
+var HAMBURGER = 'Ξ';
 var c = $('#content');
 var t = $('#toc');
 var d = 'src/lyrics/';
@@ -102,4 +103,5 @@ $('#toggle').text(TOGGLE[0]).on('click', function () {
     kashi.toggle();
     this.innerText = TOGGLE[+kashi.isToggled];
 });
+$('#hamburger').text(HAMBURGER).on('click', function () { return document.body.classList.toggle(HTMLClass.HideContent); });
 //# sourceMappingURL=index.js.map
