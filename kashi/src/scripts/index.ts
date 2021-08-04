@@ -1,5 +1,6 @@
 const SWITCH = [ '⇈', '⇊' ];
 const TOGGLE = [ '0', '-' ];
+const HAMBURGER = 'Ξ';
 
 let c = $('#content');
 let t = $('#toc');
@@ -59,3 +60,5 @@ $('#toggle').text(TOGGLE[0]).on('click', function(){
     kashi.toggle();
     this.innerText = TOGGLE[+kashi.isToggled];
 });
+
+$('#hamburger').text(HAMBURGER).on('click',()=>document.body.classList.toggle(HTMLClass.HideContent));
