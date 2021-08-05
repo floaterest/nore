@@ -3,7 +3,7 @@ var HTMLClass;
 (function (HTMLClass) {
     HTMLClass["Hidden"] = "hidden";
     HTMLClass["Underline"] = "underline";
-    HTMLClass["HideContent"] = "toc-on";
+    HTMLClass["HideContent"] = "hide-content";
 })(HTMLClass || (HTMLClass = {}));
 function toggleClass(condition, $el, className) {
     if (condition) {
