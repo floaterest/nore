@@ -1,7 +1,7 @@
 enum HTMLClass{
     Hidden = 'hidden',
     Underline = 'underline',
-    HideContent = 'toc-on',
+    HideContent = 'hide-content',
 }
 
 function toggleClass(condition: boolean, $el: JQuery, className: HTMLClass){
