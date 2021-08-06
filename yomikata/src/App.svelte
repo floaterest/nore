@@ -1,32 +1,35 @@
 <script lang="ts">
-	export let name: string;
+    import { data, output } from './stores';
+    import { split, tohtml } from './converter';
+
+    const w = new Worker('../worker.js');
+    let loaded = false;
+
+    function send(w: Worker, s: string){
+        console.log('app post', s);
+        w.postMessage(split(s));
+    }
+
+    console.time('loading');
+    w.onmessage = e => {
+        if(typeof e.data === 'boolean'){
+            // when loaded, parse the initial input
+            send(w, $data);
+            console.timeEnd('loading');
+            return loaded = true;
+        }
+        console.log('app get', e.data);
+        output.set(tohtml(e.data));
+    };
+
+    // update ui when input changes
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>
-		Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn
-		how to build Svelte apps.
-	</p>
+    <input type="text" on:change={()=>send(w,$data)} bind:value={$data}>
+    <div>{@html $output}</div>
 </main>
 
 <style lang="less">
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-		h1 {
-			color: #ff3e00;
-			text-transform: uppercase;
-			font-size: 4em;
-			font-weight: 100;
-		}
-	}
 
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
 </style>
