@@ -2,7 +2,7 @@
     import { data, output } from './stores';
     import { split, tohtml } from './converter';
 
-    const w = new Worker('../worker.js');
+    const w = new Worker('./worker.js');
     let loaded = false;
 
     function send(w: Worker, s: string){
