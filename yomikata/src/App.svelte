@@ -27,7 +27,7 @@
 
 <main>
     <input type="text" on:change={()=>send(w,$data)} bind:value={$data}>
-    <div>{@html $output}</div>
+    <div contenteditable="true">{@html $output}</div>
 </main>
 
 <style lang="less">
