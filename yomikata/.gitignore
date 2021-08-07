@@ -1,7 +1,8 @@
-# IDE
-.idea
-node_modules
+/node_modules/
+/public/build/
 
-# For debugging
-*.map
-*.bat
+.DS_Store
+
+/.idea/
+/public/dict/
+/public/kuromoji.js
