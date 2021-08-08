@@ -6,7 +6,6 @@
     let loaded = false;
 
     function send(w: Worker, s: string){
-        console.log('app post', s);
         w.postMessage(split(s));
     }
 
@@ -18,7 +17,6 @@
             console.timeEnd('loading');
             return loaded = true;
         }
-        console.log('app get', e.data);
         output.set(tohtml(e.data));
     };
 
