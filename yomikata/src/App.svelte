@@ -1,6 +1,6 @@
 <script lang="ts">
     import { data, output } from './stores';
-    import { split, tohtml } from './converter';
+    import { split, html } from './converter';
 
     const w = new Worker('./worker.js');
     let loaded = false;
@@ -17,7 +17,7 @@
             console.timeEnd('loading');
             return loaded = true;
         }
-        output.set(tohtml(e.data));
+        output.set(html(e.data));
     };
 
     // update ui when input changes

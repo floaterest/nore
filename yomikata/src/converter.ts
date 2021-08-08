@@ -7,7 +7,7 @@ const jpn = /[\u3040-\u30ff\u4e00-\u9fff\u3005]+/g;
  * convert katakana to hiragana
  * @param s all characters should be katakana
  */
-function tohira(s: string){
+function hiragana(s: string){
     return [ ...s ].map(ch => String.fromCharCode(ch.charCodeAt(0) - 96)).join('');
 }
 
@@ -25,7 +25,6 @@ function separate(line: string){
         i2 += l.length;
         i1 = i2;
     }
-    console.log(res);
     // if has non-jpn left
     if(i2 != line.length){
         res.push(line.substr(i2), false);
@@ -45,7 +44,7 @@ export function split(s: string){
     return s.split('\n').map(separate);
 }
 
-export function tohtml(lines: (string | IpadicFeatures[])[][]){
+export function html(lines: (string | IpadicFeatures[])[][]){
     let s = '';
     for(const line of lines){
         for(const result of line){
@@ -54,7 +53,7 @@ export function tohtml(lines: (string | IpadicFeatures[])[][]){
                 s += result;
             }else{
                 for(const { surface_form, reading } of result as IpadicFeatures[]){
-                    s += `<ruby>${surface_form}<rt>${tohira(reading)}</rt></ruby>`;
+                    s += `<ruby>${surface_form}<rt>${hiragana(reading)}</rt></ruby>`;
                 }
             }
         }
