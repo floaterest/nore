@@ -51,7 +51,7 @@ export function html(lines: (string | IpadicFeatures[])[][]): string{
             res => typeof res === 'string' ? res : res.map(({ surface_form, reading }) => {
                     return `<ruby>${surface_form}<rt>${hiragana(reading)}</rt></ruby>`;
                 },
-            ),
-        ),
+            ).join(''),
+        ).join(''),
     ).join('');
 }
