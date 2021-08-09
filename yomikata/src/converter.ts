@@ -27,7 +27,7 @@ function separate(line: string){
     }
     // if has non-jpn left
     if(i2 != line.length){
-        res.push([line.substr(i2), false]);
+        res.push([ line.substr(i2), false ]);
     }
     // if 1st is empty
     if(!res[0][0]){
@@ -45,6 +45,7 @@ export function split(s: string){
 }
 
 export function html(lines: (string | IpadicFeatures[])[][]){
+    console.debug('converter received', lines);
     let s = '';
     for(const line of lines){
         for(const result of line){
