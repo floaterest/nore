@@ -44,20 +44,14 @@ export function split(s: string){
     return s.split('\n').map(separate);
 }
 
-export function html(lines: (string | IpadicFeatures[])[][]){
+export function html(lines: (string | IpadicFeatures[])[][]): string{
     console.debug('converter received', lines);
-    let s = '';
-    for(const line of lines){
-        for(const result of line){
-            // if is not jpn
-            if(typeof result[0] === 'string'){
-                s += result;
-            }else{
-                for(const { surface_form, reading } of result as IpadicFeatures[]){
-                    s += `<ruby>${surface_form}<rt>${hiragana(reading)}</rt></ruby>`;
-                }
-            }
-        }
-    }
-    return s;
+    return lines.map(
+        l => l.map(
+            res => typeof res === 'string' ? res : res.map(({ surface_form, reading }) => {
+                    return `<ruby>${surface_form}<rt>${hiragana(reading)}</rt></ruby>`;
+                },
+            ),
+        ),
+    ).join('');
 }
