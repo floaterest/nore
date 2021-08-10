@@ -49,7 +49,15 @@ export function html(lines: (string | IpadicFeatures[])[][]): string{
     return lines.map(
         l => l.map(
             res => typeof res === 'string' ? res : res.map(({ surface_form, reading }) => {
-                    return `<ruby>${surface_form}<rt>${hiragana(reading)}</rt></ruby>`;
+                    // if no reading or both are the same (eg pure katakana)
+                    if(!reading || reading === surface_form) return surface_form;
+
+                    let hira = hiragana(reading);
+                    // if pure hiragana
+                    if(hira === surface_form){
+                        return surface_form;
+                    }
+                    return `<ruby>${surface_form}<rt>${hira}</rt></ruby>`;
                 },
             ).join(''),
         ).join(''),
