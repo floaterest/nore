@@ -44,6 +44,9 @@ export function split(s: string){
     return s.split('\n').map(separate);
 }
 
+/**
+ * convert worker's message to html
+ */
 export function html(lines: (string | IpadicFeatures[])[][]): string{
     console.debug('converter received', lines);
     return lines.map(
