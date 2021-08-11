@@ -44,29 +44,51 @@ const ruby = (rb: string, rt: string) => `<ruby>${rb}<rt>${rt}</rt></ruby>`;
 
 /**
  * remove trailing and middle kana
- * @param sf
- * @param r must be in hiragana
+ * @param s surface_form
+ * @param r reading in hiragana
  */
-function trim(sf, r){
-    let l1 = sf.length, l2 = r.length;
+function trim(s: string, r: string){
+    let l1 = s.length, l2 = r.length;
     let min = l1 < l2 ? l1 : l2;
 
     // test leading
     let i = 0;
     do{
-        if(sf[i] !== r[i]) break;
+        if(s[i] !== r[i]) break;
     }while(++i < min);
 
     // test trailing
     while(l1 && l2){
-        if(sf[--l1] !== r[--l2]) break;
+        if(s[--l1] !== r[--l2]) break;
     }
     // empty list if no leading
-    let res = i ? [ sf.slice(0, i) ] : [];
-    res.push(ruby(sf.slice(i, ++l1), r.slice(i, ++l2)));
+    let res = i ? [ s.slice(0, i) ] : [];
+
+    // add ruby (and delete later if contains kana in the middle)
+    res.push(ruby(s.slice(i, ++l1), r.slice(i, ++l2)));
+
     // add trailing if exists
-    if(l1 !== sf.length){
+    if(l1 !== s.length){
         res.push(r.slice(l2));
+    }
+
+    // now `s` starts and ends with kanji
+    // but might contains kana in the middle
+    s = s.slice(i, l1);
+    r = r.slice(i, l2);
+
+
+    // if kana exists in the middle
+    if((l1 = s.search(kana)) + 1){
+        // find the kana
+        let k = s.match(kana)[0];
+        l2 = r.indexOf(k);
+        // remove ruby, add 2 new ones with kana in the middle
+        res.splice(i, 1,
+            ruby(s.slice(0, l1++), r.slice(0, l2++)),
+            k,
+            ruby(s.slice(l1), r.slice(l2)),
+        );
     }
 
     return res;
