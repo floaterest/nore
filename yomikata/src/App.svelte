@@ -29,6 +29,8 @@
     <div spellcheck="false" contenteditable="true">{$output}</div>
 </main>
 
-<style lang="less">
-
+<style>
+    input{
+        width: 100%;
+    }
 </style>
