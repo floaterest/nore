@@ -37,6 +37,9 @@ function separate(line: string){
     return res;
 }
 
+/**
+ * create ruby element
+ */
 const ruby = (rb: string, rt: string) => `<ruby>${rb}<rt>${rt}</rt></ruby>`;
 
 /**
@@ -73,9 +76,7 @@ function trim(sf, r){
  * split string into jpn/non-jpn
  * @returns [string, boolean][][]
  */
-export function split(s: string){
-    return s.split('\n').map(separate);
-}
+export const split = (s: string) => s.split('\n').map(separate);
 
 /**
  * convert worker's message to html
