@@ -2,6 +2,7 @@ import type { IpadicFeatures } from 'kuromoji';
 
 // kana + kanji + 長音符
 const jpn = /[\u3040-\u30ff\u4e00-\u9fff\u3005]+/g;
+const kana = /[\u3040-\u30ff]+/g;
 
 /**
  * convert katakana to hiragana
@@ -36,6 +37,38 @@ function separate(line: string){
     return res;
 }
 
+const ruby = (rb: string, rt: string) => `<ruby>${rb}<rt>${rt}</rt></ruby>`;
+
+/**
+ * remove trailing and middle kana
+ * @param sf
+ * @param r must be in hiragana
+ */
+function trim(sf, r){
+    let l1 = sf.length, l2 = r.length;
+    let min = l1 < l2 ? l1 : l2;
+
+    // test leading
+    let i = 0;
+    do{
+        if(sf[i] !== r[i]) break;
+    }while(++i < min);
+
+    // test trailing
+    while(l1 && l2){
+        if(sf[--l1] !== r[--l2]) break;
+    }
+    // empty list if no leading
+    let res = i ? [ sf.slice(0, i) ] : [];
+    res.push(ruby(sf.slice(i, ++l1), r.slice(i, ++l2)));
+    // add trailing if exists
+    if(l1 !== sf.length){
+        res.push(r.slice(l2));
+    }
+
+    return res;
+}
+
 /**
  * split string into jpn/non-jpn
  * @returns [string, boolean][][]
@@ -60,7 +93,8 @@ export function html(lines: (string | IpadicFeatures[])[][]): string{
                     if(hira === surface_form){
                         return surface_form;
                     }
-                    return `<ruby>${surface_form}<rt>${hira}</rt></ruby>`;
+
+                    return trim(surface_form, hira).join('');
                 },
             ).join(''),
         ).join(''),
