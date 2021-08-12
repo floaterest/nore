@@ -40,7 +40,9 @@ function separate(line: string){
 /**
  * create ruby element
  */
-const ruby = (rb: string, rt: string) => `<ruby>${rb}<rt>${rt}</rt></ruby>`;
+function ruby(rb: string, rt: string){
+    return `<ruby>${rb}<rt>${rt}</rt></ruby>`;
+}
 
 /**
  * remove trailing and middle kana
@@ -98,7 +100,9 @@ function trim(s: string, r: string){
  * split string into jpn/non-jpn
  * @returns [string, boolean][][]
  */
-export const split = (s: string) => s.split('\n').map(separate);
+export function split(s: string){
+    return s.split('\n').map(separate);
+}
 
 /**
  * convert worker's message to html
