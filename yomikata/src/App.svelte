@@ -19,8 +19,6 @@
         }
         output.set(html(e.data));
     };
-
-    // update ui when input changes
 </script>
 
 <main>
