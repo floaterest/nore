@@ -1,12 +1,11 @@
 <script lang="ts">
     import { data, output } from './stores';
-    import { split, tohtml } from './converter';
+    import { split, html } from './converter';
 
     const w = new Worker('./worker.js');
     let loaded = false;
 
     function send(w: Worker, s: string){
-        console.log('app post', s);
         w.postMessage(split(s));
     }
 
@@ -18,19 +17,18 @@
             console.timeEnd('loading');
             return loaded = true;
         }
-        console.log('app get', e.data);
-        output.set(tohtml(e.data));
+        output.set(html(e.data));
     };
-
-    // update ui when input changes
 </script>
 
 <main>
     <input type="text" on:change={()=>send(w,$data)} bind:value={$data}>
-    <div contenteditable="true">{@html $output}</div>
-    <div contenteditable="true">{$output}</div>
+    <div spellcheck="false" contenteditable="true">{@html $output}</div>
+    <div spellcheck="false" contenteditable="true">{$output}</div>
 </main>
 
-<style lang="less">
-
+<style>
+    input{
+        width: 100%;
+    }
 </style>
