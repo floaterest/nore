@@ -2,7 +2,8 @@ import type { IpadicFeatures } from 'kuromoji';
 
 // kana + kanji + 長音符
 const jpn = /[\u3040-\u30ff\u4e00-\u9fff\u3005]+/g;
-const kana = /[\u3040-\u30ff]+/g;
+// kana except ヶ(\u30f5) and ヵ(\u30f6)
+const kana = /[\u3040-\u30f4\u30f7-\u30ff]+/g;
 
 /**
  * convert katakana to hiragana
