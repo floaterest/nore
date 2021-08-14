@@ -1,7 +1,7 @@
 import type { IpadicFeatures } from 'kuromoji';
 
-// kana + kanji + 長音符
-const jpn = /[\u3040-\u30ff\u4e00-\u9fff\u3005]+/g;
+// ideographic-space + kanji + 長音符
+const jpn = /[\u3000\u3040-\u30ff\u4e00-\u9fff\u3005]+/g;
 const kana = /[\u3040-\u30ff]+/g;
 
 /**
