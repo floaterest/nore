@@ -22,13 +22,29 @@
 </script>
 
 <main>
-    <input type="text" on:change={()=>send(w,$data)} bind:value={$data}>
-    <div spellcheck="false" contenteditable="true">{@html $output}</div>
-    <div spellcheck="false" contenteditable="true">{$output}</div>
+    <details open>
+        <summary>Input</summary>
+        <textarea on:change={()=>send(w,$data)} bind:value={$data}></textarea>
+    </details>
+
+    <details open>
+        <summary>HTML</summary>
+        <div spellcheck="false" contenteditable="true">{@html $output}</div>
+    </details>
+
+    <details open>
+        <summary>Raw</summary>
+        <div spellcheck="false" contenteditable="true">{$output}</div>
+    </details>
 </main>
 
 <style>
-    input{
+    textarea{
         width: 100%;
+    }
+
+    summary{
+        cursor: pointer;
+        user-select: none;
     }
 </style>
