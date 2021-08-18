@@ -77,13 +77,17 @@ function item(text, path) {
                         refresh = this.innerText == selected;
                         content = sessionStorage.getItem(path);
                         if (!(refresh || content == null)) return [3 /*break*/, 2];
+                        console.debug(refresh ? 'refreshed' : 'downloaded', text, 'from sessionStorage!');
                         // download file, set session storage, assign to content
                         return [4 /*yield*/, $.get(path, function (f) { return sessionStorage.setItem(path, content = f); })];
                     case 1:
                         // download file, set session storage, assign to content
                         _a.sent();
-                        _a.label = 2;
+                        return [3 /*break*/, 3];
                     case 2:
+                        console.debug('got', text, 'from sessionStorage!');
+                        _a.label = 3;
+                    case 3:
                         kashi = new Kashi(update(content));
                         selected = this.innerText;
                         document.body.classList.remove(HTMLClass.HideContent);

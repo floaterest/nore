@@ -37,8 +37,11 @@ function item(text: string, path: string): JQuery{
         let refresh = this.innerText == selected;
         let content = sessionStorage.getItem(path);
         if(refresh || content == null){
+            console.debug(refresh ? 'refreshed' : 'downloaded', text, 'from sessionStorage!');
             // download file, set session storage, assign to content
             await $.get(path, f => sessionStorage.setItem(path, content = f));
+        }else{
+            console.debug('got', text, 'from sessionStorage!');
         }
         kashi = new Kashi(update(content!));
 
