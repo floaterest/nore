@@ -38,20 +38,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var SWITCH = ['⇈', '⇊'];
 var TOGGLE = ['0', '-'];
 var HAMBURGER = 'Ξ';
-var c = $('#content');
-var t = $('#toc');
-var d = 'src/lyrics/';
+var $content = $('#content');
+var $toc = $('#toc');
+var directory = 'src/lyrics/';
 var selected = '';
 var kashi;
 function update(content) {
-    c.html(content).find('ruby').on('click', function () {
+    $content.html(content).find('ruby').on('click', function () {
         if (isSelecting())
             return;
         $(this).each(function () {
             this.classList.toggle(HTMLClass.Hidden);
         });
     });
-    return c;
+    return $content;
 }
 /**
  * generate a new item for the table of contents
@@ -88,7 +88,7 @@ function item(text, path) {
 $.getJSON('src/lyrics.json').done(function (data) {
     for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
         var line = data_1[_i];
-        t.prepend(item(line, d + line + '.html'));
+        $toc.prepend(item(line, directory + line + '.html'));
     }
 });
 $('#switch').text(SWITCH[0]).on('click', function () {

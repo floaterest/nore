@@ -2,20 +2,20 @@ const SWITCH = [ '⇈', '⇊' ];
 const TOGGLE = [ '0', '-' ];
 const HAMBURGER = 'Ξ';
 
-let c = $('#content');
-let t = $('#toc');
-let d = 'src/lyrics/';
+let $content = $('#content');
+let $toc = $('#toc');
+let directory = 'src/lyrics/';
 let selected = '';
 let kashi: Kashi;
 
 function update(content: string): JQuery{
-    c.html(content).find('ruby').on('click', function(){
+    $content.html(content).find('ruby').on('click', function(){
         if(isSelecting()) return;
         $(this).each(function(){
             this.classList.toggle(HTMLClass.Hidden);
         });
     });
-    return c;
+    return $content;
 }
 
 /**
@@ -43,7 +43,7 @@ function item(text: string, path: string): JQuery{
 
 $.getJSON('src/lyrics.json').done((data: string[]) => {
     for(const line of data){
-        t.prepend(item(line, d + line + '.html'));
+        $toc.prepend(item(line, directory + line + '.html'));
     }
 });
 
