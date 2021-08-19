@@ -1,5 +1,5 @@
 "use strict";
-var SWITCH = ['⇈', '⇊'];
+var SWITCH = ['▲', '▼'];
 var TOGGLE = ['0', '-'];
 var HAMBURGER = 'Ξ';
 var $content = $('#content');

@@ -1,4 +1,4 @@
-const SWITCH = [ '⇈', '⇊' ];
+const SWITCH = [ '▲', '▼' ];
 const TOGGLE = [ '0', '-' ];
 const HAMBURGER = 'Ξ';
 
