@@ -58,11 +58,9 @@ class Kashi{
     isToggled = false;
 
     $ruby: JQuery;
-    $rt: JQuery;
 
     constructor(content: JQuery){
         this.$ruby = content.find('ruby');
-        this.$rt = this.$ruby.find('rt');
     }
 
     /**
@@ -79,6 +77,6 @@ class Kashi{
 
     toggle(){
         this.isToggled = !this.isToggled;
-        toggleClass(this.isToggled, this.$rt, HTMLClass.Hidden);
+        toggleClass(this.isToggled, this.$ruby.find('rt'), HTMLClass.Hidden);
     }
 }
