@@ -71,7 +71,7 @@ class Kashi{
     switch(){
         this.isSwitched = !this.isSwitched;
         this.$ruby.each(function(){
-            this.innerHTML = this.innerHTML.replace(/(\S+)(<rt.*>)(\S+)/, '$3$2$1');
+            this.innerHTML = this.innerHTML.replace(/(\S+)(<rt.*>)(\S+)<\/rt>/, '$3$2$1</rt>');
         });
 
         toggleClass(this.isSwitched, this.$ruby, HTMLClass.Underline);
