@@ -58,7 +58,7 @@ ruby rt {
   display: inline;
 }
 .underline {
-  box-shadow: inset 0 -5px;
+  box-shadow: inset 0 -2px;
 }
 .hidden {
   color: black;
