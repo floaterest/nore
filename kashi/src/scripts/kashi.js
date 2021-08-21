@@ -116,7 +116,7 @@ var Kashi = /** @class */ (function () {
     };
     Kashi.prototype.toggle = function () {
         this.isToggled = !this.isToggled;
-        toggleClass(this.isToggled, this.$ruby.find('rt'), HTMLClass.Hidden);
+        toggleClass(this.isToggled, this.$ruby, HTMLClass.Hidden);
     };
     return Kashi;
 }());
