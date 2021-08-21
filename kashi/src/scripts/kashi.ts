@@ -77,6 +77,6 @@ class Kashi{
 
     toggle(){
         this.isToggled = !this.isToggled;
-        toggleClass(this.isToggled, this.$ruby.find('rt'), HTMLClass.Hidden);
+        toggleClass(this.isToggled, this.$ruby, HTMLClass.Hidden);
     }
 }
