@@ -8,15 +8,17 @@ const SWITCH = [ '▲', '▼' ];
 const TOGGLE = [ '0', '-' ];
 const HAMBURGER = 'Ξ';
 
+const INDEX = 'src/lyrics.json';
+const DIRECTORY = 'src/lyrics/';
+
 let $content = $('#content');
 let $toc = $('#toc');
-let directory = 'src/lyrics/';
 let selected = '';
 let kashi: Kashi;
 
-$.getJSON('src/lyrics.json').done((data: string[]) => {
+$.getJSON(INDEX).done((data: string[]) => {
     for(const line of data){
-        $toc.prepend(item(line, directory + line + '.html'));
+        $toc.prepend(item(line, DIRECTORY + line + '.html'));
     }
 });
 

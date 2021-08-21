@@ -7,15 +7,16 @@
 var SWITCH = ['▲', '▼'];
 var TOGGLE = ['0', '-'];
 var HAMBURGER = 'Ξ';
+var INDEX = 'src/lyrics.json';
+var DIRECTORY = 'src/lyrics/';
 var $content = $('#content');
 var $toc = $('#toc');
-var directory = 'src/lyrics/';
 var selected = '';
 var kashi;
-$.getJSON('src/lyrics.json').done(function (data) {
+$.getJSON(INDEX).done(function (data) {
     for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
         var line = data_1[_i];
-        $toc.prepend(item(line, directory + line + '.html'));
+        $toc.prepend(item(line, DIRECTORY + line + '.html'));
     }
 });
 $('#switch').text(SWITCH[0]).on('click', function () {
