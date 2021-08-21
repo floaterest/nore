@@ -1,4 +1,9 @@
 "use strict";
+/*
+* Regex for Japanese
+* Kanji: [\u3005\u4e00-\u9faf]
+* Hiragana: [\u3040-\u309f]
+* */
 var SWITCH = ['▲', '▼'];
 var TOGGLE = ['0', '-'];
 var HAMBURGER = 'Ξ';
