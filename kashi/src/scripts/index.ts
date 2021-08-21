@@ -1,3 +1,9 @@
+/*
+* Regex for Japanese
+* Kanji: [\u3005\u4e00-\u9faf]
+* Hiragana: [\u3040-\u309f]
+* */
+
 const SWITCH = [ '▲', '▼' ];
 const TOGGLE = [ '0', '-' ];
 const HAMBURGER = 'Ξ';
