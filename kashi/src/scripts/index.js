@@ -18,6 +18,17 @@ $.getJSON(INDEX).done(function (data) {
         var line = data_1[_i];
         $toc.prepend(item(line, DIRECTORY + line + '.html'));
     }
+    // check of url has hash
+    if (window.location.hash) {
+        // remove '#' then decode to utf8
+        var hash = decodeURIComponent(window.location.hash.slice(1));
+        if (data.includes(hash)) {
+            $toc.find("p:contains(\"" + hash + "\")").trigger('click');
+        }
+        else {
+            console.error(hash, 'not found');
+        }
+    }
 });
 $('#switch').text(SWITCH[0]).on('click', function () {
     if (!kashi)
