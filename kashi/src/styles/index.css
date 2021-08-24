@@ -44,6 +44,7 @@ ruby rt {
   position: absolute;
   white-space: nowrap;
   min-width: 100%;
+  line-height: 2;
 }
 .control {
   font-family: monospace;
@@ -62,7 +63,7 @@ ruby rt {
   box-shadow: inset 0 -2px;
 }
 ruby.hidden rt {
-  color: black;
+  display: none;
 }
 .hide-content #toc {
   display: inline;
