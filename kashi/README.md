@@ -14,8 +14,6 @@ https://floateresting.github.io/Kashi
         - note: add it at the end of the url
     - add `?s={html}` to add custom html inside
 ## Notes (for Personal Use)
-- [index.ts](/src/scripts/index.ts)
-    - regex for Japanese characters
 - [kashi.ts](/src/scripts/kashi.ts)
     - read/write files in `sessionStorage` (see function `item`)
     
