@@ -29,6 +29,13 @@ $.getJSON(INDEX).done((data: string[]) => {
         }else{
             console.error(hash, 'not found');
         }
+    }else{
+        if(window.location.search){
+            // check if has query
+            const params = new URLSearchParams(window.location.search);
+            kashi = new Kashi(update(params.get('s')!));
+            document.body.classList.remove(HTMLClass.HideContent);
+        }
     }
 });
 
