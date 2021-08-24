@@ -12,6 +12,7 @@ https://floateresting.github.io/Kashi
 - URL
     - add `#{title}` to open an existing file
         - note: add it at the end of the url
+    - add `?s={html}` to add custom html inside
 ## Notes (for Personal Use)
 - [index.ts](/src/scripts/index.ts)
     - regex for Japanese characters
