@@ -30,10 +30,11 @@ $.getJSON(INDEX).done((data: string[]) => {
             console.error(hash, 'not found');
         }
     }else{
-        if(window.location.search){
+        const params = new URLSearchParams(window.location.search);
+        let content;
+        if(params && (content = params.get('s'))){
             // check if has query
-            const params = new URLSearchParams(window.location.search);
-            kashi = new Kashi(update(params.get('s')!));
+            kashi = new Kashi(update(content));
             document.body.classList.remove(HTMLClass.HideContent);
         }
     }
