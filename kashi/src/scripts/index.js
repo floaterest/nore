@@ -30,10 +30,11 @@ $.getJSON(INDEX).done(function (data) {
         }
     }
     else {
-        if (window.location.search) {
+        var params = new URLSearchParams(window.location.search);
+        var content = void 0;
+        if (params && (content = params.get('s'))) {
             // check if has query
-            var params = new URLSearchParams(window.location.search);
-            kashi = new Kashi(update(params.get('s')));
+            kashi = new Kashi(update(content));
             document.body.classList.remove(HTMLClass.HideContent);
         }
     }
