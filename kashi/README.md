@@ -15,5 +15,6 @@ https://floateresting.github.io/Kashi
 ## Notes (for Personal Use)
 - [index.ts](/src/scripts/index.ts)
     - regex for Japanese characters
-    - read/write files in `sessionStorage`
+- [kashi.ts](/src/scripts/kashi.ts)
+    - read/write files in `sessionStorage` (see function `item`)
     
