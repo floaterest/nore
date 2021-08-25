@@ -10,6 +10,17 @@ let $toc = $('#toc');
 let selected = '';
 let kashi: Kashi;
 
+$('#file').on('change', e => {
+    if(!(e.target as HTMLInputElement).files) return;
+    const filename = (e.target as HTMLInputElement).files![0];
+    const reader = new FileReader();
+    reader.onload = e => {
+        kashi = new Kashi(update((e.target!.result as string)));
+        document.body.classList.remove(HTMLClass.HideContent);
+    };
+    reader.readAsText(filename, 'utf8');
+});
+
 $.getJSON(INDEX).done((data: string[]) => {
     for(const line of data){
         $toc.prepend(item(line, DIRECTORY + line + '.html'));

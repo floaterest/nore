@@ -8,6 +8,17 @@ var $content = $('#content');
 var $toc = $('#toc');
 var selected = '';
 var kashi;
+$('#file').on('change', function (e) {
+    if (!e.target.files)
+        return;
+    var filename = e.target.files[0];
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        kashi = new Kashi(update(e.target.result));
+        document.body.classList.remove(HTMLClass.HideContent);
+    };
+    reader.readAsText(filename, 'utf8');
+});
 $.getJSON(INDEX).done(function (data) {
     for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
         var line = data_1[_i];
