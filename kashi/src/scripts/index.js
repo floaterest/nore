@@ -1,6 +1,6 @@
 "use strict";
 var SWITCH = ['▲', '▼'];
-var TOGGLE = ['0', '-'];
+var TOGGLE = ['O', 'Ø'];
 var HAMBURGER = 'Ξ';
 var INDEX = 'src/lyrics.json';
 var DIRECTORY = 'src/lyrics/';
