@@ -46,7 +46,6 @@ function item(text: string, path: string): JQuery{
         kashi = new Kashi(update(content!));
 
         selected = this.innerText;
-        document.body.classList.remove(HTMLClass.HideContent);
         window.scrollTo(0, 0);
 
     }).text(text);
@@ -61,6 +60,7 @@ class Kashi{
 
     constructor(content: JQuery){
         this.$ruby = content.find('ruby');
+        document.body.classList.remove(HTMLClass.HideContent);
     }
 
     /**

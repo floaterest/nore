@@ -16,7 +16,6 @@ $('#file').on('change', e => {
     const reader = new FileReader();
     reader.onload = e => {
         kashi = new Kashi(update((e.target!.result as string)));
-        document.body.classList.remove(HTMLClass.HideContent);
     };
     reader.readAsText(filename, 'utf8');
 });
@@ -35,12 +34,12 @@ $.getJSON(INDEX).done((data: string[]) => {
             console.error(hash, 'not found');
         }
     }else{
+        // check search params
         const params = new URLSearchParams(window.location.search);
         let content;
         if(params && (content = params.get('s'))){
             // check if has query
             kashi = new Kashi(update(content));
-            document.body.classList.remove(HTMLClass.HideContent);
         }
     }
 });

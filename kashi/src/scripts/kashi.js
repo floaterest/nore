@@ -90,7 +90,6 @@ function item(text, path) {
                     case 3:
                         kashi = new Kashi(update(content));
                         selected = this.innerText;
-                        document.body.classList.remove(HTMLClass.HideContent);
                         window.scrollTo(0, 0);
                         return [2 /*return*/];
                 }
@@ -103,6 +102,7 @@ var Kashi = /** @class */ (function () {
         this.isSwitched = false;
         this.isToggled = false;
         this.$ruby = content.find('ruby');
+        document.body.classList.remove(HTMLClass.HideContent);
     }
     /**
      * switch rt and rb
