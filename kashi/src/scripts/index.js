@@ -15,7 +15,6 @@ $('#file').on('change', function (e) {
     var reader = new FileReader();
     reader.onload = function (e) {
         kashi = new Kashi(update(e.target.result));
-        document.body.classList.remove(HTMLClass.HideContent);
     };
     reader.readAsText(filename, 'utf8');
 });
@@ -36,12 +35,12 @@ $.getJSON(INDEX).done(function (data) {
         }
     }
     else {
+        // check search params
         var params = new URLSearchParams(window.location.search);
         var content = void 0;
         if (params && (content = params.get('s'))) {
             // check if has query
             kashi = new Kashi(update(content));
-            document.body.classList.remove(HTMLClass.HideContent);
         }
     }
 });
