@@ -1,5 +1,5 @@
 const SWITCH = [ '▲', '▼' ];
-const TOGGLE = [ '0', '-' ];
+const TOGGLE = [ 'O', 'Ø' ];
 const HAMBURGER = 'Ξ';
 
 const INDEX = 'src/lyrics.json';
