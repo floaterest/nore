@@ -4,6 +4,9 @@ var TOGGLE = ['0', '-'];
 var HAMBURGER = 'Ξ';
 var INDEX = 'src/lyrics.json';
 var DIRECTORY = 'src/lyrics/';
+var QUERIES = {
+    'paste': paste,
+};
 var $content = $('#content');
 var $toc = $('#toc');
 var selected = '';
@@ -18,6 +21,16 @@ $('#file').on('change', function (e) {
     };
     reader.readAsText(filename, 'utf8');
 });
+function paste(yes) {
+    if (!yes || yes == 'false' || yes == '0')
+        return false;
+    document.body.classList.toggle(HTMLClass.HideContent);
+    $content.attr('contenteditable', 'true');
+    $content.on('focusout', function (e) {
+        kashi = new Kashi(update(e.target.innerText));
+    });
+    return true;
+}
 $.getJSON(INDEX).done(function (data) {
     for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
         var line = data_1[_i];
@@ -37,10 +50,13 @@ $.getJSON(INDEX).done(function (data) {
     else {
         // check search params
         var params = new URLSearchParams(window.location.search);
-        var content = void 0;
-        if (params && (content = params.get('s'))) {
-            // check if has query
-            kashi = new Kashi(update(content));
+        if (params) {
+            // only parse the first valid entry
+            for (var _a = 0, _b = Object.entries(QUERIES); _a < _b.length; _a++) {
+                var _c = _b[_a], key = _c[0], func = _c[1];
+                if (params.has(key) && func(params.get(key)))
+                    break;
+            }
         }
     }
 });

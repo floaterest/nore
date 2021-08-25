@@ -5,6 +5,10 @@ const HAMBURGER = 'Ξ';
 const INDEX = 'src/lyrics.json';
 const DIRECTORY = 'src/lyrics/';
 
+const QUERIES = {
+    'paste': paste,
+};
+
 let $content = $('#content');
 let $toc = $('#toc');
 let selected = '';
@@ -19,6 +23,17 @@ $('#file').on('change', e => {
     };
     reader.readAsText(filename, 'utf8');
 });
+
+function paste(yes: string): boolean{
+    if(!yes || yes == 'false' || yes == '0') return false;
+
+    document.body.classList.toggle(HTMLClass.HideContent);
+    $content.attr('contenteditable', 'true');
+    $content.on('focusout', e => {
+        kashi = new Kashi(update(e.target.innerText));
+    });
+    return true;
+}
 
 $.getJSON(INDEX).done((data: string[]) => {
     for(const line of data){
@@ -36,10 +51,11 @@ $.getJSON(INDEX).done((data: string[]) => {
     }else{
         // check search params
         const params = new URLSearchParams(window.location.search);
-        let content;
-        if(params && (content = params.get('s'))){
-            // check if has query
-            kashi = new Kashi(update(content));
+        if(params){
+            // only parse the first valid entry
+            for(const [ key, func ] of Object.entries(QUERIES)){
+                if(params.has(key) && func(params.get(key)!)) break;
+            }
         }
     }
 });
