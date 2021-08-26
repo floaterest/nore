@@ -1,7 +1,35 @@
-const SWITCH = [ '▲', '▼' ];
-const TOGGLE = [ 'O', 'Ø' ];
-const EDIT = [ 'X', 'I' ];
-const HAMBURGER = 'Ξ';
+const Controls = {
+    '#switch': {
+        icon: [ '▲', '▼' ],
+        action: function(e: JQuery.ClickEvent){
+            if(!kashi) return;
+
+            kashi.switch();
+            e.target.innerText = Controls['#switch'].icon[+kashi.isSwitched];
+        },
+    },
+    '#edit': {
+        icon: [ 'X', 'I' ],
+        action: function(e: JQuery.ClickEvent){
+            let editable = $content.attr('contenteditable') !== 'true';
+            $content.attr('contenteditable', editable.toString());
+            e.target.innerText = Controls['#edit'].icon[+editable];
+        },
+    },
+    '#toggle': {
+        icon: [ 'O', 'Ø' ],
+        action: function(e: JQuery.ClickEvent){
+            if(!kashi) return;
+
+            kashi.toggle();
+            e.target.innerText = Controls['#toggle'].icon[+kashi.isToggled];
+        },
+    },
+    '#hamburger': {
+        icon: [ 'Ξ' ], // TIL Ξ is called 'xi'
+        action: () => document.body.classList.toggle(HTMLClass.HideContent),
+    },
+};
 
 const INDEX = 'src/lyrics.json';
 const DIRECTORY = 'src/lyrics/';
@@ -61,24 +89,6 @@ $.getJSON(INDEX).done((data: string[]) => {
     }
 });
 
-$('#switch').text(SWITCH[0]).on('click', function(){
-    if(!kashi) return;
-
-    kashi.switch();
-    this.innerText = SWITCH[+kashi.isSwitched];
-});
-
-$('#edit').text(EDIT[0]).on('click', function(){
-    let editable = !$content.attr('contenteditable');
-    $content.attr('contenteditable', editable.toString());
-    this.innerText = EDIT[+editable];
-});
-
-$('#toggle').text(TOGGLE[0]).on('click', function(){
-    if(!kashi) return;
-
-    kashi.toggle();
-    this.innerText = TOGGLE[+kashi.isToggled];
-});
-
-$('#hamburger').text(HAMBURGER).on('click', () => document.body.classList.toggle(HTMLClass.HideContent));
+for(const [ selector, data ] of Object.entries(Controls)){
+    $(selector).text(data.icon[0]).on('click', data.action);
+}
