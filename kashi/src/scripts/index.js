@@ -1,6 +1,7 @@
 "use strict";
 var SWITCH = ['▲', '▼'];
 var TOGGLE = ['O', 'Ø'];
+var EDIT = ['X', 'I'];
 var HAMBURGER = 'Ξ';
 var INDEX = 'src/lyrics.json';
 var DIRECTORY = 'src/lyrics/';
@@ -65,6 +66,11 @@ $('#switch').text(SWITCH[0]).on('click', function () {
         return;
     kashi.switch();
     this.innerText = SWITCH[+kashi.isSwitched];
+});
+$('#edit').text(EDIT[0]).on('click', function () {
+    var editable = !$content.attr('contenteditable');
+    $content.attr('contenteditable', editable.toString());
+    this.innerText = EDIT[+editable];
 });
 $('#toggle').text(TOGGLE[0]).on('click', function () {
     if (!kashi)

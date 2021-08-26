@@ -1,5 +1,6 @@
 const SWITCH = [ '▲', '▼' ];
 const TOGGLE = [ 'O', 'Ø' ];
+const EDIT = [ 'X', 'I' ];
 const HAMBURGER = 'Ξ';
 
 const INDEX = 'src/lyrics.json';
@@ -65,6 +66,12 @@ $('#switch').text(SWITCH[0]).on('click', function(){
 
     kashi.switch();
     this.innerText = SWITCH[+kashi.isSwitched];
+});
+
+$('#edit').text(EDIT[0]).on('click', function(){
+    let editable = !$content.attr('contenteditable');
+    $content.attr('contenteditable', editable.toString());
+    this.innerText = EDIT[+editable];
 });
 
 $('#toggle').text(TOGGLE[0]).on('click', function(){
