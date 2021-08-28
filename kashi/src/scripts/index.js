@@ -5,7 +5,7 @@ var QUERIES = {
     'paste': paste,
 };
 var $content = $('#content');
-var $toc = $('#toc');
+var $menu = $('#menu');
 var selected = '';
 var kashi;
 $('#file').on('change', function (e) {
@@ -31,14 +31,14 @@ function paste(yes) {
 $.getJSON(INDEX).done(function (data) {
     for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
         var line = data_1[_i];
-        $toc.prepend(item(line, DIRECTORY + line + '.html'));
+        $menu.prepend(item(line, DIRECTORY + line + '.html'));
     }
     // check of url has hash
     if (window.location.hash) {
         // remove '#' then decode to utf8
         var hash = decodeURIComponent(window.location.hash.slice(1));
         if (data.includes(hash)) {
-            $toc.find("p:contains(\"" + hash + "\")").trigger('click');
+            $menu.find("p:contains(\"" + hash + "\")").trigger('click');
         }
         else {
             console.error(hash, 'not found');
