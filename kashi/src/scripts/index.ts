@@ -6,7 +6,7 @@ const QUERIES = {
 };
 
 let $content = $('#content');
-let $toc = $('#toc');
+let $menu = $('#menu');
 let selected = '';
 let kashi: Kashi;
 
@@ -33,14 +33,14 @@ function paste(yes: string): boolean{
 
 $.getJSON(INDEX).done((data: string[]) => {
     for(const line of data){
-        $toc.prepend(item(line, DIRECTORY + line + '.html'));
+        $menu.prepend(item(line, DIRECTORY + line + '.html'));
     }
     // check of url has hash
     if(window.location.hash){
         // remove '#' then decode to utf8
         let hash = decodeURIComponent(window.location.hash.slice(1));
         if(data.includes(hash)){
-            $toc.find(`p:contains("${hash}")`).trigger('click');
+            $menu.find(`p:contains("${hash}")`).trigger('click');
         }else{
             console.error(hash, 'not found');
         }
