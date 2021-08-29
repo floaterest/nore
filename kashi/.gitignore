@@ -1,8 +1,12 @@
-.idea
-
 node_modules
 
+# IDE
+.idea
 package-lock.json
 
-# used for debugging, no need for a website
+# Debug
 *.map
+*.bat
+
+
+
