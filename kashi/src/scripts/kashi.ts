@@ -43,7 +43,7 @@ function item(text: string, path: string): JQuery{
         }else{
             console.debug('got', text, 'from sessionStorage!');
         }
-        kashi = new Kashi(update(content!));
+        kashi = new Kashi(content!);
 
         selected = this.innerText;
         window.scrollTo(0, 0);
@@ -58,8 +58,8 @@ class Kashi{
 
     $ruby: JQuery;
 
-    constructor(content: JQuery){
-        this.$ruby = content.find('ruby');
+    constructor(content: string){
+        this.$ruby = update(content).find('ruby');
         document.body.classList.remove(HTMLClass.HideContent);
     }
 

@@ -14,7 +14,7 @@ $('#file').on('change', function (e) {
     var filename = e.target.files[0];
     var reader = new FileReader();
     reader.onload = function (e) {
-        kashi = new Kashi(update(e.target.result));
+        kashi = new Kashi(e.target.result);
     };
     reader.readAsText(filename, 'utf8');
 });
@@ -24,7 +24,7 @@ function paste(yes) {
     document.body.classList.toggle(HTMLClass.HideContent);
     $content.attr('contenteditable', 'true');
     $content.on('focusout', function (e) {
-        kashi = new Kashi(update(e.target.innerText));
+        kashi = new Kashi(e.target.innerText);
     });
     return true;
 }

@@ -15,7 +15,7 @@ $('#file').on('change', e => {
     const filename = (e.target as HTMLInputElement).files![0];
     const reader = new FileReader();
     reader.onload = e => {
-        kashi = new Kashi(update((e.target!.result as string)));
+        kashi = new Kashi(e.target!.result as string);
     };
     reader.readAsText(filename, 'utf8');
 });
@@ -26,7 +26,7 @@ function paste(yes: string): boolean{
     document.body.classList.toggle(HTMLClass.HideContent);
     $content.attr('contenteditable', 'true');
     $content.on('focusout', e => {
-        kashi = new Kashi(update(e.target.innerText));
+        kashi = new Kashi(e.target.innerText);
     });
     return true;
 }
