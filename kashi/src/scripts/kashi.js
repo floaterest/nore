@@ -88,7 +88,7 @@ function item(text, path) {
                         console.debug('got', text, 'from sessionStorage!');
                         _a.label = 3;
                     case 3:
-                        kashi = new Kashi(update(content));
+                        kashi = new Kashi(content);
                         selected = this.innerText;
                         window.scrollTo(0, 0);
                         return [2 /*return*/];
@@ -101,7 +101,7 @@ var Kashi = /** @class */ (function () {
     function Kashi(content) {
         this.isSwitched = false;
         this.isToggled = false;
-        this.$ruby = content.find('ruby');
+        this.$ruby = update(content).find('ruby');
         document.body.classList.remove(HTMLClass.HideContent);
     }
     /**
