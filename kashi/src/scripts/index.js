@@ -21,10 +21,15 @@ $('#file').on('change', function (e) {
 function paste(yes) {
     if (!yes || yes == 'false' || yes == '0')
         return false;
-    document.body.classList.toggle(HTMLClass.HideContent);
-    $content.attr('contenteditable', 'true');
-    $content.on('focusout', function (e) {
-        kashi = new Kashi(e.target.innerText);
+    document.body.classList.remove(HTMLClass.HideContent);
+    $('#edit').trigger('click');
+    $content.on('paste', function (e) {
+        // stop data actually being pasted
+        e.stopPropagation();
+        e.preventDefault();
+        // tsc please
+        //@ts-ignore
+        kashi = new Kashi(e.originalEvent.clipboardData.getData('text'));
     });
     return true;
 }
