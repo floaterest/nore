@@ -24,6 +24,7 @@ function paste(yes: string): boolean{
     if(!yes || yes == 'false' || yes == '0') return false;
 
     document.body.classList.remove(HTMLClass.HideContent);
+    // enable edit
     $('#edit').trigger('click');
     $content.on('paste', e => {
         // stop data actually being pasted
@@ -32,6 +33,8 @@ function paste(yes: string): boolean{
         // tsc please
         //@ts-ignore
         kashi = new Kashi(e.originalEvent.clipboardData.getData('text'));
+        // disable edit
+        $('#edit').trigger('click');
     });
     return true;
 }
