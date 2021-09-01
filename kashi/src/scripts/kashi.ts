@@ -16,13 +16,18 @@ function isSelecting(){
     return document.getSelection()!.type != 'Caret';
 }
 
+function hide(e: JQuery.ClickEvent){
+    if(isSelecting()) return;
+
+    e.target.classList.toggle(HTMLClass.Hidden);
+}
+
+/**
+ * update ui with content
+ * @param content
+ */
 function update(content: string): JQuery{
-    $content.html(content).find('ruby').on('click', function(){
-        if(isSelecting()) return;
-        $(this).each(function(){
-            this.classList.toggle(HTMLClass.Hidden);
-        });
-    });
+    $content.html(content).find('ruby').on('click', hide);
     return $content;
 }
 
@@ -75,6 +80,9 @@ class Kashi{
         toggleClass(this.isSwitched, this.$ruby, HTMLClass.Underline);
     }
 
+    /**
+     * toggle rt visibility
+     */
     toggle(){
         this.isToggled = !this.isToggled;
         toggleClass(this.isToggled, this.$ruby, HTMLClass.Hidden);
