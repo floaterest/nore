@@ -52,14 +52,17 @@ function toggleClass(condition, $el, className) {
 function isSelecting() {
     return document.getSelection().type != 'Caret';
 }
+function hide(e) {
+    if (isSelecting())
+        return;
+    e.target.classList.toggle(HTMLClass.Hidden);
+}
+/**
+ * update ui with content
+ * @param content
+ */
 function update(content) {
-    $content.html(content).find('ruby').on('click', function () {
-        if (isSelecting())
-            return;
-        $(this).each(function () {
-            this.classList.toggle(HTMLClass.Hidden);
-        });
-    });
+    $content.html(content).find('ruby').on('click', hide);
     return $content;
 }
 /**
@@ -114,6 +117,9 @@ var Kashi = /** @class */ (function () {
         });
         toggleClass(this.isSwitched, this.$ruby, HTMLClass.Underline);
     };
+    /**
+     * toggle rt visibility
+     */
     Kashi.prototype.toggle = function () {
         this.isToggled = !this.isToggled;
         toggleClass(this.isToggled, this.$ruby, HTMLClass.Hidden);
