@@ -38,47 +38,8 @@ input {
 input::placeholder {
   color: #69676c;
 }
-body.hide-content #menu {
-  display: inline;
-}
-body.hide-content #content {
-  filter: brightness(10%);
-}
-body > #menu {
-  z-index: 1;
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  overflow-y: scroll;
-}
-body > #menu p,
-body > #menu code {
-  padding: 10px;
-  margin: 0 auto;
-}
-body > #content {
-  z-index: 0;
-  position: absolute;
-  white-space: nowrap;
-  min-width: 100%;
-  line-height: 2;
-}
-body > #content:not([contenteditable=true]) ruby {
+ruby {
   cursor: pointer;
-}
-body > #control {
-  font-family: monospace;
-  position: fixed;
-  color: dimgray;
-  right: 0;
-  bottom: 0;
-  user-select: none;
-  font-size: 2em;
-}
-body > #control span {
-  display: inline;
 }
 ruby.underline {
   box-shadow: inset 0 -2px;
@@ -92,5 +53,50 @@ ruby rt {
   text-align: center;
   user-select: none;
   font-size: 0.5em;
+}
+body.hide-content #menu {
+  display: inline;
+}
+body.hide-content #content {
+  filter: brightness(10%);
+}
+#menu {
+  z-index: 1;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow-y: scroll;
+}
+#menu p,
+#menu code {
+  padding: 10px;
+  margin: 0 auto;
+}
+#content {
+  z-index: 0;
+  position: absolute;
+  white-space: nowrap;
+  min-width: 100%;
+  line-height: 2;
+}
+#content[contenteditable=true] ruby {
+  cursor: unset;
+}
+#content[contenteditable=true] rt {
+  user-select: unset;
+}
+#control {
+  font-family: monospace;
+  position: fixed;
+  color: dimgray;
+  right: 0;
+  bottom: 0;
+  user-select: none;
+  font-size: 2em;
+}
+#control span {
+  display: inline;
 }
 /*# sourceMappingURL=index.css.map */
