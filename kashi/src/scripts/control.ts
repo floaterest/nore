@@ -12,6 +12,14 @@ const Controls = {
         icon: [ 'X', 'I' ],
         action: function(this: HTMLElement){
             let editable = $content.attr('contenteditable') !== 'true';
+
+            // remove click event when editing
+            if(editable){
+                $content.find('ruby').off('click');
+            }else{
+                update();
+            }
+
             $content.attr('contenteditable', editable.toString());
             this.innerText = Controls['#edit'].icon[+editable];
         },
