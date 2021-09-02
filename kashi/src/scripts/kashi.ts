@@ -12,22 +12,21 @@ function toggleClass(condition: boolean, $el: JQuery, className: HTMLClass){
     }
 }
 
-function isSelecting(){
-    return document.getSelection()!.type != 'Caret';
-}
-
-function hide(e: JQuery.ClickEvent){
-    if(isSelecting()) return;
-
-    e.target.classList.toggle(HTMLClass.Hidden);
-}
-
 /**
  * update ui with content
  * @param content
  */
-function update(content: string): JQuery{
-    $content.html(content).find('ruby').on('click', hide);
+function update(content: string = ''): JQuery{
+    if(content){
+        $content.html(content);
+    }
+
+    $content.find('ruby').on('click', function(){
+        // if user is selecting
+        if(document.getSelection()!.type != 'Caret') return;
+
+        this.classList.toggle(HTMLClass.Hidden);
+    });
     return $content;
 }
 

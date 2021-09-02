@@ -49,20 +49,21 @@ function toggleClass(condition, $el, className) {
         $el.removeClass(className);
     }
 }
-function isSelecting() {
-    return document.getSelection().type != 'Caret';
-}
-function hide(e) {
-    if (isSelecting())
-        return;
-    e.target.classList.toggle(HTMLClass.Hidden);
-}
 /**
  * update ui with content
  * @param content
  */
 function update(content) {
-    $content.html(content).find('ruby').on('click', hide);
+    if (content === void 0) { content = ''; }
+    if (content) {
+        $content.html(content);
+    }
+    $content.find('ruby').on('click', function () {
+        // if user is selecting
+        if (document.getSelection().type != 'Caret')
+            return;
+        this.classList.toggle(HTMLClass.Hidden);
+    });
     return $content;
 }
 /**
