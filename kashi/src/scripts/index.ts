@@ -10,12 +10,12 @@ let $menu = $('#menu');
 let selected = '';
 let kashi: Kashi;
 
-$('#file').on('change', e => {
-    if(!(e.target as HTMLInputElement).files) return;
-    const filename = (e.target as HTMLInputElement).files![0];
+$('#file').on('change', function(this: HTMLInputElement){
+    if(!this.files) return;
+    const filename = this.files![0];
     const reader = new FileReader();
-    reader.onload = e => {
-        kashi = new Kashi(e.target!.result as string);
+    reader.onload = function(){
+        kashi = new Kashi(this.result as string);
     };
     reader.readAsText(filename, 'utf8');
 });

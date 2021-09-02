@@ -8,13 +8,13 @@ var $content = $('#content');
 var $menu = $('#menu');
 var selected = '';
 var kashi;
-$('#file').on('change', function (e) {
-    if (!e.target.files)
+$('#file').on('change', function () {
+    if (!this.files)
         return;
-    var filename = e.target.files[0];
+    var filename = this.files[0];
     var reader = new FileReader();
-    reader.onload = function (e) {
-        kashi = new Kashi(e.target.result);
+    reader.onload = function () {
+        kashi = new Kashi(this.result);
     };
     reader.readAsText(filename, 'utf8');
 });
