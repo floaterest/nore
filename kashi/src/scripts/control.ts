@@ -1,28 +1,28 @@
 const Controls = {
     '#switch': {
         icon: [ '▲', '▼' ],
-        action: function(e: JQuery.ClickEvent){
+        action: function(this: HTMLElement){
             if(!kashi) return;
 
             kashi.switch();
-            e.target.innerText = Controls['#switch'].icon[+kashi.isSwitched];
+            this.innerText = Controls['#switch'].icon[+kashi.isSwitched];
         },
     },
     '#edit': {
         icon: [ 'X', 'I' ],
-        action: function(e: JQuery.ClickEvent){
+        action: function(this: HTMLElement){
             let editable = $content.attr('contenteditable') !== 'true';
             $content.attr('contenteditable', editable.toString());
-            e.target.innerText = Controls['#edit'].icon[+editable];
+            this.innerText = Controls['#edit'].icon[+editable];
         },
     },
     '#toggle': {
         icon: [ 'O', 'Ø' ],
-        action: function(e: JQuery.ClickEvent){
+        action: function(this: HTMLElement){
             if(!kashi) return;
 
             kashi.toggle();
-            e.target.innerText = Controls['#toggle'].icon[+kashi.isToggled];
+            this.innerText = Controls['#toggle'].icon[+kashi.isToggled];
         },
     },
     '#hamburger': {
