@@ -12,8 +12,14 @@ https://floateresting.github.io/Kashi
 - URL
     - add `#{title}` to open an existing file
         - note: add it at the end of the url
-    - add `?s={html}` to add custom html inside
+    - `?paste=true`
+        - allow paste a raw html and parse automatically when pasted  
+
 ## Notes (for Personal Use)
 - [kashi.ts](/src/scripts/kashi.ts)
     - read/write files in `sessionStorage` (see function `item`)
-    
+- [index.ts](/src/scripts/index.ts)
+    - HTTP GET using JQuery
+    - choose files and read content
+    - stop user from pasting and read clipboard text
+    - parse URLSearchParams
