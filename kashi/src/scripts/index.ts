@@ -1,8 +1,25 @@
 const INDEX = 'src/lyrics.json';
 const DIRECTORY = 'src/lyrics/';
 
-const QUERIES = {
-    'paste': paste,
+const Queries = {
+    'paste': (value: string) => {
+        if(!value || value == 'false' || value == '0') return false;
+
+        document.body.classList.remove(HTMLClass.HideContent);
+        // enable edit
+        $('#edit').trigger('click');
+        $content.on('paste', e => {
+            // stop data actually being pasted
+            e.stopPropagation();
+            e.preventDefault();
+            // tsc please
+            //@ts-ignore
+            kashi = new Kashi(e.originalEvent.clipboardData.getData('text'));
+            // disable edit
+            $('#edit').trigger('click');
+        });
+        return true;
+    },
 };
 
 let $content = $('#content');
@@ -19,25 +36,6 @@ $('#file').on('change', function(this: HTMLInputElement){
     };
     reader.readAsText(filename, 'utf8');
 });
-
-function paste(yes: string): boolean{
-    if(!yes || yes == 'false' || yes == '0') return false;
-
-    document.body.classList.remove(HTMLClass.HideContent);
-    // enable edit
-    $('#edit').trigger('click');
-    $content.on('paste', e => {
-        // stop data actually being pasted
-        e.stopPropagation();
-        e.preventDefault();
-        // tsc please
-        //@ts-ignore
-        kashi = new Kashi(e.originalEvent.clipboardData.getData('text'));
-        // disable edit
-        $('#edit').trigger('click');
-    });
-    return true;
-}
 
 $.getJSON(INDEX).done((data: string[]) => {
     for(const line of data){
@@ -57,7 +55,7 @@ $.getJSON(INDEX).done((data: string[]) => {
         const params = new URLSearchParams(window.location.search);
         if(params){
             // only parse the first valid entry
-            for(const [ key, func ] of Object.entries(QUERIES)){
+            for(const [ key, func ] of Object.entries(Queries)){
                 if(params.has(key) && func(params.get(key)!)) break;
             }
         }
