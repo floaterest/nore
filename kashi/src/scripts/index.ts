@@ -10,13 +10,16 @@ const Queries = {
         $('#edit').trigger('click');
         $content.on('paste', e => {
             // stop data actually being pasted
+
+            // edit, kashi, event
+            // no edit, event
             e.stopPropagation();
             e.preventDefault();
+            // disable edit
+            $('#edit').trigger('click');
             // tsc please
             //@ts-ignore
             kashi = new Kashi(e.originalEvent.clipboardData.getData('text'));
-            // disable edit
-            $('#edit').trigger('click');
         });
         return true;
     },

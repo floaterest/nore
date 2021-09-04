@@ -20,7 +20,6 @@ function update(content: string = ''): JQuery{
     if(content){
         $content.html(content);
     }
-
     $content.find('ruby').on('click', function(){
         // if user is selecting
         if(document.getSelection()!.type != 'Caret') return;
