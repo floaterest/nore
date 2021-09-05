@@ -39,30 +39,17 @@ $.getJSON(INDEX).done(function (data) {
         var line = data_1[_i];
         $menu.prepend(item(line, DIRECTORY + line + '.html'));
     }
-    // check of url has hash
-    if (window.location.hash) {
-        // remove '#' then decode to utf8
-        var hash = decodeURIComponent(window.location.hash.slice(1));
-        if (data.includes(hash)) {
-            $menu.find("p:contains(\"" + hash + "\")").trigger('click');
-        }
-        else {
-            console.error(hash, 'not found');
-        }
-    }
-    else {
-        // check search params
-        var params = new URLSearchParams(window.location.search);
-        if (params) {
-            var value = void 0;
-            for (var _a = 0, _b = Object.entries(Queries); _a < _b.length; _a++) {
-                var _c = _b[_a], key = _c[0], func = _c[1];
-                // check of has key and value is not false
-                if (params.has(key) && (value = params.get(key)) && JSON.parse(value)) {
-                    func(value);
-                }
-            }
-        }
-    }
 });
+// check search params
+var params = new URLSearchParams(window.location.search);
+if (params) {
+    var value = void 0;
+    for (var _i = 0, _a = Object.entries(Queries); _i < _a.length; _i++) {
+        var _b = _a[_i], key = _b[0], func = _b[1];
+        // check of has key and value is not false
+        if (params.has(key) && (value = params.get(key)) && JSON.parse(value)) {
+            func(value);
+        }
+    }
+}
 //# sourceMappingURL=index.js.map

@@ -41,27 +41,16 @@ $.getJSON(INDEX).done((data: string[]) => {
     for(const line of data){
         $menu.prepend(item(line, DIRECTORY + line + '.html'));
     }
-    // check of url has hash
-    if(window.location.hash){
-        // remove '#' then decode to utf8
-        let hash = decodeURIComponent(window.location.hash.slice(1));
-        if(data.includes(hash)){
-            $menu.find(`p:contains("${hash}")`).trigger('click');
-        }else{
-            console.error(hash, 'not found');
-        }
-    }else{
-        // check search params
-        const params = new URLSearchParams(window.location.search);
-        if(params){
-            let value;
-            for(const [ key, func ] of Object.entries(Queries)){
-                // check of has key and value is not false
-                if(params.has(key) && (value = params.get(key)) && JSON.parse(value)){
-                    func(value);
-                }
-            }
-        }
-    }
 });
 
+// check search params
+const params = new URLSearchParams(window.location.search);
+if(params){
+    let value;
+    for(const [ key, func ] of Object.entries(Queries)){
+        // check of has key and value is not false
+        if(params.has(key) && (value = params.get(key)) && JSON.parse(value)){
+            func(value);
+        }
+    }
+}
