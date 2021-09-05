@@ -2,9 +2,7 @@
 var INDEX = 'src/lyrics.json';
 var DIRECTORY = 'src/lyrics/';
 var Queries = {
-    'paste': function (value) {
-        if (!value || value == 'false' || value == '0')
-            return false;
+    'paste': function (_) {
         document.body.classList.remove(HTMLClass.HideContent);
         // enable edit
         $('#edit').trigger('click');
@@ -20,7 +18,6 @@ var Queries = {
             //@ts-ignore
             kashi = new Kashi(e.originalEvent.clipboardData.getData('text'));
         });
-        return true;
     },
 };
 var $content = $('#content');
@@ -57,9 +54,13 @@ $.getJSON(INDEX).done(function (data) {
         // check search params
         var params = new URLSearchParams(window.location.search);
         if (params) {
+            var value = void 0;
             for (var _a = 0, _b = Object.entries(Queries); _a < _b.length; _a++) {
                 var _c = _b[_a], key = _c[0], func = _c[1];
-                params.has(key) && func(params.get(key));
+                // check of has key and value is not false
+                if (params.has(key) && (value = params.get(key)) && JSON.parse(value)) {
+                    func(value);
+                }
             }
         }
     }

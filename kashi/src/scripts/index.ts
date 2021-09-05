@@ -2,9 +2,7 @@ const INDEX = 'src/lyrics.json';
 const DIRECTORY = 'src/lyrics/';
 
 const Queries = {
-    'paste': (value: string) => {
-        if(!value || value == 'false' || value == '0') return false;
-
+    'paste': (_: string) => {
         document.body.classList.remove(HTMLClass.HideContent);
         // enable edit
         $('#edit').trigger('click');
@@ -21,7 +19,6 @@ const Queries = {
             //@ts-ignore
             kashi = new Kashi(e.originalEvent.clipboardData.getData('text'));
         });
-        return true;
     },
 };
 
@@ -57,8 +54,12 @@ $.getJSON(INDEX).done((data: string[]) => {
         // check search params
         const params = new URLSearchParams(window.location.search);
         if(params){
+            let value;
             for(const [ key, func ] of Object.entries(Queries)){
-                params.has(key) && func(params.get(key)!);
+                // check of has key and value is not false
+                if(params.has(key) && (value = params.get(key)) && JSON.parse(value)){
+                    func(value);
+                }
             }
         }
     }
