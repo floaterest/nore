@@ -57,9 +57,8 @@ $.getJSON(INDEX).done((data: string[]) => {
         // check search params
         const params = new URLSearchParams(window.location.search);
         if(params){
-            // only parse the first valid entry
             for(const [ key, func ] of Object.entries(Queries)){
-                if(params.has(key) && func(params.get(key)!)) break;
+                params.has(key) && func(params.get(key)!);
             }
         }
     }

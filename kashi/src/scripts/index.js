@@ -57,11 +57,9 @@ $.getJSON(INDEX).done(function (data) {
         // check search params
         var params = new URLSearchParams(window.location.search);
         if (params) {
-            // only parse the first valid entry
             for (var _a = 0, _b = Object.entries(Queries); _a < _b.length; _a++) {
                 var _c = _b[_a], key = _c[0], func = _c[1];
-                if (params.has(key) && func(params.get(key)))
-                    break;
+                params.has(key) && func(params.get(key));
             }
         }
     }
