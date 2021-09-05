@@ -10,8 +10,6 @@ https://floateresting.github.io/Kashi
     - Click `▲` button to switch kanji and furigana positions
     - Click `Ξ` to scroll to top
 - URL
-    - add `#{title}` to open an existing file
-        - note: add it at the end of the url
     - `?paste=true`
         - allow paste a raw html and parse automatically when pasted  
 
