@@ -43,14 +43,16 @@ $.getJSON(INDEX).done((data: string[]) => {
     }
 });
 
+window.onload = () => {
 // check search params
-const params = new URLSearchParams(window.location.search);
-if(params){
-    let value;
-    for(const [ key, func ] of Object.entries(Queries)){
-        // check of has key and value is not false
-        if(params.has(key) && (value = params.get(key)) && JSON.parse(value)){
-            func(value);
+    const params = new URLSearchParams(window.location.search);
+    if(params){
+        let value;
+        for(const [ key, func ] of Object.entries(Queries)){
+            // check of has key and value is not false
+            if(params.has(key) && (value = params.get(key)) && JSON.parse(value)){
+                func(value);
+            }
         }
     }
-}
+};
