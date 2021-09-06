@@ -6,13 +6,15 @@ https://floateresting.github.io/Kashi
 
 ## Features
 - Controls
-    - Click `0` button to hide/show furigana
-    - Click `▲` button to switch kanji and furigana positions
-    - Click `Ξ` to scroll to top
-- URL
+    - `O/Ø`: hide/show furigana
+    - `X/I`: enable/disable content edit
+    - `▲/▼`: to switch kanji and furigana positions
+    - `Ξ`: show menu
+- URL search params
     - `?paste=true`
         - allow paste a raw html and parse automatically when pasted  
-
+    - `?wrap=true`
+        - enable word wrapping
 ## Notes (for Personal Use)
 - [kashi.ts](/src/scripts/kashi.ts)
     - read/write files in `sessionStorage` (see function `item`)
