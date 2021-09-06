@@ -19,6 +19,9 @@ var Queries = {
             kashi = new Kashi(e.originalEvent.clipboardData.getData('text'));
         });
     },
+    'wrap': function (_) {
+        $content.css('white-space', 'normal');
+    },
 };
 var $content = $('#content');
 var $menu = $('#menu');
