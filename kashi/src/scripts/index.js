@@ -7,7 +7,7 @@ var Queries = {
         // enable edit
         $('#edit').trigger('click');
         $content.on('paste', function (e) {
-            // stop data actually being pasted
+            // stop data being actually pasted
             // edit, kashi, event
             // no edit, event
             e.stopPropagation();

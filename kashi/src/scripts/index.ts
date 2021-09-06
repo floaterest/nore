@@ -7,7 +7,7 @@ const Queries = {
         // enable edit
         $('#edit').trigger('click');
         $content.on('paste', e => {
-            // stop data actually being pasted
+            // stop data being actually pasted
 
             // edit, kashi, event
             // no edit, event
@@ -44,7 +44,7 @@ $.getJSON(INDEX).done((data: string[]) => {
 });
 
 window.onload = () => {
-// check search params
+    // check search params
     const params = new URLSearchParams(window.location.search);
     if(params){
         let value;
