@@ -20,6 +20,9 @@ const Queries = {
             kashi = new Kashi(e.originalEvent.clipboardData.getData('text'));
         });
     },
+    'wrap': (_: string) => {
+        $content.css('white-space', 'normal');
+    },
 };
 
 let $content = $('#content');
