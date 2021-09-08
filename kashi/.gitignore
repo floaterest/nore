@@ -1,0 +1,12 @@
+node_modules
+
+# IDE
+.idea
+package-lock.json
+
+# Debug
+*.map
+*.bat
+
+
+
