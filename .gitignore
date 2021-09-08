@@ -1,0 +1,7 @@
+/.svelte/
+/.svelte-kit/
+/build/
+/node_modules/
+
+/.idea/
+/static/smui.css

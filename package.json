@@ -1,0 +1,27 @@
+{
+    "name": "0",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "svelte-kit dev",
+        "build": "svelte-kit build",
+        "start": "svelte-kit start",
+        "prepare": "npm run vite-workaround && npm run smui-theme",
+        "vite-workaround": "node vite-workaround.js",
+        "smui-theme": "smui-theme compile static/smui.css -i src/theme"
+    },
+    "dependencies": {
+        "@smui/button": "^4.1.0"
+    },
+    "devDependencies": {
+        "@material/theme": "^11.0.0",
+        "@material/typography": "^11.0.0",
+        "@sveltejs/kit": "next",
+        "sass": "^1.38.0",
+        "smui-theme": "^4.1.0",
+        "svelte": "^3.37.0",
+        "svelte-preprocess": "^4.0.0",
+        "typescript": "^4.3.5",
+        "vite": "^2.2.3"
+    },
+    "type": "module"
+}
