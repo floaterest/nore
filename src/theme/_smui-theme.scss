@@ -11,7 +11,7 @@ $anchor: #fce566;
     $error: color-palette.$red-700,
 );
 
-@use "@material/typography/mdc-typography";
+@use 'app';
 
 html, body{
     color: theme.$on-surface;
