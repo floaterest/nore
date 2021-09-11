@@ -1,13 +1,35 @@
 <script lang="ts">
     import Textfield from '@smui/textfield';
+    import Layout from '$lib/Layout.svelte';
 
-    let raw = localStorage.getItem('kuromoji-raw') || '';
+    // @ts-ignore
+    import { browser } from '$app/env';
 
-    $:localStorage.setItem('kuromoji-raw', raw);
+    let kuromoji = { raw: '' };
+    let storage;
+    if(browser && (storage = localStorage.getItem('kuromoji'))){
+        kuromoji = JSON.parse(storage);
+    }
+
+    $: if(browser){
+        localStorage.setItem('kuromoji', JSON.stringify(kuromoji));
+    }
 </script>
 
-<Textfield variant="outlined" bind:value={raw} label="raw"/>
+<Layout title="Kuromoji">
+
+</Layout>
+
 
 <section class="mdc-typography--body1">
-    {@html raw}
+    <Textfield variant="outlined" bind:value={kuromoji.raw} label="raw"/>
+    <p>
+        {@html kuromoji.raw}
+    </p>
 </section>
+
+<style>
+    section{
+        margin-top: 1rem;
+    }
+</style>
