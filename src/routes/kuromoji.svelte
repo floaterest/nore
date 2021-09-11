@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Layout from '$lib/Layout.svelte';
+    import Layout from '../lib/Layout.svelte';
 
     import Textfield from '@smui/textfield';
     import IconButton, { Icon } from '@smui/icon-button';
