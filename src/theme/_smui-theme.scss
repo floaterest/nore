@@ -4,7 +4,7 @@
 $anchor: #fce566;
 
 @use '@material/theme/index' as theme with (
-    $primary: #f2f2f2,
+    $primary: #39c5bb,
     $background: #222,
     $surface: #222,
     $on-surface: #f2f2f2,
@@ -16,6 +16,7 @@ $anchor: #fce566;
 html, body{
     color: theme.$on-surface;
     background-color: theme.$surface;
+    margin: 0;
 }
 
 a{
