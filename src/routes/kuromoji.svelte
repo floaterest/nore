@@ -6,14 +6,11 @@
     // @ts-ignore
     import { browser } from '$app/env';
 
-    let kuromoji = { raw: '' };
-    let storage;
-    if(browser && (storage = localStorage.getItem('kuromoji'))){
-        kuromoji = JSON.parse(storage);
-    }
+
+    let html = browser ? localStorage.getItem('kuromoji') : '';
 
     $: if(browser){
-        localStorage.setItem('kuromoji', JSON.stringify(kuromoji));
+        localStorage.setItem('kuromoji', html);
     }
 
     let visible = true;
@@ -28,8 +25,9 @@
 
 
 <section class="mdc-typography--body1">
-    <Textfield variant="outlined" bind:value={kuromoji.raw} label="raw"/>
+    <Textfield variant="outlined" bind:value={html} label="raw"/>
     <p>
+        {@html html}
         {#if !visible}
             <style>
                 rt{
@@ -37,7 +35,6 @@
                 }
             </style>
         {/if}
-        {@html kuromoji.raw}
     </p>
 </section>
 
