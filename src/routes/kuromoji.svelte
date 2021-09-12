@@ -23,7 +23,6 @@
     </IconButton>
 </Layout>
 
-
 <section class="mdc-typography--body1">
     <Textfield variant="outlined" bind:value={html} label="raw"/>
     <p>
@@ -38,8 +37,18 @@
     </p>
 </section>
 
-<style>
+<style lang="scss">
     section{
         margin-top: 1rem;
+        p{
+            line-height: 2;
+            white-space: nowrap;
+        }
+    }
+    :global(rt){
+        filter:brightness(0.75);
+        white-space: nowrap;
+        text-align: center;
+        user-select: none;
     }
 </style>
