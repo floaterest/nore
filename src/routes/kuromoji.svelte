@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Layout from '../lib/Layout.svelte';
+    import Layout from '$lib/Layout.svelte';
 
     import Textfield from '@smui/textfield';
     import IconButton, { Icon } from '@smui/icon-button';
@@ -21,6 +21,9 @@
         <Icon class="material-icons" on>visibility</Icon>
         <Icon class="material-icons">visibility_off</Icon>
     </IconButton>
+    <IconButton>
+        <Icon class="material-icons">loop</Icon>
+    </IconButton>
 </Layout>
 
 <section class="mdc-typography--body1">
@@ -40,13 +43,15 @@
 <style lang="scss">
     section{
         margin-top: 1rem;
+
         p{
             line-height: 2;
             white-space: nowrap;
         }
     }
+
     :global(rt){
-        filter:brightness(0.75);
+        filter: brightness(0.75);
         white-space: nowrap;
         text-align: center;
         user-select: none;
