@@ -31,7 +31,7 @@
 </Layout>
 
 <section class="mdc-typography--body1">
-    <Textfield variant="outlined" bind:value={raw} label="raw"/>
+    <Textfield variant="outlined" bind:value={raw} label="html"/>
     <p>
         {@html html}
         {#if !visible}
