@@ -41,6 +41,13 @@
                 }
             </style>
         {/if}
+        {#if !normal}
+            <style>
+                ruby{
+                    box-shadow: inset 0 -1px;
+                }
+            </style>
+        {/if}
     </p>
 </section>
 
