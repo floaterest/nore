@@ -1,12 +1,10 @@
 <script lang="ts">
-    import { fade } from 'svelte/transition';
     // @ts-ignore
     import { browser } from '$app/env';
     import Layout from '$lib/Layout.svelte';
 
     import Textfield from '@smui/textfield';
     import IconButton, { Icon } from '@smui/icon-button';
-
 
     let raw = browser ? localStorage.getItem('kuromoji') : '';
 
@@ -28,7 +26,7 @@
         <Icon class="material-icons">visibility_off</Icon>
     </IconButton>
     <IconButton toggle bind:pressed={normal}>
-        <div class="rotate material-icons" class:normal in:fade>loop</div>
+        <div class="rotate material-icons" class:normal>loop</div>
     </IconButton>
 </Layout>
 
@@ -47,11 +45,11 @@
 </section>
 
 <style lang="scss">
-    $rotate: all 0.5s ease-in-out;
     .rotate{
+        $rotate: all 0.5s ease-in-out;
         transition: $rotate;
 
-        &.flipped{
+        &.normal{
             transition: $rotate;
             transform: rotate(180deg);
         }
