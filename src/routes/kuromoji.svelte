@@ -7,14 +7,6 @@
     import IconButton, { Icon } from '@smui/icon-button';
 
     let raw = browser ? localStorage.getItem('kuromoji') : '';
-
-    $: if(browser){
-        localStorage.setItem('kuromoji', raw);
-    }
-
-    $: html = normal ? raw : raw.split('<ruby>')
-        .map(l => l.replace(/(\S+)(<rt.*>)(\S+)(?=<\/rt>)/, '$3$2$1'))
-        .join('<ruby>');
     let files;
     let visible = true;
     let normal = true;
@@ -26,6 +18,12 @@
         };
         reader.readAsText(files[0], 'utf8');
     }
+    $: if(browser){
+        localStorage.setItem('kuromoji', raw);
+    }
+    $: html = normal ? raw : raw.split('<ruby>')
+        .map(l => l.replace(/(\S+)(<rt.*>)(\S+)(?=<\/rt>)/, '$3$2$1'))
+        .join('<ruby>');
 </script>
 
 <Layout title="Kuromoji">
