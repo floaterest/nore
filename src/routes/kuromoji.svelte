@@ -15,9 +15,17 @@
     $: html = normal ? raw : raw.split('<ruby>')
         .map(l => l.replace(/(\S+)(<rt.*>)(\S+)(?=<\/rt>)/, '$3$2$1'))
         .join('<ruby>');
-
+    let files;
     let visible = true;
     let normal = true;
+
+    $: if(files && files[0]){
+        const reader = new FileReader();
+        reader.onload = function(){
+            raw = this.result as string;
+        };
+        reader.readAsText(files[0], 'utf8');
+    }
 </script>
 
 <Layout title="Kuromoji">
@@ -32,6 +40,7 @@
 
 <section class="mdc-typography--body1">
     <Textfield variant="outlined" bind:value={raw} label="html"/>
+    <input type="file" bind:files>
     <p>
         {@html html}
         {#if !visible}
