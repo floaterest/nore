@@ -1,29 +1,11 @@
 <script lang="ts">
-    import Button, { Label, Icon } from '@smui/button';
-
-    let clicked: number = 0;
+    import Layout from '$lib/Layout.svelte';
 </script>
 
-<Button on:click={() => clicked++} variant="outlined">
-    <Icon class="material-icons">thumb_up</Icon>
-    <Label>Click Me</Label>
-</Button>
+<svelte:head>
+    <title>Nore</title>
+</svelte:head>
 
-<p class="mdc-typography--body1">
-    {#if clicked}
-        You've clicked the button {clicked} time{clicked === 1 ? "" : "s"}.
-    {:else}
-        <span class="grayed">You haven't clicked the button.</span>
-    {/if}
+<Layout title="Nore">
 
-    <a href="/">anchor</a>
-    <Button disabled>
-        Disabled
-    </Button>
-</p>
-
-<style>
-    .grayed{
-        opacity: 0.6;
-    }
-</style>
+</Layout>
