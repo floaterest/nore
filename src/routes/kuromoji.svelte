@@ -4,7 +4,8 @@
     import Layout from '$lib/Layout.svelte';
 
     import Textfield from '@smui/textfield';
-    import IconButton, { Icon } from '@smui/icon-button';
+    import Icon from '@smui/textfield/icon';
+    import IconButton, { Icon as IBIcon } from '@smui/icon-button';
 
     let raw = browser ? localStorage.getItem('kuromoji') : '';
     let files;
@@ -28,8 +29,8 @@
 
 <Layout title="Kuromoji">
     <IconButton toggle bind:pressed={visible}>
-        <Icon class="material-icons" on>visibility</Icon>
-        <Icon class="material-icons">visibility_off</Icon>
+        <IBIcon class="material-icons" on>visibility</IBIcon>
+        <IBIcon class="material-icons">visibility_off</IBIcon>
     </IconButton>
     <IconButton toggle bind:pressed={normal}>
         <div class="rotate material-icons" class:normal>loop</div>
@@ -37,7 +38,9 @@
 </Layout>
 
 <section class="mdc-typography--body1">
-    <Textfield variant="outlined" bind:value={raw} label="html"/>
+    <Textfield variant="outlined" bind:value={raw} label="html">
+        <Icon class="material-icons" slot="leadingIcon">code</Icon>
+    </Textfield>
     <input type="file" bind:files>
     <p>
         {@html html}
