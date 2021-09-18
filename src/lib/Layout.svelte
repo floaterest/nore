@@ -1,18 +1,20 @@
 <script lang="ts">
-    import Drawer, { Content } from '@smui/drawer';
-    import List, { Item } from '@smui/list';
     import TopAppBar, { Section, Row, Title } from '@smui/top-app-bar';
     import IconButton from '@smui/icon-button';
+    import TabBar from '@smui/tab-bar';
+    import Tab, { Label } from '@smui/tab';
 
-    export let title:string;
+    export let title: string;
 
-    let open = false;
+    const tabs = [
+        'ruby',
+    ];
 </script>
 
 <TopAppBar variant="static">
     <Row>
         <Section>
-            <IconButton class="material-icons" on:click={()=>open=!open}>menu</IconButton>
+            <IconButton class="material-icons">home</IconButton>
             <Title>{title}</Title>
         </Section>
         <Section align="end" toolbal>
@@ -20,10 +22,8 @@
         </Section>
     </Row>
 </TopAppBar>
-<Drawer variant="modal" bind:open>
-    <Content>
-        <List>
-            <Item href="/kuromoji">Kuromoji</Item>
-        </List>
-    </Content>
-</Drawer>
+<TabBar {tabs} let:tab>
+    <Tab {tab} href="/{tab}">
+        <Label>{tab}</Label>
+    </Tab>
+</TabBar>
