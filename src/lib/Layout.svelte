@@ -1,28 +1,34 @@
 <script lang="ts">
+    //@ts-ignore
+    import { page } from '$app/stores';
+
     import TopAppBar, { Section, Row, Title } from '@smui/top-app-bar';
     import IconButton from '@smui/icon-button';
     import TabBar from '@smui/tab-bar';
     import Tab, { Label } from '@smui/tab';
 
-    export let title: string;
-
     const tabs = [
         'ruby',
     ];
+
+    // current path
+    let active;
+    page.subscribe(p => active = p.path.substr(1));
 </script>
 
 <TopAppBar variant="static">
     <Row>
         <Section>
             <IconButton class="material-icons">home</IconButton>
-            <Title>{title}</Title>
+            <Title style="text-transform: capitalize">{tabs.includes(active) ? active : 'nore'}</Title>
         </Section>
         <Section align="end">
             <slot/>
         </Section>
     </Row>
 </TopAppBar>
-<TabBar {tabs} let:tab>
+
+<TabBar {tabs} let:tab bind:active>
     <Tab {tab} href="/{tab}">
         <Label>{tab}</Label>
     </Tab>
