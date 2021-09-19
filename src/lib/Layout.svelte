@@ -17,7 +17,7 @@
             <IconButton class="material-icons">home</IconButton>
             <Title>{title}</Title>
         </Section>
-        <Section align="end" toolbal>
+        <Section align="end">
             <slot/>
         </Section>
     </Row>
