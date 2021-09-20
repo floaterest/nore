@@ -19,7 +19,7 @@
 <TopAppBar variant="static">
     <Row>
         <Section>
-            <IconButton class="material-icons">home</IconButton>
+            <IconButton href="/" class="material-icons">home</IconButton>
             <Title style="text-transform: capitalize">{tabs.includes(active) ? active : 'nore'}</Title>
         </Section>
         <Section align="end">
