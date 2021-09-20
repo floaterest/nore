@@ -13,6 +13,7 @@
 
     // current path
     let active;
+    // substr(1) to remove `/`
     page.subscribe(p => active = p.path.substr(1));
 </script>
 
