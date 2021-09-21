@@ -6,6 +6,6 @@
     <title>Nore</title>
 </svelte:head>
 
-<Layout title="Nore">
-
+<Layout>
+    <!-- todo -->
 </Layout>
