@@ -24,6 +24,7 @@
             <Title style="text-transform: capitalize">{tabs.includes(active) ? active : 'nore'}</Title>
         </Section>
         <Section align="end">
+            <!-- page-specific buttons -->
             <slot/>
         </Section>
     </Row>
