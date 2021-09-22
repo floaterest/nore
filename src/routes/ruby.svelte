@@ -5,6 +5,7 @@
 
     import Textfield from '@smui/textfield';
     import IconButton, { Icon } from '@smui/icon-button';
+    import Button, { Label } from '@smui/button';
 
     let raw = browser ? localStorage.getItem('kuromoji') : '';
     let files;
@@ -38,7 +39,11 @@
 
 <main>
     <section>
-        <input type="file" bind:files>
+        <label for="file" class="mdc-button mdc-button--outlined">
+            <span class="mdc-button__ripple"></span>
+            <span class="mdc-button__label">upload html</span>
+        </label>
+        <input id="file" type="file" accept="text/html" bind:files>
         <Textfield style="width: 100%; height:100%;" textarea
                    variant="outlined" bind:value={raw}
                    label="html"/>
@@ -59,8 +64,7 @@
 
     }
 
-    input{
-        display: block;
-        margin: 1rem 0;
+    input[type=file]{
+        display: none;
     }
 </style>
