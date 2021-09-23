@@ -46,7 +46,7 @@
 
         <Textfield style="width: 100%; height:100%;" textarea
                    variant="outlined" bind:value={raw}
-                   label="html"/>
+                   label="html" spellcheck="false"/>
     </section>
     <section id="html">
         {@html raw}
