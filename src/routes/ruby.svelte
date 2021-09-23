@@ -5,9 +5,8 @@
 
     import Textfield from '@smui/textfield';
     import IconButton, { Icon } from '@smui/icon-button';
-    import Button, { Label } from '@smui/button';
 
-    let raw = browser ? localStorage.getItem('kuromoji') : '';
+    let raw = browser ? localStorage.getItem('raw') : '';
     let files;
     let visible = true;
     let normal = true;
@@ -20,7 +19,7 @@
         reader.readAsText(files[0], 'utf8');
     }
     $: if(browser){
-        localStorage.setItem('kuromoji', raw);
+        localStorage.setItem('raw', raw);
     }
     $: html = normal ? raw : raw.split('<ruby>')
         .map(l => l.replace(/(\S+)(<rt.*>)(\S+)(?=<\/rt>)/, '$3$2$1'))
@@ -44,6 +43,7 @@
             <span class="mdc-button__label">upload html</span>
         </label>
         <input id="file" type="file" accept="text/html" bind:files>
+
         <Textfield style="width: 100%; height:100%;" textarea
                    variant="outlined" bind:value={raw}
                    label="html"/>
@@ -61,7 +61,6 @@
     section{
         flex: 1;
         padding: 0 1em;
-
     }
 
     input[type=file]{
