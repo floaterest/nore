@@ -48,7 +48,7 @@
                    variant="outlined" bind:value={raw}
                    label="html"/>
     </section>
-    <section>
+    <section id="html">
         {@html raw}
     </section>
 </main>
@@ -60,10 +60,14 @@
 
     section{
         flex: 1;
-        padding: 0 1em;
+        padding: 1em;
     }
 
-    input[type=file]{
+    input#file{
         display: none;
+    }
+
+    label[for='file']{
+        margin-bottom: 1em;
     }
 </style>
