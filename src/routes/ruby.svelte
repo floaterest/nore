@@ -49,6 +49,22 @@
     </section>
     <section id="html">
         {@html raw}
+        <!-- hide rt -->
+        {#if !visible}
+            <style>
+                rt{
+                    display: none
+                }
+            </style>
+        {/if}
+        <!-- underline ruby -->
+        {#if !normal}
+            <style>
+                ruby{
+                    box-shadow: inset 0 -1px;
+                }
+            </style>
+        {/if}
     </section>
 </main>
 
