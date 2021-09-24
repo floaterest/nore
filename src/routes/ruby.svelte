@@ -53,6 +53,16 @@
 </main>
 
 <style lang="scss">
+    .loop{
+        $rotate: all 0.5s ease-in-out;
+        transition: $rotate;
+
+        &.normal{
+            transition: $rotate;
+            transform: rotate(180deg);
+        }
+    }
+
     main{
         display: flex;
 
