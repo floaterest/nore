@@ -52,21 +52,22 @@
     </section>
 </main>
 
-<style>
+<style lang="scss">
     main{
         display: flex;
-    }
 
-    section{
-        flex: 1;
-        padding: 1em;
-    }
+        section{
+            flex: 1;
+            padding: 1em;
 
-    input#file{
-        display: none;
-    }
+            input#file{
+                display: none;
+            }
 
-    label[for='file']{
-        margin-bottom: 1em;
+            label[for='file']{
+                margin-bottom: 1em;
+            }
+        }
+
     }
 </style>
