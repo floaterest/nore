@@ -44,9 +44,8 @@
         </label>
         <input id="file" type="file" accept="text/html" bind:files>
 
-        <Textfield style="width: 100%; height:100%;" textarea
-                   variant="outlined" bind:value={raw}
-                   label="html" spellcheck="false"/>
+        <Textfield textarea label="html" style="width: 100%; height:100%;"
+                   variant="outlined" spellcheck="false" bind:value={raw}/>
     </section>
     <section id="html">
         {@html raw}
