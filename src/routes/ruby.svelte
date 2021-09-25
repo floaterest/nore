@@ -94,6 +94,16 @@
                 margin-bottom: 1em;
             }
         }
+    }
 
+    #html{
+        line-height: 2;
+        white-space: nowrap;
+    }
+
+    :global(rt){
+        filter: brightness(0.75);
+        text-align: center;
+        user-select: none;
     }
 </style>
