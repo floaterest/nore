@@ -48,7 +48,7 @@
                    variant="outlined" spellcheck="false" bind:value={raw}/>
     </section>
     <section id="html">
-        {@html raw}
+        {@html html}
         <!-- hide rt -->
         {#if !visible}
             <style>
