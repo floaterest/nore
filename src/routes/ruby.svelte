@@ -79,36 +79,16 @@
         }
     }
 
-    main{
-        display: flex;
+    input#file{
+        display: none;
+    }
 
-        section{
-            flex: 1;
-            padding: 1em;
-
-            input#file{
-                display: none;
-            }
-
-            label[for='file']{
-                margin-bottom: 1em;
-            }
-        }
+    label[for='file']{
+        margin-bottom: 1em;
     }
 
     #html{
         line-height: 2;
         white-space: nowrap;
-    }
-
-    :global(rt){
-        filter: brightness(0.75);
-        text-align: center;
-        user-select: none;
-    }
-
-    :global(textarea){
-        white-space: pre;
-        overflow-x: scroll !important;
     }
 </style>
