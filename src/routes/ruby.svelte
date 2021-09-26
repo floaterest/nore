@@ -106,4 +106,9 @@
         text-align: center;
         user-select: none;
     }
+
+    :global(textarea){
+        white-space: pre;
+        overflow-x: scroll !important;
+    }
 </style>
