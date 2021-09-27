@@ -1,29 +1,45 @@
 <script lang="ts">
-    import Drawer, { Content } from '@smui/drawer';
-    import List, { Item } from '@smui/list';
+    //@ts-ignore
+    import { page } from '$app/stores';
+
     import TopAppBar, { Section, Row, Title } from '@smui/top-app-bar';
     import IconButton from '@smui/icon-button';
+    import TabBar from '@smui/tab-bar';
+    import Tab, { Label } from '@smui/tab';
 
-    export let title:string;
+    const tabs = [
+        'ruby',
+    ];
 
-    let open = false;
+    // current path
+    let active;
+    // substr(1) to remove `/`
+    page.subscribe(p => active = p.path.substr(1));
 </script>
 
-<TopAppBar variant="static">
+<TopAppBar variant="fixed">
     <Row>
         <Section>
-            <IconButton class="material-icons" on:click={()=>open=!open}>menu</IconButton>
-            <Title>{title}</Title>
+            <IconButton href="/" class="material-icons">home</IconButton>
+            <Title style="text-transform: capitalize">{tabs.includes(active) ? active : 'nore'}</Title>
         </Section>
-        <Section align="end" toolbal>
+        <Section align="end">
+            <!-- page-specific buttons -->
             <slot/>
         </Section>
     </Row>
 </TopAppBar>
-<Drawer variant="modal" bind:open>
-    <Content>
-        <List>
-            <Item href="/kuromoji">Kuromoji</Item>
-        </List>
-    </Content>
-</Drawer>
+
+<TabBar {tabs} let:tab bind:active>
+    <Tab {tab} href="/{tab}">
+        <Label>{tab}</Label>
+    </Tab>
+</TabBar>
+
+<style lang="scss" global>
+    @import "@material/typography/typography";
+
+    main{
+        @include typography(body1);
+    }
+</style>

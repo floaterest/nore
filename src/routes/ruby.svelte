@@ -4,10 +4,9 @@
     import Layout from '$lib/Layout.svelte';
 
     import Textfield from '@smui/textfield';
-    import Icon from '@smui/textfield/icon';
-    import IconButton, { Icon as IBIcon } from '@smui/icon-button';
+    import IconButton, { Icon } from '@smui/icon-button';
 
-    let raw = browser ? localStorage.getItem('kuromoji') : '';
+    let raw = browser ? localStorage.getItem('raw') : '';
     let files;
     let visible = true;
     let normal = true;
@@ -20,37 +19,45 @@
         reader.readAsText(files[0], 'utf8');
     }
     $: if(browser){
-        localStorage.setItem('kuromoji', raw);
+        localStorage.setItem('raw', raw);
     }
     $: html = normal ? raw : raw.split('<ruby>')
         .map(l => l.replace(/(\S+)(<rt.*>)(\S+)(?=<\/rt>)/, '$3$2$1'))
         .join('<ruby>');
 </script>
 
-<Layout title="Kuromoji">
+<Layout>
     <IconButton toggle bind:pressed={visible}>
-        <IBIcon class="material-icons" on>visibility</IBIcon>
-        <IBIcon class="material-icons">visibility_off</IBIcon>
+        <Icon class="material-icons" on>visibility</Icon>
+        <Icon class="material-icons">visibility_off</Icon>
     </IconButton>
     <IconButton toggle bind:pressed={normal}>
-        <div class="rotate material-icons" class:normal>loop</div>
+        <div class="loop material-icons" class:normal>loop</div>
     </IconButton>
 </Layout>
 
-<section class="mdc-typography--body1">
-    <Textfield variant="outlined" bind:value={raw} label="html">
-        <Icon class="material-icons" slot="leadingIcon">code</Icon>
-    </Textfield>
-    <input type="file" bind:files>
-    <p>
+<main>
+    <section>
+        <label for="file" class="mdc-button mdc-button--outlined">
+            <span class="mdc-button__ripple"></span>
+            <span class="mdc-button__label">upload html</span>
+        </label>
+        <input id="file" type="file" accept="text/html" bind:files>
+
+        <Textfield textarea label="html" style="width: 100%; height:100%;"
+                   variant="outlined" spellcheck="false" bind:value={raw}/>
+    </section>
+    <section id="html">
         {@html html}
+        <!-- hide rt -->
         {#if !visible}
             <style>
                 rt{
-                    display: none;
+                    display: none
                 }
             </style>
         {/if}
+        <!-- underline ruby -->
         {#if !normal}
             <style>
                 ruby{
@@ -58,11 +65,11 @@
                 }
             </style>
         {/if}
-    </p>
-</section>
+    </section>
+</main>
 
 <style lang="scss">
-    .rotate{
+    .loop{
         $rotate: all 0.5s ease-in-out;
         transition: $rotate;
 
@@ -72,19 +79,16 @@
         }
     }
 
-    section{
-        margin-top: 1rem;
-
-        p{
-            line-height: 2;
-            white-space: nowrap;
-        }
+    input#file{
+        display: none;
     }
 
-    :global(rt){
-        filter: brightness(0.75);
+    label[for='file']{
+        margin-bottom: 1em;
+    }
+
+    #html{
+        line-height: 2;
         white-space: nowrap;
-        text-align: center;
-        user-select: none;
     }
 </style>

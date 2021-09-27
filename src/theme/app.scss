@@ -1,1 +1,24 @@
 @use "@material/typography/mdc-typography";
+@use "@material/tab/mdc-tab";
+
+rt{
+    filter: brightness(0.75);
+    text-align: center;
+    user-select: none;
+}
+
+textarea{
+    white-space: pre;
+    overflow-x: scroll !important;
+}
+
+main{
+    display: flex;
+    margin-top: 1em;
+
+    section{
+        flex: 1;
+        padding: 1em;
+
+    }
+}
