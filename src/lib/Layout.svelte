@@ -17,7 +17,7 @@
     page.subscribe(p => active = p.path.substr(1));
 </script>
 
-<TopAppBar variant="static">
+<TopAppBar variant="fixed">
     <Row>
         <Section>
             <IconButton href="/" class="material-icons">home</IconButton>
