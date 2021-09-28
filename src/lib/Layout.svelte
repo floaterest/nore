@@ -2,7 +2,7 @@
     //@ts-ignore
     import { page } from '$app/stores';
 
-    import TopAppBar, { Section, Row, Title } from '@smui/top-app-bar';
+    import TopAppBar, { Section, Row, Title, AutoAdjust } from '@smui/top-app-bar';
     import IconButton from '@smui/icon-button';
     import TabBar from '@smui/tab-bar';
     import Tab, { Label } from '@smui/tab';
@@ -15,9 +15,11 @@
     let active;
     // substr(1) to remove `/`
     page.subscribe(p => active = p.path.substr(1));
+
+    let topAppBar;
 </script>
 
-<TopAppBar variant="fixed">
+<TopAppBar variant="fixed" bind:this={topAppBar}>
     <Row>
         <Section>
             <IconButton href="/" class="material-icons">home</IconButton>
@@ -30,11 +32,13 @@
     </Row>
 </TopAppBar>
 
-<TabBar {tabs} let:tab bind:active>
-    <Tab {tab} href="/{tab}">
-        <Label>{tab}</Label>
-    </Tab>
-</TabBar>
+<AutoAdjust {topAppBar}>
+    <TabBar {tabs} let:tab bind:active>
+        <Tab {tab} href="/{tab}">
+            <Label>{tab}</Label>
+        </Tab>
+    </TabBar>
+</AutoAdjust>
 
 <style lang="scss" global>
     @import "@material/typography/typography";
