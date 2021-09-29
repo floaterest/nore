@@ -41,9 +41,9 @@
 </AutoAdjust>
 
 <style lang="scss" global>
-    @import "@material/typography/typography";
+    @use "@material/typography/typography";
 
     main{
-        @include typography(body1);
+        @include typography.typography(body1);
     }
 </style>
