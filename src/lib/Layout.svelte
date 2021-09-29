@@ -39,11 +39,3 @@
         </Tab>
     </TabBar>
 </AutoAdjust>
-
-<style lang="scss" global>
-    @use "@material/typography/typography";
-
-    main{
-        @include typography.typography(body1);
-    }
-</style>
