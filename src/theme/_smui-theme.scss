@@ -1,25 +1,28 @@
-@use 'sass:color';
-@use '@material/theme/color-palette';
+$primary: #39c5bb;
+$background: #222;
+$on-surface: #f2f2f2;
+$error: #d32f2f;
 
-$anchor: #fce566;
-
-@use '@material/theme/index' as theme with (
-    $primary: #39c5bb,
-    $background: #222,
-    $surface: #222,
-    $on-surface: #f2f2f2,
-    $error: color-palette.$red-700,
+@use '@material/theme' as theme with (
+    $primary: $primary,
+    $background: $background,
+    $on-surface: $on-surface,
+    $error: $error,
 );
 
-@use 'app';
+@use 'app' with (
+    $background: $background,
+);
+
 
 html, body{
     color: theme.$on-surface;
-    background-color: theme.$surface;
+    background-color: theme.$background;
     margin: 0;
 }
 
 a{
+    $anchor: #fce566;
     color: $anchor;
     text-decoration: none;
 
