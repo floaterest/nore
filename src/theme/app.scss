@@ -1,4 +1,4 @@
-@use "@material/typography/mdc-typography";
+@use "@material/typography/typography";
 @use "@material/tab/mdc-tab";
 
 rt{
@@ -13,6 +13,7 @@ textarea{
 }
 
 main{
+    @include typography.typography(body1);
     display: flex;
 
     section{
