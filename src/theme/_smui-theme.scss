@@ -1,14 +1,9 @@
-@use 'sass:color';
-@use '@material/theme/color-palette';
-
-$anchor: #fce566;
-
-@use '@material/theme/index' as theme with (
+@use '@material/theme' as theme with (
     $primary: #39c5bb,
     $background: #222,
     $surface: #222,
     $on-surface: #f2f2f2,
-    $error: color-palette.$red-700,
+    $error: #d32f2f,
 );
 
 @use 'app';
@@ -20,6 +15,7 @@ html, body{
 }
 
 a{
+    $anchor: #fce566;
     color: $anchor;
     text-decoration: none;
 
