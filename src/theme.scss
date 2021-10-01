@@ -1,17 +1,15 @@
+
 $primary: #39c5bb;
 $background: #222;
 $on-surface: #f2f2f2;
 $error: #d32f2f;
 
-@use '@material/theme' as theme with (
+@use '@material/theme' with (
     $primary: $primary,
     $background: $background,
     $on-surface: $on-surface,
     $error: $error,
 );
-
-@use 'app';
-
 
 html, body{
     color: theme.$on-surface;
@@ -29,3 +27,4 @@ a{
         background-color: rgba(255, 255, 255, 0.05);
     }
 }
+

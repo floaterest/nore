@@ -1,0 +1,38 @@
+@use 'theme';
+
+@use '@material/typography/typography';
+@use '@material/icon-button';
+@use '@material/top-app-bar/mdc-top-app-bar';
+@use "@material/tab-bar/mdc-tab-bar";
+@use "@material/tab-scroller/mdc-tab-scroller";
+@use "@material/tab-indicator/mdc-tab-indicator";
+@use "@material/tab/mdc-tab";
+@use "@material/button/mdc-button";
+@use "@material/floating-label/mdc-floating-label";
+@use "@material/line-ripple/mdc-line-ripple";
+@use "@material/notched-outline/mdc-notched-outline";
+@use "@material/textfield";
+
+@include textfield.core-styles;
+@include icon-button.core-styles;
+
+rt{
+    filter: brightness(0.75);
+    text-align: center;
+    user-select: none;
+}
+
+textarea{
+    white-space: pre;
+    overflow-x: scroll !important;
+}
+
+main{
+    @include typography.typography(body1);
+    display: flex;
+
+    section{
+        flex: 1;
+        padding: 1em;
+    }
+}
