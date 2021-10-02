@@ -19,6 +19,7 @@
         const reader = new FileReader();
         reader.onload = function(){
             raw = this.result as string;
+            files = [];
         };
         reader.readAsText(files[0], 'utf8');
     }
@@ -92,6 +93,7 @@
         // line height 2 so rb wont change position when rt is hidden
         line-height: 2;
         white-space: nowrap;
+        overflow-x: scroll;
     }
 
     input#file{
