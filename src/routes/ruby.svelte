@@ -5,11 +5,13 @@
 
     import Textfield from '@smui/textfield';
     import IconButton, { Icon } from '@smui/icon-button';
+    import SegmentedButton, { Segment } from '@smui/segmented-button';
 
     let raw = browser ? localStorage.getItem('raw') : '';
     let files;
     let visible = true;
     let normal = true;
+    let selected = 'raw';
 
     $: if(files && files[0]){
         const reader = new FileReader();
@@ -37,7 +39,7 @@
 </Layout>
 
 <main>
-    <section>
+    <section style={selected==='raw'?'':'display: none'}>
         <label for="file" class="mdc-button mdc-button--outlined">
             <span class="mdc-button__ripple"></span>
             <span class="mdc-button__label">upload html</span>
@@ -47,7 +49,7 @@
         <Textfield textarea label="html" style="width: 100%; height:100%;"
                    variant="outlined" spellcheck="false" bind:value={raw}/>
     </section>
-    <section id="html">
+    <section id="html" class={selected==='raw'?'html':''}>
         {@html html}
         <!-- hide rt -->
         {#if !visible}
@@ -67,6 +69,10 @@
         {/if}
     </section>
 </main>
+
+<SegmentedButton segments={['raw','html']} let:segment singleSelect bind:selected>
+    <Segment {segment}>{segment}</Segment>
+</SegmentedButton>
 
 <style lang="scss">
     .loop{
@@ -90,5 +96,30 @@
     #html{
         line-height: 2;
         white-space: nowrap;
+    }
+
+    @media screen and (orientation: portrait){
+        // show segmented button
+        :global(.mdc-segmented-button){
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+
+            :global(button){
+                flex: 1;
+            }
+        }
+        // hide html when selecting raw
+        .html{
+            display: none;
+        }
+    }
+
+    @media screen and (orientation: landscape){
+        // hide segmented button
+        :global(.mdc-segmented-button){
+            display: none;
+        }
     }
 </style>
