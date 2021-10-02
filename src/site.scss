@@ -12,9 +12,15 @@
 @use "@material/line-ripple/mdc-line-ripple";
 @use "@material/notched-outline/mdc-notched-outline";
 @use "@material/textfield";
+@use '@material/ripple/common';
+@use '@material/segmented-button/styles';
 
 @include textfield.core-styles;
 @include icon-button.core-styles;
+
+.mdc-segmented-button__segment{
+    background-color:  theme.$background;
+}
 
 rt{
     filter: brightness(0.75);
