@@ -2,10 +2,10 @@
     //@ts-ignore
     import { page } from '$app/stores';
 
-    import TopAppBar, { Section, Row, Title, AutoAdjust } from '@smui/top-app-bar';
-    import IconButton from '@smui/icon-button';
     import TabBar from '@smui/tab-bar';
     import Tab, { Label } from '@smui/tab';
+    import IconButton from '@smui/icon-button';
+    import TopAppBar, { Section, Row, Title, AutoAdjust } from '@smui/top-app-bar';
 
     const tabs = [
         'ruby',
