@@ -15,16 +15,21 @@
     let selected = 'raw';
 
     // when user chooses a file
-    $: if(files && files[0]){
-        const reader = new FileReader();
-        reader.onload = function(){
-            raw = this.result as string;
-        };
-        reader.readAsText(files[0], 'utf8');
+    function read(){
+        if(files && files[0]){
+            const reader = new FileReader();
+            reader.onload = function(){
+                raw = this.result as string;
+            };
+            reader.readAsText(files[0], 'utf8');
+        }
     }
+
     // on client-end
+
     $: if(browser){
         localStorage.setItem('raw', raw);
+        console.log('set storage');
     }
     // when user click on flip button
     $: html = normal ? raw : raw.split('<ruby>')
@@ -49,7 +54,7 @@
             <span class="mdc-button__ripple"></span>
             <span class="mdc-button__label">upload html</span>
         </label>
-        <input id="file" type="file" accept="text/html" bind:files>
+        <input on:change={read} id="file" type="file" accept="text/html" bind:files>
 
         <Textfield textarea label="html" style="width: 100%; height:100%;"
                    variant="outlined" spellcheck="false" bind:value={raw}/>
@@ -92,6 +97,7 @@
         // line height 2 so rb wont change position when rt is hidden
         line-height: 2;
         white-space: nowrap;
+        overflow-x: scroll;
     }
 
     input#file{
