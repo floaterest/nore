@@ -34,11 +34,11 @@
 </script>
 
 <Layout>
-    <IconButton toggle bind:pressed={visible}>
+    <IconButton title="Toggle rt" toggle bind:pressed={visible}>
         <Icon class="material-icons" on>visibility</Icon>
         <Icon class="material-icons">visibility_off</Icon>
     </IconButton>
-    <IconButton toggle bind:pressed={normal}>
+    <IconButton title="Switch rt rb" toggle bind:pressed={normal}>
         <div class="loop material-icons" class:normal>loop</div>
     </IconButton>
 </Layout>
