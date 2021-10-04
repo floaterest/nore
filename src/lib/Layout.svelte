@@ -22,7 +22,7 @@
 <TopAppBar variant="fixed" bind:this={topAppBar}>
     <Row>
         <Section>
-            <IconButton href="/" class="material-icons">home</IconButton>
+            <IconButton title="Home" href="/" class="material-icons">home</IconButton>
             <Title style="text-transform: capitalize">{tabs.includes(active) ? active : 'nore'}</Title>
         </Section>
         <Section align="end">
