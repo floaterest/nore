@@ -1,6 +1,8 @@
 <script lang="ts">
     //@ts-ignore
     import { page } from '$app/stores';
+    // @ts-ignore
+    import { browser } from '$app/env';
 
     import TabBar from '@smui/tab-bar';
     import Tab, { Label } from '@smui/tab';
@@ -17,13 +19,15 @@
     page.subscribe(p => active = p.path.substr(1));
 
     let topAppBar;
+
+    const totop = () => browser && window.scrollTo({ top: 0, behavior: 'smooth' });
 </script>
 
 <TopAppBar variant="fixed" bind:this={topAppBar}>
     <Row>
         <Section>
             <IconButton title="Home" href="/" class="material-icons">home</IconButton>
-            <Title style="text-transform: capitalize">{tabs.includes(active) ? active : 'nore'}</Title>
+            <Title on:click={totop} style="text-transform: capitalize">{tabs.includes(active) ? active : 'nore'}</Title>
         </Section>
         <Section align="end">
             <!-- page-specific buttons -->
