@@ -8,7 +8,7 @@
         "prepare": "npm run vite-workaround && npm run site-sass",
         "vite-workaround": "node vite-workaround.js",
         "compile-site": "sass --no-source-map -I node_modules src/site.scss static/site.css",
-        "watch-site": "sass --no-source-map -I node_modules src/site.scss static/site.css"
+        "watch-site": "sass --no-source-map -I node_modules src/site.scss static/site.css --watch"
     },
     "dependencies": {
         "@smui/button": "^4.1.0",
