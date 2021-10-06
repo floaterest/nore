@@ -23,11 +23,13 @@
     const totop = () => browser && window.scrollTo({ top: 0, behavior: 'smooth' });
 </script>
 
-<TopAppBar variant="fixed" bind:this={topAppBar}>
+<TopAppBar style="user-select: none;" variant="fixed" bind:this={topAppBar}>
     <Row>
         <Section>
             <IconButton title="Home" href="/" class="material-icons">home</IconButton>
-            <Title on:click={totop} style="text-transform: capitalize">{tabs.includes(active) ? active : 'nore'}</Title>
+            <Title title="Back to top" on:click={totop}>
+                {tabs.includes(active) ? active : 'nore'}
+            </Title>
         </Section>
         <Section align="end">
             <!-- page-specific buttons -->
@@ -43,3 +45,10 @@
         </Tab>
     </TabBar>
 </AutoAdjust>
+
+<style>
+    :global(.mdc-top-app-bar__title){
+        cursor: pointer;
+        text-transform: capitalize;
+    }
+</style>
