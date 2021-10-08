@@ -10,14 +10,6 @@
     height: 100%;
 }
 
-input#file{
-    display: none;
-}
-
-label[for='file']{
-    margin-bottom: 1em;
-}
-
 @media screen and (orientation: portrait){
     // show segmented button
     :global(.mdc-segmented-button){
