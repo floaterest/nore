@@ -14,7 +14,7 @@
     ];
 
     // current path
-    let active;
+    let active:string;
     // substr(1) to remove `/`
     page.subscribe(p => active = p.path.substr(1));
 
@@ -22,6 +22,11 @@
 
     const totop = () => browser && window.scrollTo({ top: 0, behavior: 'smooth' });
 </script>
+
+<svelte:head>
+    <!-- Capitalize -->
+    <title>{active[0].toUpperCase()}{active.substr(1)}</title>
+</svelte:head>
 
 <TopAppBar style="user-select: none;" variant="fixed" bind:this={topAppBar}>
     <Row>
