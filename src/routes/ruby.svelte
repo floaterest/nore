@@ -2,6 +2,7 @@
     // @ts-ignore
     import { browser } from '$app/env';
     import Layout from '$lib/Layout.svelte';
+    import File from'$lib/File.svelte';
 
     import Textfield from '@smui/textfield';
     import IconButton, { Icon } from '@smui/icon-button';
@@ -46,11 +47,7 @@
 <main>
     <!-- hide 'raw' when portrait and 'html' is selected -->
     <section style={selected==='raw'?'':'display: none'}>
-        <label for="file" class="mdc-button mdc-button--outlined">
-            <span class="mdc-button__ripple"></span>
-            <span class="mdc-button__label">upload html</span>
-        </label>
-        <input id="file" type="file" accept="text/html" bind:files>
+        <File label="upload html" {files}/>
         <Textfield textarea label="html" variant="outlined" spellcheck="false" bind:value={raw}/>
     </section>
     <!-- add class if 'raw' is selected, so that 'html' will hide if portrait -->
