@@ -76,7 +76,7 @@
 </SegmentedButton>
 
 <style lang="scss">
-    @use 'ruby';
+    @use '../lib/ruby';
 
     .loop{
         // rotation transition
