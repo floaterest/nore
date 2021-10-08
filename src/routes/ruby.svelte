@@ -51,9 +51,7 @@
             <span class="mdc-button__label">upload html</span>
         </label>
         <input id="file" type="file" accept="text/html" bind:files>
-
-        <Textfield textarea label="html" style="width: 100%; height:100%;"
-                   variant="outlined" spellcheck="false" bind:value={raw}/>
+        <Textfield textarea label="html" variant="outlined" spellcheck="false" bind:value={raw}/>
     </section>
     <!-- add class if 'raw' is selected, so that 'html' will hide if portrait -->
     <section id="html" class={selected==='raw'?'html':''}>
@@ -78,6 +76,8 @@
 </SegmentedButton>
 
 <style lang="scss">
+    @use 'ruby';
+
     .loop{
         // rotation transition
         $rotate: all 0.5s ease-in-out;
@@ -86,46 +86,6 @@
         &.normal{
             transition: $rotate;
             transform: rotate(180deg);
-        }
-    }
-
-    #html{
-        // line height 2 so rb wont change position when rt is hidden
-        line-height: 2;
-        white-space: nowrap;
-        overflow-x: scroll;
-    }
-
-    input#file{
-        display: none;
-    }
-
-    label[for='file']{
-        margin-bottom: 1em;
-    }
-
-    @media screen and (orientation: portrait){
-        // show segmented button
-        :global(.mdc-segmented-button){
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            display: flex;
-
-            :global(button){
-                flex: 1;
-            }
-        }
-        // hide html when selecting raw
-        .html{
-            display: none;
-        }
-    }
-
-    @media screen and (orientation: landscape){
-        // hide segmented button
-        :global(.mdc-segmented-button){
-            display: none;
         }
     }
 </style>
