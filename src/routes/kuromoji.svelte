@@ -10,7 +10,6 @@
 
     // raw (and fresh) html string from storage
     let raw = browser ? 'help' : '';
-    let files;
 </script>
 
 <Layout>
@@ -21,7 +20,7 @@
 
 <main>
     <section>
-        <File label="upload text" {files}/>
+        <File label="upload text" bind:content={raw}/>
         <Textfield textarea label="text/plain" variant="outlined" spellcheck="false" bind:value={raw}/>
     </section>
     <section></section>

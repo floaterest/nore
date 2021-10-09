@@ -15,15 +15,6 @@
     let normal = true;
     let selected = 'raw';
 
-    // when user chooses a file
-    $: if(files && files[0]){
-        const reader = new FileReader();
-        reader.onload = function(){
-            raw = this.result as string;
-            files = [];
-        };
-        reader.readAsText(files[0], 'utf8');
-    }
     // on client-end
     $: if(browser){
         localStorage.setItem('raw', raw);
@@ -47,7 +38,7 @@
 <main>
     <!-- hide 'raw' when portrait and 'html' is selected -->
     <section style={selected==='raw'?'':'display: none'}>
-        <File label="upload html" {files}/>
+        <File label="upload html" bind:content={raw}/>
         <Textfield textarea label="html" variant="outlined" spellcheck="false" bind:value={raw}/>
     </section>
     <!-- add class if 'raw' is selected, so that 'html' will hide if portrait -->
