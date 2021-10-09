@@ -6,3 +6,5 @@
 /.idea/
 /static/*.css
 package-lock.json
+
+*.dat.gz
