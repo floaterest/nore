@@ -19,10 +19,12 @@
         "@smui/tab": "^4.2.0",
         "@smui/tab-bar": "^4.2.0",
         "@smui/textfield": "^4.2.0",
-        "@smui/top-app-bar": "^4.2.0"
+        "@smui/top-app-bar": "^4.2.0",
+        "kuromoji": "^0.1.2"
     },
     "devDependencies": {
         "@sveltejs/kit": "next",
+        "@types/kuromoji": "^0.1.1",
         "sass": "^1.38.0",
         "smui-theme": "^4.1.0",
         "svelte": "^3.37.0",
