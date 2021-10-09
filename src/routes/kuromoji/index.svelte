@@ -1,8 +1,8 @@
 <script lang="ts">
     //@ts-ignore
     import { browser } from '$app/env';
-    import Layout from '$lib/Layout.svelte';
-    import File from '$lib/File.svelte';
+    import Layout from '../../lib/Layout.svelte';
+    import File from '../../lib/File.svelte';
 
     import Textfield from '@smui/textfield';
     import IconButton, { Icon } from '@smui/icon-button';
