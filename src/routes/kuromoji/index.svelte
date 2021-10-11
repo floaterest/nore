@@ -5,7 +5,7 @@
     import File from '../../lib/File.svelte';
 
     import Textfield from '@smui/textfield';
-    import IconButton, { Icon } from '@smui/icon-button';
+    import IconButton from '@smui/icon-button';
     import SegmentedButton, { Segment } from '@smui/segmented-button';
 
     // raw (and fresh) html string from storage
