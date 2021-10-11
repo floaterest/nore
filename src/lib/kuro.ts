@@ -1,17 +1,12 @@
 import type { IpadicFeatures } from 'kuromoji';
+import { importAny } from 'svelte-preprocess/dist/modules/utils';
 
 // kana + kanji + 長音符
 const jpn = /[\u3040-\u30ff\u4e00-\u9fff\u3005]+/g;
 // kana except ヶ(\u30f5) and ヵ(\u30f6)
 const kana = /[\u3040-\u30f4\u30f7-\u30ff]+/g;
 
-/**
- * convert katakana to hiragana
- * @param s all characters should be katakana
- */
-function hiragana(s: string){
-    return [ ...s ].map(ch => String.fromCharCode(ch.charCodeAt(0) - 96)).join('');
-}
+//#region separate jpn and non-jpn
 
 /**
  * separate japanese and non-japanese
@@ -101,30 +96,41 @@ function trim(s: string, r: string){
  * split string into jpn/non-jpn
  * @returns [string, boolean][][]
  */
-export function split(s: string){
+function split(s: string){
     return s.split('\n').map(separate);
 }
 
+//#endregion separate jpn and non-jpn
+
+//#region convert kuromoji output to ruby
+
 /**
- * convert worker's message to html
+ * convert katakana to hiragana
+ * @param s all characters should be katakana
  */
-export function html(lines: (string | IpadicFeatures[])[][]): string{
-    console.debug('converter received', lines);
-    return lines.map(
-        l => l.map(
-            res => typeof res === 'string' ? res : res.map(({ surface_form, reading }) => {
-                    // if no reading or both are the same (eg pure katakana)
-                    if(!reading || reading === surface_form) return surface_form;
-
-                    let hira = hiragana(reading);
-                    // if pure hiragana
-                    if(hira === surface_form){
-                        return surface_form;
-                    }
-
-                    return trim(surface_form, hira).join('');
-                },
-            ).join(''),
-        ).join(''),
-    ).join('');
+function hiragana(s: string){
+    return [ ...s ].map(ch => String.fromCharCode(ch.charCodeAt(0) - 96)).join('');
 }
+
+/**
+ * convert ipadic features to html
+ */
+function tohtml(ipadics: IpadicFeatures[]): string{
+    return ipadics.map(ipadic => {
+        const { surface_form, reading } = ipadic;
+        // if no reading or both are the same (eg pure katakana)
+        if(!reading || reading === surface_form) return surface_form;
+
+        let hira = hiragana(reading);
+        // if pure hiragana
+        if(hira === surface_form){
+            return surface_form;
+        }
+
+        return trim(surface_form, hira).join('');
+    }).join('');
+}
+
+//#endregion convert kuromoji output to ruby
+
+export { split, tohtml };
