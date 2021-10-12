@@ -24,7 +24,7 @@ function separate(line: string){
             i1 = i2;
         }
     }else{
-        res.push([ line, false ]);
+        return [[ line, false ]];
     }
     // if has non-jpn left
     if(i2 != line.length){
