@@ -15,12 +15,16 @@ const kana = /[\u3040-\u30f4\u30f7-\u30ff]+/g;
 function separate(line: string){
     let res = [];
     let i1 = 0, i2, l;
-    for(l of line.match(jpn)){
-        i2 = line.indexOf(l, i1);
-        res.push([ line.substr(i1, i2 - i1), false ]); // non-jpn
-        res.push([ line.substr(i2, l.length), true ]); // jpn
-        i2 += l.length;
-        i1 = i2;
+    if(jpn.test(line)){
+        for(l of line.match(jpn)){
+            i2 = line.indexOf(l, i1);
+            res.push([ line.substr(i1, i2 - i1), false ]); // non-jpn
+            res.push([ line.substr(i2, l.length), true ]); // jpn
+            i2 += l.length;
+            i1 = i2;
+        }
+    }else{
+        res.push([ line, false ]);
     }
     // if has non-jpn left
     if(i2 != line.length){
