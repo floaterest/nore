@@ -11,13 +11,13 @@
     import SegmentedButton, { Segment } from '@smui/segmented-button';
 
     // raw (and fresh) html string from storage
-    let raw = browser ? '助けて' : '';
+    let raw = browser ? 'ddd' : '';
 
     $:p = (async() => {
         if(browser && raw){
-            const li=[];
+            const li = [];
             for(const l of split(raw)){
-                for(const [s,isJPN] of l){
+                for(const [ s, isJPN ] of l){
                     if(isJPN){
                         const r = await fetch('kuromoji/' + s);
                         const j = await r.json();
@@ -49,7 +49,7 @@
         {#await p}
             wait
         {:then html}
-            {@html html}
+            {@html html || ''}
         {/await}
     </section>
 </main>
