@@ -10,8 +10,11 @@
     import IconButton from '@smui/icon-button';
     import SegmentedButton, { Segment } from '@smui/segmented-button';
 
-    let input = browser ? 'ddd' : '';
-
+    let input = browser ? localStorage.getItem('kuro') : '';
+    // on client-end
+    $: if(browser){
+        localStorage.setItem('kuro', input);
+    }
     $:p = (async() => {
         if(browser && input){
             const li = [];
