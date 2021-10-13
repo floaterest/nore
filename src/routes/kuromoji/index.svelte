@@ -10,13 +10,12 @@
     import IconButton from '@smui/icon-button';
     import SegmentedButton, { Segment } from '@smui/segmented-button';
 
-    // raw (and fresh) html string from storage
-    let raw = browser ? 'ddd' : '';
+    let input = browser ? 'ddd' : '';
 
     $:p = (async() => {
-        if(browser && raw){
+        if(browser && input){
             const li = [];
-            for(const l of split(raw)){
+            for(const l of split(input)){
                 for(const [ s, isJPN ] of l){
                     if(isJPN){
                         const r = await fetch('kuromoji/' + s);
@@ -42,8 +41,8 @@
 
 <main>
     <section>
-        <File label="upload text" bind:content={raw}/>
-        <Textfield textarea label="text/plain" variant="outlined" spellcheck="false" bind:value={raw}/>
+        <File label="upload text" bind:content={input}/>
+        <Textfield textarea label="text/plain" variant="outlined" spellcheck="false" bind:value={input}/>
     </section>
     <section>
         {#await p}
