@@ -15,23 +15,22 @@
     $: if(browser){
         localStorage.setItem('kuro', input);
     }
-    $:p = (async() => {
+    $: output = (async() => {
         if(browser && input){
-            const li = [];
-            for(const l of split(input)){
-                for(const [ s, isJPN ] of l){
-                    if(isJPN){
-                        const r = await fetch('kuromoji/' + s);
-                        const j = await r.json();
-                        const h = tohtml(j);
-                        li.push(h);
-                    }else{
-                        li.push(s);
-                    }
-                }
-                li.push('<br>\n');
-            }
-            return li.join('');
+            return (
+                await Promise.all(
+                    split(input).map(async l => (
+                        await Promise.all(l.map(async([ s, isJPN ]) => {
+                            if(isJPN){
+                                const res = await fetch('kuromoji/' + s);
+                                return tohtml(await res.json());
+                            }else{
+                                return s;
+                            }
+                        }))
+                    ).join('<br>\n')),
+                )
+            ).join('');
         }
     })();
 </script>
@@ -48,7 +47,7 @@
         <Textfield textarea label="text/plain" variant="outlined" spellcheck="false" bind:value={input}/>
     </section>
     <section>
-        {#await p}
+        {#await output}
             wait
         {:then html}
             {@html html || ''}
