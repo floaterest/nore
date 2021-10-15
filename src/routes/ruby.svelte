@@ -10,7 +10,6 @@
 
     // raw (and fresh) html string from storage
     let raw = browser ? localStorage.getItem('raw') : '';
-    let files;
     let visible = true;
     let normal = true;
     let selected = 'raw';
