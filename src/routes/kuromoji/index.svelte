@@ -19,18 +19,20 @@
         if(browser && input){
             return (
                 await Promise.all(
-                    split(input).map(async l => (
-                        await Promise.all(l.map(async([ s, isJPN ]) => {
+                    split(input).map(async line => (
+                        await Promise.all(line.map(async([ s, isJPN ]) => {
                             if(isJPN){
+                                // ruby
                                 const res = await fetch('kuromoji/' + s);
                                 return tohtml(await res.json());
                             }else{
+                                // raw text
                                 return s;
                             }
                         }))
-                    ).join('<br>\n')),
+                    ).join('')),
                 )
-            ).join('');
+            ).join('<br>\n');
         }
     })();
 </script>
