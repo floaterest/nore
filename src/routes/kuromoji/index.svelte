@@ -11,6 +11,10 @@
     import SegmentedButton, { Segment } from '@smui/segmented-button';
 
     let input = browser ? localStorage.getItem('kuro') : '';
+    const sections = [ 'input', 'output' ];
+    let selected = sections[0];
+
+
     // on client-end
     $: if(browser){
         localStorage.setItem('kuro', input);
@@ -45,11 +49,12 @@
 </Layout>
 
 <main>
-    <section>
+    <!-- same logic as ruby.svelte -->
+    <section style={selected===sections[0]?'':'display: none;'}>
         <File label="upload text" bind:content={input}/>
         <Textfield textarea label="text/plain" variant="outlined" spellcheck="false" bind:value={input}/>
     </section>
-    <section>
+    <section id="html" class={selected===sections[0]?'html':''}>
         {#await promise}
             ...
         {:then output}
@@ -57,3 +62,11 @@
         {/await}
     </section>
 </main>
+
+<SegmentedButton segments={['input','output']} let:segment singleSelect bind:selected>
+    <Segment {segment}>{segment}</Segment>
+</SegmentedButton>
+
+<style lang="scss">
+    @use '../../lib/ruby';
+</style>
