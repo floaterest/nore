@@ -15,24 +15,25 @@
     $: if(browser){
         localStorage.setItem('kuro', input);
     }
+    // async/await madness
     $: output = (async() => {
         if(browser && input){
-            return (
-                await Promise.all(
-                    split(input).map(async line => (
-                        await Promise.all(line.map(async([ s, isJPN ]) => {
-                            if(isJPN){
-                                // ruby
-                                const res = await fetch('kuromoji/' + s);
-                                return tohtml(await res.json());
-                            }else{
-                                // raw text
-                                return s;
-                            }
-                        }))
-                    ).join('')),
-                )
-            ).join('<br>\n');
+            return (await Promise.all(
+                // for each line
+                split(input).map(async line => (
+                    // for each jpn/non-jpn chunk
+                    await Promise.all(line.map(async([ s, isJPN ]) => {
+                        if(isJPN){
+                            // ruby
+                            const res = await fetch('kuromoji/' + s);
+                            return tohtml(await res.json());
+                        }else{
+                            // raw text
+                            return s;
+                        }
+                    }))
+                ).join('')),
+            )).join('<br>\n');
         }
     })();
 </script>
