@@ -16,7 +16,7 @@
         localStorage.setItem('kuro', input);
     }
     // async/await madness
-    $: output = (async() => {
+    $: promise = (async() => {
         if(browser && input){
             return (await Promise.all(
                 // for each line
@@ -50,10 +50,10 @@
         <Textfield textarea label="text/plain" variant="outlined" spellcheck="false" bind:value={input}/>
     </section>
     <section>
-        {#await output}
-            wait
-        {:then html}
-            {@html html || ''}
+        {#await promise}
+            ...
+        {:then output}
+            {@html output || ''}
         {/await}
     </section>
 </main>
