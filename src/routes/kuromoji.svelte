@@ -1,11 +1,11 @@
 <script lang="ts">
     //@ts-ignore
     import { browser } from '$app/env';
-    import Layout from '../../lib/Layout.svelte';
-    import File from '../../lib/File.svelte';
-    import LeftRight from '$lib/LeftRight.svelte';
+    import Layout from '../lib/Layout.svelte';
+    import File from '../lib/File.svelte';
+    import LeftRight from '../lib/LeftRight.svelte';
 
-    import { tohtml, split } from '../../lib/kuro';
+    import { tohtml, split } from '../lib/kuro';
 
     import Textfield from '@smui/textfield';
     import IconButton from '@smui/icon-button';
