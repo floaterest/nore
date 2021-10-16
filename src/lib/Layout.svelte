@@ -14,9 +14,10 @@
     ];
 
     // current path
-    let active:string;
+    let active: string;
     // substr(1) to remove `/`
     page.subscribe(p => active = p.path.substr(1));
+    active = active || 'nore';
 
     let topAppBar;
 
@@ -32,9 +33,7 @@
     <Row>
         <Section>
             <IconButton title="Home" href="/" class="material-icons">home</IconButton>
-            <Title title="Back to top" on:click={totop}>
-                {tabs.includes(active) ? active : 'nore'}
-            </Title>
+            <Title title="Back to top" on:click={totop}>{active}</Title>
         </Section>
         <Section align="end">
             <!-- page-specific buttons -->
