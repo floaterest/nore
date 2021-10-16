@@ -3,17 +3,15 @@
     import { browser } from '$app/env';
     import Layout from '../../lib/Layout.svelte';
     import File from '../../lib/File.svelte';
+    import LeftRight from '$lib/LeftRight.svelte';
 
     import { tohtml, split } from '../../lib/kuro';
 
     import Textfield from '@smui/textfield';
     import IconButton from '@smui/icon-button';
-    import SegmentedButton, { Segment } from '@smui/segmented-button';
 
     let input = browser ? localStorage.getItem('kuro') : '';
-    const sections = [ 'input', 'output' ];
-    let selected = sections[0];
-
+    const segments = [ 'input', 'output' ];
 
     // on client-end
     $: if(browser){
@@ -49,24 +47,18 @@
 </Layout>
 
 <main>
-    <!-- same logic as ruby.svelte -->
-    <section style={selected===sections[0]?'':'display: none;'}>
-        <File label="upload text" bind:content={input}/>
-        <Textfield textarea label="text/plain" variant="outlined" spellcheck="false" bind:value={input}/>
-    </section>
-    <section id="html" class={selected===sections[0]?'html':''}>
-        {#await promise}
-            ...
-        {:then output}
-            {@html output || ''}
-        {/await}
-    </section>
+    <LeftRight {segments}>
+        <section slot="left">
+            <File label="upload text" bind:content={input}/>
+            <Textfield textarea label="text/plain" variant="outlined" spellcheck="false" bind:value={input}/>
+        </section>
+        <section id="html" slot="right">
+            {#await promise}
+                ...
+            {:then output}
+                {@html output || ''}
+            {/await}
+        </section>
+    </LeftRight>
 </main>
 
-<SegmentedButton segments={['input','output']} let:segment singleSelect bind:selected>
-    <Segment {segment}>{segment}</Segment>
-</SegmentedButton>
-
-<style lang="scss">
-    @use '../../lib/ruby';
-</style>

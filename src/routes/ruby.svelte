@@ -2,17 +2,17 @@
     // @ts-ignore
     import { browser } from '$app/env';
     import Layout from '$lib/Layout.svelte';
-    import File from'$lib/File.svelte';
+    import File from '$lib/File.svelte';
+    import LeftRight from '$lib/LeftRight.svelte';
 
     import Textfield from '@smui/textfield';
     import IconButton, { Icon } from '@smui/icon-button';
-    import SegmentedButton, { Segment } from '@smui/segmented-button';
 
     // raw (and fresh) html string from storage
     let raw = browser ? localStorage.getItem('raw') : '';
     let visible = true;
     let normal = true;
-    let selected = 'raw';
+    const segments = [ 'raw', 'html' ];
 
     // on client-end
     $: if(browser){
@@ -35,36 +35,31 @@
 </Layout>
 
 <main>
-    <!-- hide 'raw' when portrait and 'html' is selected -->
-    <section style={selected==='raw'?'':'display: none'}>
-        <File label="upload html" bind:content={raw}/>
-        <Textfield textarea label="html" variant="outlined" spellcheck="false" bind:value={raw}/>
-    </section>
-    <!-- add class if 'raw' is selected, so that 'html' will hide if portrait -->
-    <section id="html" class={selected==='raw'?'html':''}>
-        {@html html}
-        <!-- hide rt -->
-        {#if !visible}
-            <style>
-                rt{ display: none }
-            </style>
-        {/if}
-        <!-- underline ruby -->
-        {#if !normal}
-            <style>
-                ruby{ box-shadow: inset 0 -1px; }
-            </style>
-        {/if}
-    </section>
+    <LeftRight {segments}>
+        <section slot="left">
+            <File label="upload html" bind:content={raw}/>
+            <Textfield textarea label="html" variant="outlined" spellcheck="false" bind:value={raw}/>
+        </section>
+
+        <section slot="right" id="html">
+            {@html html}
+            <!-- hide rt -->
+            {#if !visible}
+                <style>
+                    rt{ display: none }
+                </style>
+            {/if}
+            <!-- underline ruby -->
+            {#if !normal}
+                <style>
+                    ruby{ box-shadow: inset 0 -1px; }
+                </style>
+            {/if}
+        </section>
+    </LeftRight>
 </main>
 
-<SegmentedButton segments={['raw','html']} let:segment singleSelect bind:selected>
-    <Segment {segment}>{segment}</Segment>
-</SegmentedButton>
-
 <style lang="scss">
-    @use '../lib/ruby';
-
     .loop{
         // rotation transition
         $rotate: all 0.5s ease-in-out;
