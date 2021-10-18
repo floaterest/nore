@@ -11,25 +11,30 @@
 
     const tabs = [
         'ruby',
+        'kuromoji',
     ];
 
     // current path
-    let active;
+    let active: string;
     // substr(1) to remove `/`
     page.subscribe(p => active = p.path.substr(1));
+    active = active || 'nore';
 
     let topAppBar;
 
     const totop = () => browser && window.scrollTo({ top: 0, behavior: 'smooth' });
 </script>
 
+<svelte:head>
+    <!-- Capitalize -->
+    <title>{active[0].toUpperCase()}{active.substr(1)}</title>
+</svelte:head>
+
 <TopAppBar style="user-select: none;" variant="fixed" bind:this={topAppBar}>
     <Row>
         <Section>
             <IconButton title="Home" href="/" class="material-icons">home</IconButton>
-            <Title title="Back to top" on:click={totop}>
-                {tabs.includes(active) ? active : 'nore'}
-            </Title>
+            <Title title="Back to top" on:click={totop}>{active}</Title>
         </Section>
         <Section align="end">
             <!-- page-specific buttons -->

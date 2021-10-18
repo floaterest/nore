@@ -2,7 +2,11 @@
 /.svelte-kit/
 /build/
 /node_modules/
-
-/.idea/
-/static/*.css
 package-lock.json
+
+# ide
+/.idea/
+# complied from scss
+/static/*.css
+# copied from kuromoji
+*.dat.gz
