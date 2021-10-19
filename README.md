@@ -1,11 +1,11 @@
-# Nore | ノレ <!-- omit in toc -->
+# Nore <!-- omit in toc -->
 > A PWA app for the Japanese Language (ﾉapanese ﾚanguage)
 
-# Table of Contents | 目次 <!-- omit in toc -->
-- [Ruby | ルビ](#ruby--ルビ)
+# Table of Contents <!-- omit in toc -->
+- [Ruby](#ruby)
     - [Features](#features)
 
-# Ruby | ルビ
+# Ruby
 > HTML viewer with extra features for the `<ruby>` element
 
 ## Features
