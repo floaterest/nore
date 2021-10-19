@@ -1,5 +1,6 @@
 @use 'theme';
 
+//#region material
 @use '@material/button/mdc-button';
 @use '@material/floating-label/mdc-floating-label';
 @use '@material/icon-button';
@@ -35,7 +36,9 @@
     }
 }
 
+//#endregion material
 
+//#region html
 rt{
     filter: brightness(0.75);
     text-align: center;
@@ -56,6 +59,8 @@ main{
         padding: 1em;
     }
 }
+
+//#endregion html
 
 #html{
     // line height 2 so rb wont change position when rt is hidden
