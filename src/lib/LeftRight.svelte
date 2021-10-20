@@ -36,3 +36,16 @@
         <Segment {segment}>{segment}</Segment>
     </SegmentedButton>
 {/if}
+
+<style>
+    :global(.mdc-segmented-button){
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+    }
+
+    :global(button){
+        flex: 1;
+    }
+</style>

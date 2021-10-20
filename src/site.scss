@@ -24,16 +24,8 @@
     height: 100%;
 }
 
-.mdc-segmented-button{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-
-    button{
-        flex: 1;
-        background-color: theme.$background;
-    }
+.mdc-segmented-button button{
+    background-color: theme.$background;
 }
 
 //#endregion material
