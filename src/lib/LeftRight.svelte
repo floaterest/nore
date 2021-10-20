@@ -5,14 +5,15 @@
     import SegmentedButton, { Segment } from '@smui/segmented-button';
 
     export let segments: string[];
-    let selected = segments[0];
 
+    let selected = segments[0];
     let wait = false;
     let landscape = browser && window.matchMedia('(orientation: landscape)').matches;
 
     function onresize(){
         if(wait) return;
         wait = true;
+        // ignore the same event for 500ms
         setTimeout(() => {
             landscape = window.matchMedia('(orientation: landscape)').matches;
             wait = false;
@@ -35,7 +36,3 @@
         <Segment {segment}>{segment}</Segment>
     </SegmentedButton>
 {/if}
-
-<style lang="scss" global>
-    // show segmented button
-</style>
