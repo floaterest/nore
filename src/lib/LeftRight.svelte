@@ -45,7 +45,7 @@
         display: flex;
     }
 
-    :global(button){
+    :global(.mdc-segmented-button button){
         flex: 1;
     }
 </style>
