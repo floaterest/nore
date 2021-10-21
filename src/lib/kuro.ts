@@ -1,5 +1,4 @@
 import type { IpadicFeatures } from 'kuromoji';
-import { importAny } from 'svelte-preprocess/dist/modules/utils';
 
 // kana + kanji + 長音符
 const jpn = /[\u3040-\u30ff\u4e00-\u9fff\u3005]+/g;
@@ -10,10 +9,9 @@ const kana = /[\u3040-\u30f4\u30f7-\u30ff]+/g;
 
 /**
  * separate japanese and non-japanese
- * @returns [string, boolean][]
  */
-function separate(line: string){
-    let res = [];
+function separate(line: string): (string | boolean)[][]{
+    let res: (string | boolean)[][] = [];
     let i1 = 0, i2, l;
     if(jpn.test(line)){
         for(l of line.match(jpn)){
@@ -24,7 +22,7 @@ function separate(line: string){
             i1 = i2;
         }
     }else{
-        return [[ line, false ]];
+        return [ [ line, false ] ];
     }
     // if has non-jpn left
     if(i2 != line.length){
@@ -40,7 +38,7 @@ function separate(line: string){
 /**
  * create ruby element
  */
-function ruby(rb: string, rt: string){
+function ruby(rb: string, rt: string): string{
     return `<ruby>${rb}<rt>${rt}</rt></ruby>`;
 }
 
@@ -49,7 +47,7 @@ function ruby(rb: string, rt: string){
  * @param s surface_form
  * @param r reading in hiragana
  */
-function trim(s: string, r: string){
+function trim(s: string, r: string): string[]{
     let l1 = s.length, l2 = r.length;
     let min = l1 < l2 ? l1 : l2;
 
@@ -64,7 +62,7 @@ function trim(s: string, r: string){
         if(s[--l1] !== r[--l2]) break;
     }
     // empty list if no leading
-    let res = i ? [ s.slice(0, i) ] : [];
+    let res: string[] = i ? [ s.slice(0, i) ] : [];
 
     // add ruby (and delete later if contains kana in the middle)
     res.push(ruby(s.slice(i, ++l1), r.slice(i, ++l2)));
@@ -98,9 +96,8 @@ function trim(s: string, r: string){
 
 /**
  * split string into jpn/non-jpn
- * @returns [string, boolean][][]
  */
-function split(s: string){
+function split(s: string): (string | boolean)[][][]{
     return s.split('\n').map(separate);
 }
 
@@ -110,10 +107,10 @@ function split(s: string){
 
 /**
  * convert katakana to hiragana
- * @param s all characters should be katakana
+ * @param katakana all characters should be katakana
  */
-function hiragana(s: string){
-    return [ ...s ].map(ch => String.fromCharCode(ch.charCodeAt(0) - 96)).join('');
+function hiragana(katakana: string): string{
+    return [ ...katakana ].map(ch => String.fromCharCode(ch.charCodeAt(0) - 96)).join('');
 }
 
 /**
