@@ -8,11 +8,11 @@
     import Textfield from '@smui/textfield';
     import IconButton, { Icon } from '@smui/icon-button';
 
+    const segments = [ 'raw', 'html' ];
     // raw (and fresh) html string from storage
     let raw = browser ? localStorage.getItem('raw') : '';
     let visible = true;
     let normal = true;
-    const segments = [ 'raw', 'html' ];
 
     // on client-end
     $: if(browser){
