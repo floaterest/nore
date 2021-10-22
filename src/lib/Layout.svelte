@@ -18,6 +18,7 @@
     let active: string;
     // substr(1) to remove `/`
     page.subscribe(p => active = p.path.substr(1));
+    // default title is nore
     active = active || 'nore';
 
     let topAppBar;
