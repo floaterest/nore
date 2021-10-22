@@ -1,35 +1,22 @@
-import kuromoji, { Tokenizer, IpadicFeatures } from 'kuromoji';
-
-let token: Tokenizer<IpadicFeatures>;
-
-/**
- * build token if doesn't exists
- */
-async function getToken(): Promise<Tokenizer<IpadicFeatures>>{
-    return new Promise((resolve, reject) => {
-        if(token){
-            resolve(token);
-        }else{
-            console.time('kuromoji');
-            // todo cp node_modules/kuromoji/dict ./dict -r
-            kuromoji.builder({ dicPath: './dict' }).build((err, t) => {
-                err && reject(err);
-
-                resolve(token = t);
-                console.timeEnd('kuromoji');
-            });
-        }
-    });
-}
+import type { IpadicFeatures } from '$lib/kuro';
 
 export async function get({ params }){
     const { input } = params;
-    let t: Tokenizer<IpadicFeatures> = await getToken();
+    const res = await fetch('https://www.atilika.com/kuromoji/rest/tokenizer/tokenize', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0',
+            'Content-Type': 'application/json;charset=utf-8',
+        },
+        body: JSON.stringify({ mode: 0, text: input }),
+    });
+    const j = await res.json();
     return {
         status: 200,
         header: {
             'content-type': 'application/json',
         },
-        body: t.tokenize(input) as IpadicFeatures[],
+        body: j.tokens as IpadicFeatures[],
     };
 }
