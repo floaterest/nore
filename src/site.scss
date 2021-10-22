@@ -1,5 +1,6 @@
 @use 'theme';
 
+//#region material
 @use '@material/button/mdc-button';
 @use '@material/floating-label/mdc-floating-label';
 @use '@material/icon-button';
@@ -23,19 +24,13 @@
     height: 100%;
 }
 
-.mdc-segmented-button{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-
-    button{
-        flex: 1;
-        background-color: theme.$background;
-    }
+.mdc-segmented-button button{
+    background-color: theme.$background;
 }
 
+//#endregion material
 
+//#region html
 rt{
     filter: brightness(0.75);
     text-align: center;
@@ -56,6 +51,8 @@ main{
         padding: 1em;
     }
 }
+
+//#endregion html
 
 #html{
     // line height 2 so rb wont change position when rt is hidden

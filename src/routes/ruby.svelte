@@ -8,17 +8,17 @@
     import Textfield from '@smui/textfield';
     import IconButton, { Icon } from '@smui/icon-button';
 
+    const segments = [ 'raw', 'html' ];
     // raw (and fresh) html string from storage
     let raw = browser ? localStorage.getItem('raw') : '';
     let visible = true;
     let normal = true;
-    const segments = [ 'raw', 'html' ];
 
     // on client-end
     $: if(browser){
         localStorage.setItem('raw', raw);
     }
-    // when user click on flip button
+    // 1<rt>3</rt> => 3<rt>1</rt>
     $: html = normal ? raw : raw.split('<ruby>')
         .map(l => l.replace(/(\S+)(<rt.*>)(\S+)(?=<\/rt>)/, '$3$2$1'))
         .join('<ruby>');
