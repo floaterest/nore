@@ -8,7 +8,6 @@
     import Textfield from '@smui/textfield';
     import IconButton, { Icon } from '@smui/icon-button';
 
-    const segments = [ 'raw', 'html' ];
     // raw (and fresh) html string from storage
     let raw = browser ? localStorage.getItem('raw') : '';
     let visible = true;
@@ -35,7 +34,7 @@
 </Layout>
 
 <main>
-    <LeftRight {segments}>
+    <LeftRight segments={[ 'raw', 'html' ]}>
         <section slot="left">
             <File label="upload html" bind:content={raw}/>
             <Textfield textarea label="html" variant="outlined" spellcheck="false" bind:value={raw}/>

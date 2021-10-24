@@ -11,7 +11,6 @@
     import IconButton from '@smui/icon-button';
 
     let input = browser ? localStorage.getItem('kuro') : '';
-    const segments = [ 'input', 'output' ];
 
     // on client-end
     $: if(browser){
@@ -47,7 +46,7 @@
 </Layout>
 
 <main>
-    <LeftRight {segments}>
+    <LeftRight segments={['input', 'output']}>
         <section slot="left">
             <File label="upload text" bind:content={input}/>
             <Textfield textarea label="text/plain" variant="outlined" spellcheck="false" bind:value={input}/>
