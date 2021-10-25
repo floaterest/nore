@@ -15,3 +15,5 @@
 
 # Kuromoji
 > Inject furigana using [Kuromoji](https://www.atilika.com/ja/kuromoji/), a Japanese morphological analyzer
+
+- <img align=center src=/doc/assets/code.svg> to redirect output to [Ruby](#ruby)
