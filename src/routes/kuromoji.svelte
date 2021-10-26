@@ -56,7 +56,7 @@
 </script>
 
 <Layout>
-    <IconButton title="Redirect to Ruby" href="/ruby">
+    <IconButton on:click={()=>localStorage.setItem('ruby', html)} title="Redirect to Ruby" href="/ruby">
         <span class="material-icons">code</span>
     </IconButton>
 </Layout>
