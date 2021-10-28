@@ -8,15 +8,13 @@
     import Textfield from '@smui/textfield';
     import IconButton, { Icon } from '@smui/icon-button';
 
-    const segments = [ 'raw', 'html' ];
-    // raw (and fresh) html string from storage
-    let raw = browser ? localStorage.getItem('raw') : '';
+    let raw = browser ? localStorage.getItem('ruby') : '';
     let visible = true;
     let normal = true;
 
     // on client-end
     $: if(browser){
-        localStorage.setItem('raw', raw);
+        localStorage.setItem('ruby', raw);
     }
     // 1<rt>3</rt> => 3<rt>1</rt>
     $: html = normal ? raw : raw.split('<ruby>')
@@ -35,7 +33,7 @@
 </Layout>
 
 <main>
-    <LeftRight {segments}>
+    <LeftRight segments={[ 'raw', 'html' ]}>
         <section slot="left">
             <File label="upload html" bind:content={raw}/>
             <Textfield textarea label="html" variant="outlined" spellcheck="false" bind:value={raw}/>

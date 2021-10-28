@@ -19,8 +19,7 @@
         "@smui/tab": "^4.2.0",
         "@smui/tab-bar": "^4.2.0",
         "@smui/textfield": "^4.2.0",
-        "@smui/top-app-bar": "^4.2.0",
-        "kuromoji": "^0.1.2"
+        "@smui/top-app-bar": "^4.2.0"
     },
     "devDependencies": {
         "@sveltejs/kit": "next",

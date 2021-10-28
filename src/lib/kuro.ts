@@ -1,5 +1,10 @@
-import type { IpadicFeatures } from 'kuromoji';
-
+export interface IpadicFeatures{
+    base: string
+    pos: string
+    pronunciation: string
+    reading: string
+    surface: string
+}
 // kana + kanji + 長音符
 const jpn = /[\u3040-\u30ff\u4e00-\u9fff\u3005]+/g;
 // kana except ヶ(\u30f5) and ヵ(\u30f6)
@@ -44,7 +49,7 @@ function ruby(rb: string, rt: string): string{
 
 /**
  * remove trailing and middle kana
- * @param s surface_form
+ * @param s surface
  * @param r reading in hiragana
  */
 function trim(s: string, r: string): string[]{
@@ -118,17 +123,17 @@ function hiragana(katakana: string): string{
  */
 function tohtml(ipadics: IpadicFeatures[]): string{
     return ipadics.map(ipadic => {
-        const { surface_form, reading } = ipadic;
+        const { surface, reading } = ipadic;
         // if no reading or both are the same (eg pure katakana)
-        if(!reading || reading === surface_form) return surface_form;
+        if(!reading || reading === surface) return surface;
 
         let hira = hiragana(reading);
         // if pure hiragana
-        if(hira === surface_form){
-            return surface_form;
+        if(hira === surface){
+            return surface;
         }
 
-        return trim(surface_form, hira).join('');
+        return trim(surface, hira).join('');
     }).join('');
 }
 
