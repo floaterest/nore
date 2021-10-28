@@ -1,0 +1,12 @@
+/.svelte/
+/.svelte-kit/
+/build/
+/node_modules/
+package-lock.json
+
+# ide
+/.idea/
+# complied from scss
+/static/*.css
+# copied from kuromoji
+*.dat.gz
