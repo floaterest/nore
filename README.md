@@ -24,11 +24,11 @@
 
 
 # Programmer's Note
-- routes
+- `routes`
     - [`kuromoji.svelte`](/src/routes/kuromoji.svelte)
         - wait until user finishes typing
         - async function in `array.map()`
-- lib
+- `lib`
     - [`File.svelte`](/src/lib/File.svelte)
         - read file content as string
     - [`LeftRight.svelte`](src/lib/LeftRight.svelte)
