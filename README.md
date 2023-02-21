@@ -1,37 +1,38 @@
-# Nore <!-- omit in toc -->
-> A PWA app for the Japanese Language (ﾉapanese ﾚanguage)
+# create-svelte
 
+Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
-# Table of Contents <!-- omit in toc -->
-- [Ruby](#ruby)
-- [Kuromoji](#kuromoji)
-- [Programmer's Note](#programmers-note)
+## Creating a project
 
+If you're seeing this, you've probably already done this step. Congrats!
 
-# Ruby
-> HTML viewer with extra features for the `<ruby>` element
+```bash
+# create a new project in the current directory
+npm create svelte@latest
 
-- <img align=center src=/doc/assets/visibility.svg> to toggle `<rt>`
-    - e.g. <ruby>乗<rt>の</rt></ruby>れ ⇔ 乗れ
-- <img align=center src=/doc/assets/loop.svg> to flip `<rt>` and `<rb>` position
-    - e.g. <ruby>乗<rt>の</rt></ruby>れ ⇔ <ruby>の<rt>乗</rt></ruby>れ
+# create a new project in my-app
+npm create svelte@latest my-app
+```
 
+## Developing
 
-# Kuromoji
-> Inject furigana using [Kuromoji](https://www.atilika.com/ja/kuromoji/), a Japanese morphological analyzer
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-- <img align=center src=/doc/assets/code.svg> to redirect output to [Ruby](#ruby)
+```bash
+npm run dev
 
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
 
-# Programmer's Note
-- `routes`
-    - [`kuromoji.svelte`](/src/routes/kuromoji.svelte)
-        - wait until user finishes typing
-        - async function in `array.map()`
-- `lib`
-    - [`File.svelte`](/src/lib/File.svelte)
-        - read file content as string
-    - [`LeftRight.svelte`](src/lib/LeftRight.svelte)
-        - check if screen is in portrait or landscape mode
-    - [`kuro.ts`](src/lib/kuro.ts)
-    - separate string into "jpn" and "non-jpn" groups using regex
+## Building
+
+To create a production version of your app:
+
+```bash
+npm run build
+```
+
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.

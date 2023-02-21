@@ -1,24 +1,15 @@
-import preprocess from 'svelte-preprocess';
-import fs from 'fs';
-
-const pkg = JSON.parse(fs.readFileSync(new URL('package.json', import.meta.url), 'utf8'));
+import adapter from '@sveltejs/adapter-auto';
+import { vitePreprocess } from '@sveltejs/kit/vite';
 
 /** @type {import('@sveltejs/kit').Config} */
-export default {
-	// Consult https://github.com/sveltejs/svelte-preprocess
+const config = {
+	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
 	// for more information about preprocessors
-	preprocess: preprocess(),
+	preprocess: vitePreprocess(),
 
 	kit: {
-		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte',
-		vite: () => ({
-			ssr: {
-				noExternal: Object.keys(pkg.dependencies || {}).filter(pkgName =>
-					pkgName.startsWith('@smui'),
-				),
-			},
-		}),
-	},
+		adapter: adapter()
+	}
 };
 
+export default config;
