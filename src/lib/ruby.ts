@@ -31,7 +31,9 @@ export async function request(text: string): Promise<Ipadic[]>{
 
 /** inject <ruby> to text*/
 export async function html(text: string): Promise<string>{
-    return (await request(text)).map(({ surface, reading }) => {
+    const a = await request(text);
+    console.log(a)
+    return (a).map(({ surface, reading }) => {
         const hiragana = hira(reading);
         console.debug({surface, reading})
         // no reading
