@@ -31,15 +31,13 @@ export async function request(text: string): Promise<Ipadic[]>{
 
 /** inject <ruby> to text*/
 export async function html(text: string): Promise<string>{
-    const a = await request(text);
-    console.log(a)
-    return (a).map(({ surface, reading }) => {
-        const hiragana = hira(reading);
-        console.debug({surface, reading})
+    return (await request(text)).map(({ surface, reading }) => {
         // no reading
         if(!reading || reading === '?') return surface;
-        // pure kana
-        if([hiragana, reading].includes(surface)) return surface;
+        // pure kana or 長音符
+        if(/^[\u3005\u3040-\u30ff]+$/.test(surface)) return surface;
+        const hiragana = hira(reading);
+        console.debug({surface, reading})
         return ruby(surface, hiragana);
     }).join('');
 }
