@@ -57,7 +57,6 @@ export async function request(text: string): Promise<Ipadic[]>{
 /** inject <ruby> to text*/
 export async function html(text: string): Promise<string>{
     return (await request(text)).map(({ surface, reading }) => {
-        console.debug({surface, reading});
         // no reading
         if(!reading || reading === '?') return surface;
         // pure kana or 長音符
@@ -65,9 +64,7 @@ export async function html(text: string): Promise<string>{
         let arr = [surface, hira(reading)];
         let [prefix, suffix] = ['', ''];
         [arr, prefix] = strip(arr, _ => 0, i => i + 1);
-        console.log({arr, prefix, suffix});
         [arr, suffix] = strip(arr, s => s.length, i => i - 1);
-        console.log({arr, prefix, suffix});
         return prefix + ruby(...arr as [string, string]) + suffix;
     }).join('');
 }
