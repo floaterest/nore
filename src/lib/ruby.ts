@@ -13,30 +13,29 @@ function ruby(rb: string, rt: string): string{
     return `<ruby>${rb}<rt>${rt}</rt></ruby>`;
 }
 
+function substring(s: string, range:number[]){
+    return s.substring(...range.sort() as [number, number]);
+}
+
 /** strip longest common substring */
 function strip(input: string[], start: (s:string) => number, next: (i:number) => number){
     // not using `increment: number` as param because functions are cool
-    let arr:[string, number][] = input.map(s => [s, start(s)]);
+    const init = input.map(start);
     const max = Math.min(...input.map(s => s.length));
-    for(let n = 0;n < max;n++){
-        // do next() twice to get inclusive range
-
-        // get each char
-        const chars = arr.map(([s, i]) => s[next(i)]);
-        if((new Set(chars)).size !== 1 || ! chars.every(Boolean)){
-            let common = '';
-            return [arr.map(([s, i]) => {
-                // inclusive range
-                const [a, b] = [start(s), i].sort();
-                common = common || s.substring(a, b + 1);
-                // return not common
-                return s.substring(0, a) + s.substring(b + 1);
-            }), common] as [string[], string];
-        }
-        // set to next index
-        arr = arr.map(([s, i]) => [s, next(i)]);
+    let prev = [...init];
+    let chars: string[];
+    for(let i = 0;i < max;i++){
+        const cur = prev.map(next);
+        chars = input.map((s, i) => substring(s, [init[i], cur[i]].sort()));
+        if((new Set(chars)).size !== 1) break;
+        prev = [...cur];
     }
-    return [input, ''] as [string[], string];
+    let common = '';
+    return [input.map((s, i) => {
+        const [a, b] = [init[i], prev[i]].sort();
+        common = common || s.substring(a, b);
+        return s.substring(0, a) + s.substring(b);
+    }), common] as [string[], string];
 }
 
 /** katakana to hiragana */
@@ -67,7 +66,7 @@ export async function html(text: string): Promise<string>{
         let [prefix, suffix] = ['', ''];
         [arr, prefix] = strip(arr, _ => 0, i => i + 1);
         console.log({arr, prefix, suffix});
-        [arr, suffix] = strip(arr, s => s.length - 1, i => i - 1);
+        [arr, suffix] = strip(arr, s => s.length, i => i - 1);
         console.log({arr, prefix, suffix});
         return prefix + ruby(...arr as [string, string]) + suffix;
     }).join('');
