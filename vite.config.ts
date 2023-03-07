@@ -4,5 +4,5 @@ import type { UserConfig } from 'vite';
 
 export default{
     plugins: [sveltekit()],
-    test: { include:['src/**/*.test.ts'] },
+    test: { include:['test/**/*.test.ts'] },
 } as UserConfig;

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { extract } from './ruby';
+import { extract } from '../src/lib/ruby';
 
 describe('ruby injection', () => {
     it('prefix and suffix', async () => {
