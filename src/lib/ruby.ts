@@ -8,17 +8,12 @@ export interface Ipadic{
     surface: string
 }
 
-/** create ruby element */
-function ruby(rb: string, rt: string): string{
-    return `<ruby>${rb}<rt>${rt}</rt></ruby>`;
-}
-
 function substring(s: string, range:number[]){
     return s.substring(...range.sort() as [number, number]);
 }
 
-/** strip longest common substring */
-function strip(input: string[], start: (s:string) => number, next: (i:number) => number){
+/** get longest common substring */
+function common(input: string[], start: (s:string) => number, next: (i:number) => number){
     // not using `increment: number` as param because functions are cool
     const init = input.map(start);
     const max = Math.min(...input.map(s => s.length));
@@ -43,7 +38,7 @@ function hira(kata: string): string{
     return [...kata].map(ch => String.fromCharCode(ch.charCodeAt(0) - 96)).join('');
 }
 
-export async function request(text: string): Promise<Ipadic[]>{
+async function request(text: string): Promise<Ipadic[]>{
     const res = await fetch(atilika, {
         headers: { 'Content-Type': 'application/json;charset=utf-8' },
         method: 'POST',
@@ -54,17 +49,22 @@ export async function request(text: string): Promise<Ipadic[]>{
     return (await res.json()).tokens;
 }
 
+/** extract left and right longest common substring */
+export function extract(...input:string[]): [string, string[], string]{
+    let [prefix, suffix] = ['', ''];
+    [input, prefix] = common(input, _ => 0, i => i + 1);
+    [input, suffix] = common(input, s => s.length, i => i - 1);
+    return [prefix, input, suffix];
+}
+
 /** inject <ruby> to text*/
-export async function html(text: string): Promise<string>{
-    return (await request(text)).map(({ surface, reading }) => {
-        // no reading
+export async function inject(text: string): Promise<string>{
+    return (await request(text)).map(({surface, reading}) => {
+    // no reading
         if(!reading || reading === '?') return surface;
         // pure kana or 長音符
         if(/^[\u3005\u3040-\u30ff]+$/.test(surface)) return surface;
-        let arr = [surface, hira(reading)];
-        let [prefix, suffix] = ['', ''];
-        [arr, prefix] = strip(arr, _ => 0, i => i + 1);
-        [arr, suffix] = strip(arr, s => s.length, i => i - 1);
-        return prefix + ruby(...arr as [string, string]) + suffix;
+        const [prefix, [rb, rt], suffix] = extract(surface, hira(reading));
+        return `${prefix}<ruby>${rb}<rt>${rt}</rt></ruby>${suffix}`;
     }).join('');
 }
