@@ -39,10 +39,11 @@ function hira(kata: string): string{
 }
 
 async function request(text: string): Promise<Ipadic[]>{
+    // mode 2 does not keep the order
     const res = await fetch(atilika, {
         headers: { 'Content-Type': 'application/json;charset=utf-8' },
         method: 'POST',
-        body: JSON.stringify({ mode: 2, text }),
+        body: JSON.stringify({ mode: 1, text }),
     });
     if(!res.ok) throw await res.text();
 
