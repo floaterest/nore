@@ -61,7 +61,7 @@ export function extract(...input:string[]): [string, string[], string]{
 /** inject <ruby> to text*/
 export async function inject(text: string): Promise<string>{
     return (await request(text)).map(({surface, reading}) => {
-    // no reading
+        // no reading
         if(!reading || reading === '?') return surface;
         // pure kana or 長音符
         if(/^[\u3005\u3040-\u30ff]+$/.test(surface)) return surface;
