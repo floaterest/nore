@@ -10,4 +10,8 @@ describe('ruby injection', () => {
         const actual = extract('輝かしい', 'かがやかしい');
         expect(actual).toStrictEqual(['', ['輝', 'かがや'], 'かしい']);
     });
+    it.concurrent('prefix only', () => {
+        const actual = extract('ご存知', 'ごぞんじ');
+        expect(actual).toStrictEqual(['ご', ['存知', 'ぞんじ'], '']);
+    });
 });
