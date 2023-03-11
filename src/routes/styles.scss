@@ -1,0 +1,11 @@
+@use '@floaterest/color' as *;
+@use '@material/theme' with (
+    $primary: $teal
+);
+@use '@material/top-app-bar/mdc-top-app-bar';
+@use '@material/icon-button/styles';
+
+html{
+    color: $white;
+    background: $darkest;
+}
