@@ -1,5 +1,10 @@
 <script lang="ts">
     import Textfield from '@smui/textfield';
+    import type { PageData } from './$types';
+
+    export let data: PageData;
+    
+    const { fetch } = data;
 
     const label = 'text/plain';
     let [value, output] = ['', ''];
