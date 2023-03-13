@@ -33,7 +33,7 @@ export function extract(rb: string, rt: string): (string|[string, string])[]{
     // pure kana
     const kana = [...rb.matchAll(/[\u3040-\u30f4]+/g)].flat();
     const [b, t] = [rb, rt].map(s => kana.reduce(
-        (acc, cur) => [...acc.slice(0, -1), ...acc.slice(-1)[0].split(cur)],
+        (acc, cur) =>  [...acc.slice(0, -1), ...acc.slice(-1)[0].split(cur, 2)],
         [s],
     ));
     if(b.length != t.length){
