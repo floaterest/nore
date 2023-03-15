@@ -39,11 +39,14 @@ export function extract(rb: string, rt: string): (string|[string, string])[]{
     // add okurigana to the end
     kana.push(o);
     const indices = Array.from(Array(Math.min(b.length, t.length)), (_, i) => i);
-    if(b.length != t.length || indices.some(i => Boolean(b[i]) != Boolean(t[i]))){
-        console.error(b, t);
-        throw 'Unsupported input';
+    if(b.length != t.length || t.length != kana.length){
+        console.error({rb: b, rt: t, kana});
+        throw 'Parse error: rb, rt, kana do not have same length';
     }
-
+    if(indices.some(i => Boolean(b[i]) != Boolean(t[i]))){
+        console.error(b, t);
+        throw 'Parse error: unmatched rb and rt';
+    }
     const map = (i:number) => [b[i] && [b[i], t[i]], kana[i]];
     return indices.flatMap(map).filter(Boolean) as (string | [string, string])[];
 }
