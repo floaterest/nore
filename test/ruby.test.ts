@@ -18,4 +18,8 @@ describe('ruby injection', () => {
         const actual = extract('丁々発止', 'ちょうちょうはっし');
         expect(actual).toStrictEqual([['丁々発止', 'ちょうちょうはっし']]);
     });
+    it.concurrent('kana in middle', () => {
+        const actual = extract('案の定', 'あんのじょう');
+        expect(actual).toStrictEqual([['案', 'あん'], 'の', ['定', 'じょう']]);
+    })
 });
