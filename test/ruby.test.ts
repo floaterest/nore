@@ -7,14 +7,14 @@ describe('ruby injection', () => {
         expect(actual).toStrictEqual(['お', ['知', 'し'], 'らせ']);
     });
     it.concurrent('suffix only', () => {
-        const actual = extract('輝かしい', 'かがやかしい');
-        expect(actual).toStrictEqual([['輝', 'かがや'], 'かしい']);
+        const actual = extract('逆さ', 'さかさ');
+        expect(actual).toStrictEqual([['逆', 'さか'], 'さ']);
     });
     it.concurrent('prefix only', () => {
-        const actual = extract('ご存知', 'ごぞんじ');
-        expect(actual).toStrictEqual(['ご', ['存知', 'ぞんじ']]);
+        const actual = extract('ご飯', 'ごはん');
+        expect(actual).toStrictEqual(['ご', ['飯', 'はん']]);
     });
-    it.concurrent('no prefix and no suffix', () => {
+    it.concurrent('no kana', () => {
         const actual = extract('丁々発止', 'ちょうちょうはっし');
         expect(actual).toStrictEqual([['丁々発止', 'ちょうちょうはっし']]);
     });
