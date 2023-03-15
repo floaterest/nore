@@ -33,20 +33,19 @@ export function extract(rb: string, rt: string): (string|[string, string])[]{
     // pure kana
     const kana = [...rb.matchAll(/[\u3040-\u30f4]+/g)].flat();
     const [b, t] = [rb, rt].map(s => kana.reduce(
-        (acc, cur) =>  [...acc.slice(0, -1), ...acc.slice(-1)[0].split(cur, 2)],
+        (acc, cur) => [...acc.slice(0, -1), ...acc.slice(-1)[0].split(cur, 2)],
         [s],
     ));
-    if(b.length != t.length){
-        throw `Unsupported input: ${rb} ${rt}`;
-    }
+    // add okurigana to the end
+    kana.push(o);
     const indices = Array.from(Array(Math.min(b.length, t.length)), (_, i) => i);
-    if(indices.some(i => Boolean(b[i]) != Boolean(t[i]))){
-        throw `Unsupported input: ${b.toString()} ${t.toString()}`;
+    if(b.length != t.length || indices.some(i => Boolean(b[i]) != Boolean(t[i]))){
+        console.error(b, t);
+        throw 'Unsupported input';
     }
-    let k = 0;
-    return [
-        ...indices.map(i => b[i] ? [b[i], t[i]] : kana[k++]), o,
-    ].filter(Boolean) as (string|[string, string])[];
+
+    const map = (i:number) => [b[i] && [b[i], t[i]], kana[i]];
+    return indices.flatMap(map).filter(Boolean) as (string | [string, string])[];
 }
 
 /** inject <ruby> to text*/
