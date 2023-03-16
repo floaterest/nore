@@ -29,9 +29,12 @@ describe('mixed', () => {
         const actual = extract('ご飯', 'ごはん');
         expect(actual).toStrictEqual(['ご', ['飯', 'はん']]);
     });
-
     it.concurrent('kana in middle', () => {
         const actual = extract('案の定', 'あんのじょう');
         expect(actual).toStrictEqual([['案', 'あん'], 'の', ['定', 'じょう']]);
-    })
+    });
+    it.concurrent('kanji with 数助詞', () => {
+        const actual = extract('関ヶ原', 'せきがはら');
+        expect(actual).toStrictEqual([['関ヶ原', 'せきがはら']]);
+    });
 });
