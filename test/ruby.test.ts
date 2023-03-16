@@ -6,6 +6,14 @@ describe('pure', () => {
         const actual = extract('丁々発止', 'ちょうちょうはっし');
         expect(actual).toStrictEqual([['丁々発止', 'ちょうちょうはっし']]);
     });
+    it.concurrent('hiragana', () => {
+        const actual = extract('まるい', 'まるい');
+        expect(actual).toStrictEqual(['まるい']);
+    });
+    it.concurrent('katakana', () => {
+        const actual = extract('トロッケンベーレンアウスレーゼ', 'トロッケンベーレンアウスレーゼ');
+        expect(actual).toStrictEqual(['トロッケンベーレンアウスレーゼ']);
+    })
 });
 
 describe('mixed', () => {
