@@ -27,8 +27,8 @@ async function request(text: string): Promise<Ipadic[]>{
 
 /** extract common rb and rt substrings */
 export function extract(rb: string, rt: string): (string|[string, string])[]{
-    // assume okurigana is hiragana only
-    const o = rb.match(/[\u3040-\u3090]*$/)![0];
+    // kana or 長音符
+    const o = rb.match(/[\u3040-\u30f4\u30fc]*$/)![0];
     [rb, rt] = [rb, rt].map(s => s.substring(0, s.length - o.length));
     // pure kana
     const kana = [...rb.matchAll(/[\u3040-\u30f4]+/g)].flat();
@@ -56,8 +56,6 @@ export async function inject(text: string): Promise<string>{
     return (await request(text)).map(({surface, reading}) => {
         // no reading
         if(!reading || reading === '?') return surface;
-        // pure kana or 長音符
-        if(/^[\u3005\u3040-\u30ff]+$/.test(surface)) return surface;
         return extract(surface, hira(reading)).reduce((acc, cur) => {
             if(typeof cur == 'string') return acc + cur;
             return acc + `<ruby>${cur[0]}<rt>${cur[1]}</rt></ruby>`;
