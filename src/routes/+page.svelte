@@ -1,21 +1,5 @@
-<script>
+<script lang="ts">
 </script>
 
-<svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
-</svelte:head>
-
-<section>
-    hi
-</section>
-
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-</style>
+<h1>Home</h1>
+<div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae distinctio consequatur maiores et architecto incidunt rem dignissimos omnis perferendis possimus? Tenetur nisi at porro laborum nam, cum saepe distinctio nemo!</div>

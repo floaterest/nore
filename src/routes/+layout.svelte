@@ -1,53 +1,32 @@
-<script>
-	import Header from './Header.svelte';
-	import './styles.css';
+<script lang="ts">
+    import TopAppBar, { AutoAdjust, Row, Section, Title } from '@smui/top-app-bar';
+    import IconButton from '@smui/icon-button';
+
+    import type { LayoutData } from './$types';
+
+    import './styles.scss';
+
+    let topAppBar;
+    export let data: LayoutData;
+    console.log(data);
 </script>
 
-<div class="app">
-	<Header />
+<TopAppBar bind:this={topAppBar} variant="short">
+    <Row>
+        <Section>
+          <IconButton class="material-icons">menu</IconButton>
+          <Title>Short</Title>
+        </Section>
+        <Section align="end" toolbar>
+          <IconButton class="material-icons" aria-label="Download"
+            >file_download</IconButton
+          >
+        </Section>
+    </Row>
+</TopAppBar>
+<AutoAdjust {topAppBar}>
+    <slot />
+</AutoAdjust>
 
-	<main>
-		<slot />
-	</main>
-
-	<footer>
-		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
-	</footer>
-</div>
-
-<style>
-	.app {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
-
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
-
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
-	}
+<style lang="sass">
 </style>

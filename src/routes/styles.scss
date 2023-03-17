@@ -1,0 +1,24 @@
+@use '@floaterest/color' as *;
+@use '@material/theme' with (
+    $primary: $teal,
+    $on-surface: $white,
+);
+
+@use '@material/top-app-bar/mdc-top-app-bar';
+@use '@material/icon-button/styles';
+
+@use "@material/floating-label/mdc-floating-label";
+@use "@material/line-ripple/mdc-line-ripple";
+@use "@material/notched-outline/mdc-notched-outline";
+@use "@material/textfield";
+
+@include textfield.core-styles;
+
+html{
+    color: $white;
+    background: $darkest;
+}
+
+main{
+    display: flex;
+}
