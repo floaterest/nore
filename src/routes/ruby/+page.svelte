@@ -8,9 +8,11 @@
 
     const label = 'text/plain';
     let [value, output] = ['', ''];
+
     let timeout: NodeJS.Timeout;
 
     async function request(){
+        if(!value) return;
         const res = await fetch('/ruby', {
             method: 'POST',
             body: value,
@@ -25,12 +27,17 @@
 </script>
 
 <section>
-    <Textfield on:keyup={keyup} bind:value {label} textarea variant="outlined" spellcheck="false"/>
+    <Textfield on:keyup={keyup} bind:value {label}
+        style="width: 100%; height: 100px"
+        textarea variant="outlined" spellcheck="false" />
 </section>
-<section>{@html output}</section>
+<section class="html mdc-elevation--z24">{@html output}</section>
 
 <style lang="sass">
 section
     flex: 1
-
+    margin: 0.5em
+.html
+    white-space: pre
+    padding: 1em
 </style>
