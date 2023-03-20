@@ -1,5 +1,7 @@
 <script lang="ts">
     import Textfield from '@smui/textfield';
+    import IconButton from '@smui/icon-button';
+    import Layout from '$lib/Layout.svelte';
     import type { PageData } from './$types';
 
     export let data: PageData;
@@ -28,12 +30,15 @@
     <title>Ruby</title>
 </svelte:head>
 
-<section>
-    <Textfield on:keyup={keyup} bind:value {label}
-        style="width: 100%; height: 100px"
-        textarea variant="outlined" spellcheck="false" />
-</section>
-<section class="html mdc-elevation--z24">{@html output}</section>
+<Layout title="Ruby">
+    <IconButton slot="top" class="material-icons">file_download</IconButton>
+    <section>
+        <Textfield on:keyup={keyup} bind:value {label}
+            style="width: 100%; height: 100px"
+            textarea variant="outlined" spellcheck="false" />
+    </section>
+    <section class="html mdc-elevation--z24">{@html output}</section>
+</Layout>
 
 <style lang="sass">
 section
