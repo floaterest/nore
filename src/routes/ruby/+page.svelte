@@ -24,6 +24,10 @@
     }
 </script>
 
+<svelte:head>
+    <title>Ruby</title>
+</svelte:head>
+
 <section>
     <Textfield on:keyup={keyup} bind:value {label}
         style="width: 100%; height: 100px"
