@@ -8,31 +8,6 @@ export interface Ipadic{
     surface: string
 }
 
-function substring(s: string, range:number[]){
-    return s.substring(...range.sort() as [number, number]);
-}
-
-/** get longest common substring */
-function common(input: string[], start: (s:string) => number, next: (i:number) => number){
-    // not using `increment: number` as param because functions are cool
-    const init = input.map(start);
-    const max = Math.min(...input.map(s => s.length));
-    let prev = [...init];
-    let chars: string[];
-    for(let i = 0;i < max;i++){
-        const cur = prev.map(next);
-        chars = input.map((s, i) => substring(s, [init[i], cur[i]].sort()));
-        if((new Set(chars)).size !== 1) break;
-        prev = [...cur];
-    }
-    let common = '';
-    return [input.map((s, i) => {
-        const [a, b] = [init[i], prev[i]].sort();
-        common = common || s.substring(a, b);
-        return s.substring(0, a) + s.substring(b);
-    }), common] as [string[], string];
-}
-
 /** katakana to hiragana */
 function hira(kata: string): string{
     return [...kata].map(ch => String.fromCharCode(ch.charCodeAt(0) - 96)).join('');
@@ -50,12 +25,30 @@ async function request(text: string): Promise<Ipadic[]>{
     return (await res.json()).tokens;
 }
 
-/** extract left and right longest common substring */
-export function extract(...input:string[]): [string, string[], string]{
-    let [prefix, suffix] = ['', ''];
-    [input, prefix] = common(input, _ => 0, i => i + 1);
-    [input, suffix] = common(input, s => s.length, i => i - 1);
-    return [prefix, input, suffix];
+/** extract common rb and rt substrings */
+export function extract(rb: string, rt: string): (string|[string, string])[]{
+    // kana or 長音符
+    const o = rb.match(/[\u3040-\u30f4\u30fc]*$/)![0];
+    [rb, rt] = [rb, rt].map(s => s.substring(0, s.length - o.length));
+    // pure kana
+    const kana = [...rb.matchAll(/[\u3040-\u30f4]+/g)].flat();
+    const [b, t] = [rb, rt].map(s => kana.reduce(
+        (acc, cur) => [...acc.slice(0, -1), ...acc.slice(-1)[0].split(cur, 2)],
+        [s],
+    ));
+    // add okurigana to the end
+    kana.push(o);
+    const indices = Array.from(Array(Math.min(b.length, t.length)), (_, i) => i);
+    if(b.length != t.length || t.length != kana.length){
+        console.error({rb: b, rt: t, kana});
+        throw 'Parse error: rb, rt, kana do not have same length';
+    }
+    if(indices.some(i => Boolean(b[i]) != Boolean(t[i]))){
+        console.error(b, t);
+        throw 'Parse error: unmatched rb and rt';
+    }
+    const map = (i:number) => [b[i] && [b[i], t[i]], kana[i]];
+    return indices.flatMap(map).filter(Boolean) as (string | [string, string])[];
 }
 
 /** inject <ruby> to text*/
@@ -63,9 +56,9 @@ export async function inject(text: string): Promise<string>{
     return (await request(text)).map(({surface, reading}) => {
         // no reading
         if(!reading || reading === '?') return surface;
-        // pure kana or 長音符
-        if(/^[\u3005\u3040-\u30ff]+$/.test(surface)) return surface;
-        const [prefix, [rb, rt], suffix] = extract(surface, hira(reading));
-        return `${prefix}<ruby>${rb}<rt>${rt}</rt></ruby>${suffix}`;
+        return extract(surface, hira(reading)).reduce((acc, cur) => {
+            if(typeof cur == 'string') return acc + cur;
+            return acc + `<ruby>${cur[0]}<rt>${cur[1]}</rt></ruby>`;
+        }, '');
     }).join('');
 }
