@@ -8,16 +8,14 @@
 
     const label = 'text/plain';
     let [value, output] = ['', ''];
-
     let timeout: NodeJS.Timeout;
 
     async function request(){
-        if(!value) return;
-        const res = await fetch('/ruby', {
-            method: 'POST',
-            body: value,
-        });
-        output = await res.text();
+        output = (await Promise.all(value.split('\n').map(
+            async body => await (await fetch('/ruby', {
+                method: 'POST', body,
+            })).text(),
+        ))).join('\n');
     }
 
     function keyup(){
