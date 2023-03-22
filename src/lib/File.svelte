@@ -16,7 +16,7 @@
 </script>
 
 <label for="file" >
-    <IconButton class="material-icons" on:click={() => input.click()}>{icon}</IconButton>
+    <IconButton {...$$props} class="material-icons" on:click={() => input.click()}>{icon}</IconButton>
 </label>
 <input id="file" bind:this={input} type="file" accept="text/plain" bind:files>
 

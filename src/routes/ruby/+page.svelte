@@ -1,6 +1,7 @@
 <script lang="ts">
     import Textfield from '@smui/textfield';
     import Layout from '$lib/Layout.svelte';
+    import IconButton from '@smui/icon-button';
     import File from '$lib/File.svelte';
 
     import type { PageData } from './$types';
@@ -26,7 +27,10 @@
 </svelte:head>
 
 <Layout title="Ruby">
-    <File slot="top" icon="upload_file" bind:content={value}/>
+    <svelte:fragment slot="top">
+        <IconButton title="view plain html" class="material-icons">launch</IconButton>
+        <File title="upload text file" icon="upload_file" bind:content={value}/>
+    </svelte:fragment>
 
     <section>
         <Textfield bind:value label="text/plain"
