@@ -1,30 +1,23 @@
 <script lang="ts">
     import Textfield from '@smui/textfield';
-    import IconButton from '@smui/icon-button';
     import Layout from '$lib/Layout.svelte';
     import File from '$lib/File.svelte';
 
     import type { PageData } from './$types';
 
     export let data: PageData;
-    
     const { fetch } = data;
 
-    const label = 'text/plain';
     let [value, output] = ['', ''];
     let timeout: NodeJS.Timeout;
 
-    async function request(){
-        output = (await Promise.all(value.split('\n').map(
-            async body => await (await fetch('/ruby', {
-                method: 'POST', body,
-            })).text(),
-        ))).join('\n');
-    }
-
-    function keyup(){
+    $: {
         clearTimeout(timeout);
-        timeout = setTimeout(request, 500);
+        timeout = setTimeout(async () => output = (
+            await Promise.all(value.split('\n').map(async body => await (
+                await fetch('/ruby', { method: 'POST', body })).text(),
+            ))
+        ).join('\n'), 500);
     }
 </script>
 
@@ -36,7 +29,7 @@
     <File slot="top" icon="upload_file" bind:content={value}/>
 
     <section>
-        <Textfield on:keyup={keyup} bind:value {label}
+        <Textfield bind:value label="text/plain"
             style="width: 100%; height: 100px"
             textarea variant="outlined" spellcheck="false" />
     </section>
