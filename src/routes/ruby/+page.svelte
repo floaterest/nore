@@ -2,6 +2,8 @@
     import Textfield from '@smui/textfield';
     import IconButton from '@smui/icon-button';
     import Layout from '$lib/Layout.svelte';
+    import File from '$lib/File.svelte';
+
     import type { PageData } from './$types';
 
     export let data: PageData;
@@ -31,7 +33,8 @@
 </svelte:head>
 
 <Layout title="Ruby">
-    <IconButton slot="top" class="material-icons">file_download</IconButton>
+    <File slot="top" icon="upload_file" bind:content={value}/>
+
     <section>
         <Textfield on:keyup={keyup} bind:value {label}
             style="width: 100%; height: 100px"
@@ -41,10 +44,10 @@
 </Layout>
 
 <style lang="sass">
-section
-    flex: 1
-    margin: 0.5em
-.html
-    white-space: pre
-    padding: 1em
+    section
+        flex: 1
+        margin: 0.5em
+    .html
+        white-space: pre
+        padding: 1em
 </style>
