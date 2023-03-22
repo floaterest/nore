@@ -12,5 +12,7 @@ export const POST = (async ({ request }) => {
         // add new entry to map
         result = cache.set(text, await inject(text)).get(text);
     }
-    return new Response(result, { headers: { 'content-type': 'text/html' } });
+    return new Response(result, { 
+        headers: { 'content-type': 'text/html;charset=utf-8' } 
+    });
 }) satisfies RequestHandler;
