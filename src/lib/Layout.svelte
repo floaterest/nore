@@ -2,30 +2,27 @@
     import TopAppBar, { AutoAdjust, Row, Section, Title } from '@smui/top-app-bar';
     import IconButton from '@smui/icon-button';
 
-    import type { LayoutData } from './$types';
+    import '../styles.scss';
 
-    import './styles.scss';
+    export let title = 'Nore';
 
     let topAppBar;
-    export let data: LayoutData;
-    console.log(data);
+    // +layout.svelte doesn't support named slots
 </script>
 
 <TopAppBar bind:this={topAppBar} variant="short">
     <Row>
         <Section>
           <IconButton class="material-icons">menu</IconButton>
-          <Title>Short</Title>
+          <Title>{title}</Title>
         </Section>
         <Section align="end" toolbar>
-          <IconButton class="material-icons" aria-label="Download"
-            >file_download</IconButton
-          >
+            <slot name="top"/>
         </Section>
     </Row>
 </TopAppBar>
 <AutoAdjust {topAppBar}>
-    <slot />
+    <slot/>
 </AutoAdjust>
 
 <style lang="sass">
