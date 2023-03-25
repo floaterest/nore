@@ -24,4 +24,5 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: nore
-          entrypoint: build/index.js
+          entrypoint: index.js
+          root: build
