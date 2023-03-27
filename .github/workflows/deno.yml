@@ -1,0 +1,28 @@
+name: Deploy to Deno
+
+on:
+  push:
+    branche-ignore: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.2.4
+        with: { version: latest }
+      - uses: actions/setup-node@v3
+        with: { node-version: latest, cache: pnpm }
+      - name: Build
+        run: pnpm install --frozen-lockfile && pnpm build
+
+      - name: Deploy to Deno Deploy
+        uses: denoland/deployctl@v1
+        with:
+          project: nore
+          entrypoint: index.js
+          root: build
