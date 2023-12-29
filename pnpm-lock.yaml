@@ -1156,7 +1156,7 @@ packages:
     resolution: {integrity: sha512-6Q04AXR1212bXr5fh03u8aAwbLxAQNGQ/Q1LNa0VfOI06ZAlhPHtQvE4OIdpj4kLThXilalPnmDSOD65DcHt+g==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
-      nanoid: 3.3.4
+      nanoid: 3.3.6
       picocolors: 1.0.0
       source-map-js: 1.0.2
     dev: true
@@ -1522,7 +1522,7 @@ packages:
     dependencies:
       '@types/node': 18.11.18
       esbuild: 0.16.12
-      postcss: 8.4.20
+      postcss: 8.4.31
       resolve: 1.22.1
       rollup: 3.9.0
       sass: 1.57.1
